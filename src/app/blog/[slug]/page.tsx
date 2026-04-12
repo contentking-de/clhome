@@ -58,7 +58,7 @@ export default async function BlogPostPage({ params }: Props) {
       <Navbar />
       <main className="pt-20">
         <article className="py-16 px-8">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <Link
               href="/blog"
               className="inline-flex items-center gap-1 text-surface-tint font-medium text-sm mb-8 hover:gap-2 transition-all"
@@ -69,32 +69,74 @@ export default async function BlogPostPage({ params }: Props) {
               Zurück zum Blog
             </Link>
 
-            {post.coverImage && (
-              <div className="aspect-[16/9] rounded-xl overflow-hidden mb-10">
-                <img
-                  src={post.coverImage}
-                  alt={post.title}
-                  className="w-full h-full object-cover"
-                />
+            {post.coverImage ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 items-start">
+                <div className="aspect-[4/3] rounded-xl overflow-hidden">
+                  <img
+                    src={post.coverImage}
+                    alt={post.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <header>
+                  <h1 className="font-headline text-4xl font-extrabold tracking-tight mb-4">
+                    {post.title}
+                  </h1>
+                  {post.excerpt && (
+                    <p className="text-secondary leading-relaxed mb-4 font-semibold">
+                      {post.excerpt}
+                    </p>
+                  )}
+                  <div className="flex items-center gap-3 text-secondary text-sm">
+                    {post.author.avatar ? (
+                      <img src={post.author.avatar} alt={post.author.name || ""} className="w-7 h-7 rounded-full object-cover" />
+                    ) : (
+                      <span className="w-7 h-7 rounded-full bg-surface-tint/10 flex items-center justify-center">
+                        <span className="material-symbols-outlined text-surface-tint text-sm">person</span>
+                      </span>
+                    )}
+                    <span>{post.author.name || post.author.email}</span>
+                    <span>·</span>
+                    <time>
+                      {new Date(post.createdAt).toLocaleDateString("de-DE", {
+                        day: "2-digit",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </time>
+                  </div>
+                </header>
               </div>
+            ) : (
+              <header className="mb-10">
+                <h1 className="font-headline text-4xl font-extrabold tracking-tight mb-4">
+                  {post.title}
+                </h1>
+                {post.excerpt && (
+                  <p className="text-secondary leading-relaxed mb-4 font-semibold">
+                    {post.excerpt}
+                  </p>
+                )}
+                <div className="flex items-center gap-3 text-secondary text-sm">
+                  {post.author.avatar ? (
+                    <img src={post.author.avatar} alt={post.author.name || ""} className="w-7 h-7 rounded-full object-cover" />
+                  ) : (
+                    <span className="w-7 h-7 rounded-full bg-surface-tint/10 flex items-center justify-center">
+                      <span className="material-symbols-outlined text-surface-tint text-sm">person</span>
+                    </span>
+                  )}
+                  <span>{post.author.name || post.author.email}</span>
+                  <span>·</span>
+                  <time>
+                    {new Date(post.createdAt).toLocaleDateString("de-DE", {
+                      day: "2-digit",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </time>
+                </div>
+              </header>
             )}
-
-            <header className="mb-10">
-              <h1 className="font-headline text-4xl font-extrabold tracking-tight mb-4">
-                {post.title}
-              </h1>
-              <div className="flex items-center gap-3 text-secondary text-sm">
-                <span>{post.author.name || post.author.email}</span>
-                <span>·</span>
-                <time>
-                  {new Date(post.createdAt).toLocaleDateString("de-DE", {
-                    day: "2-digit",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </time>
-              </div>
-            </header>
 
             <PostContent content={post.content} />
 

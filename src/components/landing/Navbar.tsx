@@ -5,35 +5,35 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md">
       <nav className="flex justify-between items-center max-w-7xl mx-auto px-8 h-20">
-        <Link href="/" className="-ml-9">
+        <Link href="/" className="-ml-9.5">
           <Image
-            src="/cleverlegal_logo.png"
+            src="/logo_clever_legal.png"
             alt="clever.legal"
-            width={160}
-            height={48}
-            className="h-[4.5rem] w-auto"
+            width={120}
+            height={36}
+            className="h-12 w-auto"
             priority
           />
         </Link>
         <div className="hidden md:flex items-center gap-10">
-          <a
+          <Link
             className="text-secondary hover:text-surface-tint transition-colors duration-300 font-medium"
-            href="#anwaelte"
+            href="/fuer-anwaelte"
           >
             Anwälte
-          </a>
-          <a
+          </Link>
+          <Link
             className="text-secondary hover:text-surface-tint transition-colors duration-300 font-medium"
-            href="#unternehmen"
+            href="/fuer-unternehmen"
           >
             Unternehmen
-          </a>
-          <a
+          </Link>
+          <Link
             className="text-secondary hover:text-surface-tint transition-colors duration-300 font-medium"
-            href="#privatkunden"
+            href="/fuer-privatkunden"
           >
             Privatkunden
-          </a>
+          </Link>
           <Link
             className="text-secondary hover:text-surface-tint transition-colors duration-300 font-medium"
             href="/blog"
@@ -41,9 +41,12 @@ export default function Navbar() {
             Blog
           </Link>
         </div>
-        <button className="bg-surface-tint text-white px-6 py-2.5 rounded-xl font-semibold active:opacity-80 transition-all hover:brightness-110">
+        <Link
+          href="/kontakt"
+          className="bg-surface-tint text-white px-6 py-2.5 rounded-xl font-semibold active:opacity-80 transition-all hover:brightness-110"
+        >
           Kontakt
-        </button>
+        </Link>
       </nav>
     </header>
   );

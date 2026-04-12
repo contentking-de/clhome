@@ -27,7 +27,7 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-10 flex flex-col items-center">
           <Image
-            src="/cleverlegal_logo.png"
+            src="/logo_clever_legal.png"
             alt="clever.legal"
             width={192}
             height={57}

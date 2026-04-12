@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 gap-6">
         <Link href="/">
           <Image
-            src="/cleverlegal_logo.png"
+            src="/logo_clever_legal.png"
             alt="clever.legal"
             width={128}
             height={38}

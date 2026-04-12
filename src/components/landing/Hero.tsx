@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Hero() {
   return (
     <section className="relative min-h-[870px] flex items-center px-8 overflow-hidden">
@@ -6,7 +8,7 @@ export default function Hero() {
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-highest rounded-full mb-8">
             <span className="w-2 h-2 rounded-full bg-surface-tint" />
             <span className="text-[0.75rem] font-bold uppercase tracking-widest text-on-surface-variant font-label">
-              Legal Tech 2.0
+              AI-Powered Legal Tech
             </span>
           </div>
           <h1 className="font-headline text-[3.5rem] leading-[1.1] font-extrabold tracking-tight mb-8 text-on-background">
@@ -15,18 +17,24 @@ export default function Hero() {
             auch.
           </h1>
           <p className="text-secondary text-lg max-w-xl mb-10 leading-relaxed">
-            Wir eliminieren die Bürokratie des Wartens. Mit algorithmischer
-            Präzision und menschlicher Exzellenz transformieren wir komplexe
-            Rechtslagen in sofortige Resultate.
+            Keine Beratung. Keine Experimente. Wir installieren die
+            KI-Infrastruktur, mit der Sie Massenverfahren skalieren, während
+            Ihre Konkurrenz noch Akten sortiert.
           </p>
           <div className="flex flex-wrap gap-4">
-            <button className="bg-on-primary-container text-on-primary px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:brightness-110 transition-all">
-              Jetzt starten
+            <Link
+              href="/kontakt"
+              className="bg-on-primary-container text-on-primary px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:brightness-110 transition-all"
+            >
+              Strategie-Gespräch anfordern
               <span className="material-symbols-outlined">arrow_forward</span>
-            </button>
-            <button className="px-8 py-4 rounded-xl border border-outline-variant/30 font-bold hover:bg-surface-container-low transition-all">
-              Unsere Vision
-            </button>
+            </Link>
+            <a
+              href="#engine"
+              className="px-8 py-4 rounded-xl border border-outline-variant/30 font-bold hover:bg-surface-container-low transition-all"
+            >
+              Unsere Engine
+            </a>
           </div>
         </div>
         <div className="lg:col-span-5 relative">

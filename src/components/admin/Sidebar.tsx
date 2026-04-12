@@ -29,7 +29,7 @@ export default function Sidebar() {
     <aside className="w-64 min-h-screen bg-surface-container-low border-r border-outline-variant/10 p-6 flex flex-col">
       <Link href="/" className="mb-8">
         <Image
-          src="/cleverlegal_logo.png"
+          src="/logo_clever_legal.png"
           alt="clever.legal"
           width={144}
           height={43}
