@@ -2,6 +2,7 @@
 
 import { signIn } from "next-auth/react";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
@@ -24,11 +25,15 @@ export default function AdminLoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <div className="w-full max-w-md">
-        <div className="text-center mb-10">
-          <h1 className="text-2xl font-bold font-headline text-on-background tracking-tight">
-            clever<span className="text-surface-tint">.</span>legal
-          </h1>
-          <p className="text-secondary mt-2">Admin-Bereich</p>
+        <div className="text-center mb-10 flex flex-col items-center">
+          <Image
+            src="/cleverlegal_logo.png"
+            alt="clever.legal"
+            width={192}
+            height={57}
+            className="h-12 w-auto"
+          />
+          <p className="text-secondary mt-3">Admin-Bereich</p>
         </div>
         <div className="bg-surface-container-low p-8 rounded-xl border border-outline-variant/10">
           <h2 className="font-headline text-xl font-bold mb-2">Anmelden</h2>

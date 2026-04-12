@@ -1,14 +1,18 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
     <footer className="bg-surface-container-low w-full py-12 border-t border-outline-variant/15">
       <div className="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 gap-6">
-        <Link
-          href="/"
-          className="text-lg font-bold text-on-background font-headline"
-        >
-          clever<span className="text-surface-tint">.</span>legal
+        <Link href="/">
+          <Image
+            src="/cleverlegal_logo.png"
+            alt="clever.legal"
+            width={128}
+            height={38}
+            className="h-8 w-auto"
+          />
         </Link>
         <div className="flex gap-8">
           <Link

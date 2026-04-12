@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 interface SidebarProps {
   active: "dashboard" | "posts";
@@ -22,11 +23,14 @@ export default function Sidebar({ active }: SidebarProps) {
 
   return (
     <aside className="w-64 min-h-screen bg-surface-container-low border-r border-outline-variant/10 p-6 flex flex-col">
-      <Link
-        href="/"
-        className="text-xl font-bold font-headline text-on-background tracking-tight mb-8"
-      >
-        clever<span className="text-surface-tint">.</span>legal
+      <Link href="/" className="mb-8">
+        <Image
+          src="/cleverlegal_logo.png"
+          alt="clever.legal"
+          width={144}
+          height={43}
+          className="h-9 w-auto"
+        />
       </Link>
       <span className="text-xs font-label uppercase tracking-widest text-secondary mb-4">
         Admin
