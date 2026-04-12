@@ -1,0 +1,341 @@
+"use client";
+
+import { useEffect, useState, useCallback } from "react";
+
+interface User {
+  id: string;
+  name: string | null;
+  email: string;
+  role: "ADMIN" | "EDITOR";
+  emailVerified: string | null;
+  createdAt: string;
+  _count: { posts: number };
+}
+
+export default function UserManagement({
+  currentUserId,
+}: {
+  currentUserId: string;
+}) {
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [showInvite, setShowInvite] = useState(false);
+  const [inviteEmail, setInviteEmail] = useState("");
+  const [inviteName, setInviteName] = useState("");
+  const [inviteRole, setInviteRole] = useState<"EDITOR" | "ADMIN">("EDITOR");
+  const [inviting, setInviting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const fetchUsers = useCallback(async () => {
+    try {
+      const res = await fetch("/api/users");
+      if (!res.ok) throw new Error("Fehler beim Laden");
+      const data = await res.json();
+      setUsers(data);
+    } catch {
+      setError("Nutzer konnten nicht geladen werden.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
+
+  useEffect(() => {
+    if (!successMessage) return;
+    const t = setTimeout(() => setSuccessMessage(""), 4000);
+    return () => clearTimeout(t);
+  }, [successMessage]);
+
+  async function handleInvite(e: React.FormEvent) {
+    e.preventDefault();
+    setInviting(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: inviteEmail,
+          name: inviteName,
+          role: inviteRole,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Einladung fehlgeschlagen");
+      }
+
+      setSuccessMessage(`Einladung an ${inviteEmail} gesendet.`);
+      setInviteEmail("");
+      setInviteName("");
+      setInviteRole("EDITOR");
+      setShowInvite(false);
+      fetchUsers();
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Ein Fehler ist aufgetreten."
+      );
+    } finally {
+      setInviting(false);
+    }
+  }
+
+  async function handleRoleChange(userId: string, newRole: "ADMIN" | "EDITOR") {
+    setError("");
+    try {
+      const res = await fetch(`/api/users/${userId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ role: newRole }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Änderung fehlgeschlagen");
+      }
+      setUsers((prev) =>
+        prev.map((u) => (u.id === userId ? { ...u, role: newRole } : u))
+      );
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Ein Fehler ist aufgetreten."
+      );
+    }
+  }
+
+  async function handleDelete(userId: string, email: string) {
+    if (!confirm(`Nutzer ${email} wirklich löschen?`)) return;
+    setError("");
+    try {
+      const res = await fetch(`/api/users/${userId}`, { method: "DELETE" });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Löschen fehlgeschlagen");
+      }
+      setUsers((prev) => prev.filter((u) => u.id !== userId));
+      setSuccessMessage(`${email} wurde entfernt.`);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Ein Fehler ist aufgetreten."
+      );
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <span className="material-symbols-outlined text-4xl text-secondary animate-spin">
+          progress_activity
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h1 className="font-headline text-2xl font-bold mb-1">Nutzer</h1>
+          <p className="text-secondary text-sm">
+            {users.length} {users.length === 1 ? "Nutzer" : "Nutzer"} · Verwalten und einladen
+          </p>
+        </div>
+        {!showInvite && (
+          <button
+            type="button"
+            onClick={() => setShowInvite(true)}
+            className="bg-surface-tint text-white px-5 py-2.5 rounded-lg font-semibold hover:brightness-110 transition-all inline-flex items-center gap-2"
+          >
+            <span className="material-symbols-outlined text-xl">
+              person_add
+            </span>
+            Nutzer einladen
+          </button>
+        )}
+      </div>
+
+      {successMessage && (
+        <div className="mb-6 bg-surface-tint/10 text-surface-tint px-4 py-3 rounded-lg text-sm font-medium flex items-center gap-2">
+          <span className="material-symbols-outlined text-lg">check_circle</span>
+          {successMessage}
+        </div>
+      )}
+
+      {error && (
+        <div className="mb-6 bg-error-container text-on-error-container px-4 py-3 rounded-lg text-sm">
+          {error}
+        </div>
+      )}
+
+      {showInvite && (
+        <div className="mb-8 bg-surface-container-low p-6 rounded-xl border border-outline-variant/10">
+          <h2 className="font-headline font-bold text-lg mb-4">
+            Nutzer einladen
+          </h2>
+          <form onSubmit={handleInvite} className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-on-surface mb-1.5">
+                  E-Mail-Adresse *
+                </label>
+                <input
+                  type="email"
+                  value={inviteEmail}
+                  onChange={(e) => setInviteEmail(e.target.value)}
+                  required
+                  placeholder="name@beispiel.de"
+                  className="w-full px-4 py-3 rounded-lg border border-outline-variant/30 bg-surface focus:outline-none focus:ring-2 focus:ring-surface-tint/50 text-on-background"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-on-surface mb-1.5">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  value={inviteName}
+                  onChange={(e) => setInviteName(e.target.value)}
+                  placeholder="Vor- und Nachname"
+                  className="w-full px-4 py-3 rounded-lg border border-outline-variant/30 bg-surface focus:outline-none focus:ring-2 focus:ring-surface-tint/50 text-on-background"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-on-surface mb-1.5">
+                Rolle
+              </label>
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => setInviteRole("EDITOR")}
+                  className={`px-4 py-2.5 rounded-lg text-sm font-medium border transition-colors ${
+                    inviteRole === "EDITOR"
+                      ? "bg-surface-tint text-white border-surface-tint"
+                      : "border-outline-variant/30 text-secondary hover:bg-surface-container-highest"
+                  }`}
+                >
+                  Redakteur
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setInviteRole("ADMIN")}
+                  className={`px-4 py-2.5 rounded-lg text-sm font-medium border transition-colors ${
+                    inviteRole === "ADMIN"
+                      ? "bg-surface-tint text-white border-surface-tint"
+                      : "border-outline-variant/30 text-secondary hover:bg-surface-container-highest"
+                  }`}
+                >
+                  Administrator
+                </button>
+              </div>
+            </div>
+            <div className="flex gap-3 pt-2">
+              <button
+                type="submit"
+                disabled={inviting}
+                className="bg-surface-tint text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition-all disabled:opacity-50"
+              >
+                {inviting ? "Wird gesendet..." : "Einladung senden"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowInvite(false)}
+                className="px-6 py-3 rounded-lg border border-outline-variant/30 font-semibold hover:bg-surface-container-low transition-all"
+              >
+                Abbrechen
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {users.length === 0 ? (
+        <div className="text-center py-16 bg-surface-container-low rounded-xl border border-outline-variant/10">
+          <span className="material-symbols-outlined text-5xl text-outline mb-4 block">
+            group
+          </span>
+          <p className="text-secondary mb-4">Noch keine Nutzer vorhanden.</p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {users.map((user) => {
+            const isCurrentUser = user.id === currentUserId;
+            return (
+              <div
+                key={user.id}
+                className="flex items-center justify-between bg-surface-container-low p-5 rounded-xl border border-outline-variant/10 hover:border-outline-variant/30 transition-colors"
+              >
+                <div className="flex items-center gap-4 flex-1 min-w-0">
+                  <div className="w-10 h-10 rounded-full bg-surface-tint/10 flex items-center justify-center flex-shrink-0">
+                    <span className="material-symbols-outlined text-surface-tint text-xl">
+                      person
+                    </span>
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className="font-headline font-bold text-on-background truncate">
+                        {user.name || user.email}
+                      </span>
+                      {isCurrentUser && (
+                        <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-surface-tint/10 text-surface-tint">
+                          Sie
+                        </span>
+                      )}
+                      <span
+                        className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                          user.role === "ADMIN"
+                            ? "bg-error-container text-on-error-container"
+                            : "bg-outline-variant/20 text-secondary"
+                        }`}
+                      >
+                        {user.role === "ADMIN" ? "Admin" : "Redakteur"}
+                      </span>
+                    </div>
+                    <p className="text-secondary text-sm truncate">
+                      {user.name ? user.email : ""}{" "}
+                      {user.emailVerified ? "" : "· Ausstehend"} ·{" "}
+                      {user._count.posts}{" "}
+                      {user._count.posts === 1 ? "Beitrag" : "Beiträge"}
+                    </p>
+                  </div>
+                </div>
+
+                {!isCurrentUser && (
+                  <div className="flex items-center gap-2 ml-4">
+                    <select
+                      value={user.role}
+                      onChange={(e) =>
+                        handleRoleChange(
+                          user.id,
+                          e.target.value as "ADMIN" | "EDITOR"
+                        )
+                      }
+                      className="px-3 py-2 rounded-lg border border-outline-variant/30 bg-surface text-sm text-on-background focus:outline-none focus:ring-2 focus:ring-surface-tint/50"
+                    >
+                      <option value="EDITOR">Redakteur</option>
+                      <option value="ADMIN">Admin</option>
+                    </select>
+                    <button
+                      onClick={() => handleDelete(user.id, user.email)}
+                      className="p-2 rounded-lg text-secondary hover:text-error hover:bg-error-container/30 transition-colors"
+                      title="Nutzer löschen"
+                    >
+                      <span className="material-symbols-outlined text-xl">
+                        delete
+                      </span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}

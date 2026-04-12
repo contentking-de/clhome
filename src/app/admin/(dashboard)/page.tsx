@@ -6,10 +6,11 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminDashboard() {
   const session = await auth();
-  const [postCount, publishedCount, draftCount] = await Promise.all([
+  const [postCount, publishedCount, draftCount, userCount] = await Promise.all([
     prisma.post.count(),
     prisma.post.count({ where: { published: true } }),
     prisma.post.count({ where: { published: false } }),
+    prisma.user.count(),
   ]);
 
   return (
@@ -21,7 +22,7 @@ export default async function AdminDashboard() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 mb-10">
         <div className="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10">
           <div className="text-3xl font-extrabold font-headline text-on-background mb-1">
             {postCount}
@@ -40,6 +41,12 @@ export default async function AdminDashboard() {
           </div>
           <div className="text-sm text-secondary">Entwürfe</div>
         </div>
+        <div className="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10">
+          <div className="text-3xl font-extrabold font-headline text-on-background mb-1">
+            {userCount}
+          </div>
+          <div className="text-sm text-secondary">Nutzer</div>
+        </div>
       </div>
 
       <div className="flex gap-4">
@@ -55,6 +62,13 @@ export default async function AdminDashboard() {
           className="px-6 py-3 rounded-lg border border-outline-variant/30 font-semibold hover:bg-surface-container-low transition-all"
         >
           Alle Beiträge
+        </Link>
+        <Link
+          href="/admin/users"
+          className="px-6 py-3 rounded-lg border border-outline-variant/30 font-semibold hover:bg-surface-container-low transition-all inline-flex items-center gap-2"
+        >
+          <span className="material-symbols-outlined text-xl">group</span>
+          Nutzer verwalten
         </Link>
       </div>
     </div>

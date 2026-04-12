@@ -4,7 +4,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import Image from "@tiptap/extension-image";
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 
 interface PostFormProps {
@@ -28,6 +28,18 @@ function slugify(text: string): string {
     .replace(/ß/g, "ss")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
+}
+
+async function uploadFile(file: File): Promise<string> {
+  const formData = new FormData();
+  formData.append("file", file);
+  const res = await fetch("/api/upload", { method: "POST", body: formData });
+  if (!res.ok) {
+    const data = await res.json();
+    throw new Error(data.error || "Upload fehlgeschlagen");
+  }
+  const data = await res.json();
+  return data.url;
 }
 
 function ToolbarButton({
@@ -72,6 +84,50 @@ export default function PostForm({ initialData }: PostFormProps) {
   );
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [coverUploading, setCoverUploading] = useState(false);
+  const coverInputRef = useRef<HTMLInputElement>(null);
+  const editorImageInputRef = useRef<HTMLInputElement>(null);
+
+  const handleCoverUpload = useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      setCoverUploading(true);
+      setError("");
+      try {
+        const url = await uploadFile(file);
+        setCoverImage(url);
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "Titelbild-Upload fehlgeschlagen"
+        );
+      } finally {
+        setCoverUploading(false);
+        if (coverInputRef.current) coverInputRef.current.value = "";
+      }
+    },
+    []
+  );
+
+  const handleEditorImageUpload = useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (!file || !editorRef.current) return;
+      setError("");
+      try {
+        const url = await uploadFile(file);
+        editorRef.current.chain().focus().setImage({ src: url }).run();
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "Bild-Upload fehlgeschlagen"
+        );
+      } finally {
+        if (editorImageInputRef.current)
+          editorImageInputRef.current.value = "";
+      }
+    },
+    []
+  );
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -89,6 +145,9 @@ export default function PostForm({ initialData }: PostFormProps) {
       },
     },
   });
+
+  const editorRef = useRef(editor);
+  editorRef.current = editor;
 
   function handleTitleChange(value: string) {
     setTitle(value);
@@ -182,15 +241,66 @@ export default function PostForm({ initialData }: PostFormProps) {
 
       <div>
         <label className="block text-sm font-medium text-on-surface mb-1.5">
-          Titelbild-URL
+          Titelbild
         </label>
         <input
-          type="url"
-          value={coverImage}
-          onChange={(e) => setCoverImage(e.target.value)}
-          placeholder="https://..."
-          className="w-full px-4 py-3 rounded-lg border border-outline-variant/30 bg-surface focus:outline-none focus:ring-2 focus:ring-surface-tint/50 text-on-background"
+          ref={coverInputRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp,image/gif"
+          onChange={handleCoverUpload}
+          className="hidden"
         />
+        {coverImage ? (
+          <div className="relative group">
+            <img
+              src={coverImage}
+              alt="Titelbild-Vorschau"
+              className="w-full h-48 object-cover rounded-lg border border-outline-variant/30"
+            />
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center gap-3">
+              <button
+                type="button"
+                onClick={() => coverInputRef.current?.click()}
+                className="bg-white text-on-surface px-4 py-2 rounded-lg text-sm font-medium hover:bg-surface-container-highest transition-colors"
+              >
+                Ersetzen
+              </button>
+              <button
+                type="button"
+                onClick={() => setCoverImage("")}
+                className="bg-error text-on-error px-4 py-2 rounded-lg text-sm font-medium hover:brightness-110 transition-all"
+              >
+                Entfernen
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={() => coverInputRef.current?.click()}
+            disabled={coverUploading}
+            className="w-full h-48 rounded-lg border-2 border-dashed border-outline-variant/40 bg-surface-container-low hover:bg-surface-container-highest transition-colors flex flex-col items-center justify-center gap-2 text-secondary disabled:opacity-50"
+          >
+            {coverUploading ? (
+              <>
+                <span className="material-symbols-outlined text-3xl animate-spin">
+                  progress_activity
+                </span>
+                <span className="text-sm">Wird hochgeladen...</span>
+              </>
+            ) : (
+              <>
+                <span className="material-symbols-outlined text-3xl">
+                  cloud_upload
+                </span>
+                <span className="text-sm">Bild hochladen</span>
+                <span className="text-xs text-secondary/60">
+                  JPEG, PNG, WebP oder GIF
+                </span>
+              </>
+            )}
+          </button>
+        )}
       </div>
 
       <div>
@@ -269,19 +379,21 @@ export default function PostForm({ initialData }: PostFormProps) {
               </ToolbarButton>
               <span className="w-px h-5 bg-outline-variant/30 mx-1" />
               <ToolbarButton
-                onClick={() => {
-                  const url = window.prompt("Bild-URL:");
-                  if (url) {
-                    editor.chain().focus().setImage({ src: url }).run();
-                  }
-                }}
-                title="Bild einfügen"
+                onClick={() => editorImageInputRef.current?.click()}
+                title="Bild hochladen"
               >
                 <span className="material-symbols-outlined text-base">
                   image
                 </span>
               </ToolbarButton>
             </div>
+            <input
+              ref={editorImageInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif"
+              onChange={handleEditorImageUpload}
+              className="hidden"
+            />
             <div className="tiptap-editor">
               <EditorContent editor={editor} />
             </div>
