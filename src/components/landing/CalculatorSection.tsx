@@ -14,7 +14,7 @@ export default function CalculatorSection() {
   const savedRevenue = savedHours * HOURLY_RATE;
 
   return (
-    <section className="py-32 px-8">
+    <section id="calculator" className="py-32 px-8">
       <div className="max-w-7xl mx-auto">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <span className="text-surface-tint font-bold font-label uppercase tracking-widest block mb-4">

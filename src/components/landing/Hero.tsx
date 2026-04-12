@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 export default function Hero() {
   return (
     <section className="relative min-h-[870px] flex items-center px-8 overflow-hidden">
@@ -22,13 +20,13 @@ export default function Hero() {
             Ihre Konkurrenz noch Akten sortiert.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link
-              href="/kontakt"
+            <a
+              href="#calculator"
               className="bg-on-primary-container text-on-primary px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:brightness-110 transition-all"
             >
-              Strategie-Gespräch anfordern
-              <span className="material-symbols-outlined">arrow_forward</span>
-            </Link>
+              Zeitvorteil & Gewinn berechnen
+              <span className="material-symbols-outlined">calculate</span>
+            </a>
             <a
               href="#engine"
               className="px-8 py-4 rounded-xl border border-outline-variant/30 font-bold hover:bg-surface-container-low transition-all"

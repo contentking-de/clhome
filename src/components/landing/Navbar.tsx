@@ -43,9 +43,9 @@ export default function Navbar() {
         </div>
         <Link
           href="/kontakt"
-          className="bg-surface-tint text-white px-6 py-2.5 rounded-xl font-semibold active:opacity-80 transition-all hover:brightness-110"
+          className="bg-on-background text-white px-6 py-2.5 rounded-xl font-semibold active:opacity-80 transition-all hover:brightness-150"
         >
-          Kontakt
+          Strategie-Gespräch vereinbaren
         </Link>
       </nav>
     </header>
