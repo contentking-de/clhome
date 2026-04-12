@@ -19,24 +19,24 @@ export async function PUT(
   }
 
   const { id } = await params;
+  const body = await req.json();
+  const { role, name, bio, jobTitle, avatar } = body;
 
-  if (id === session.user.id) {
+  if (role && id === session.user.id) {
     return NextResponse.json(
       { error: "Sie können Ihre eigene Rolle nicht ändern." },
       { status: 400 }
     );
   }
 
-  const body = await req.json();
-  const { role, name } = body;
+  const data: Record<string, unknown> = {};
+  if (role) data.role = role === "ADMIN" ? "ADMIN" : "EDITOR";
+  if (name !== undefined) data.name = name || null;
+  if (bio !== undefined) data.bio = bio || null;
+  if (jobTitle !== undefined) data.jobTitle = jobTitle || null;
+  if (avatar !== undefined) data.avatar = avatar || null;
 
-  const user = await prisma.user.update({
-    where: { id },
-    data: {
-      ...(role && { role: role === "ADMIN" ? "ADMIN" : "EDITOR" }),
-      ...(name !== undefined && { name: name || null }),
-    },
-  });
+  const user = await prisma.user.update({ where: { id }, data });
 
   return NextResponse.json(user);
 }

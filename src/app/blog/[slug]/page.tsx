@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import PostContent from "@/components/blog/PostContent";
+import AuthorBox from "@/components/blog/AuthorBox";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -35,7 +36,17 @@ export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
   const post = await prisma.post.findUnique({
     where: { slug, published: true },
-    include: { author: { select: { name: true, email: true } } },
+    include: {
+      author: {
+        select: {
+          name: true,
+          email: true,
+          bio: true,
+          jobTitle: true,
+          avatar: true,
+        },
+      },
+    },
   });
 
   if (!post) {
@@ -86,6 +97,14 @@ export default async function BlogPostPage({ params }: Props) {
             </header>
 
             <PostContent content={post.content} />
+
+            <AuthorBox
+              name={post.author.name}
+              email={post.author.email}
+              jobTitle={post.author.jobTitle}
+              bio={post.author.bio}
+              avatar={post.author.avatar}
+            />
           </div>
         </article>
       </main>

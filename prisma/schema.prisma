@@ -13,6 +13,9 @@ model User {
   emailVerified DateTime?
   image         String?
   role          Role      @default(EDITOR)
+  bio           String?
+  jobTitle      String?
+  avatar        String?
   accounts      Account[]
   sessions      Session[]
   posts         Post[]
