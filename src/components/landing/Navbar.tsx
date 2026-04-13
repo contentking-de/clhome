@@ -53,6 +53,12 @@ export default function Navbar() {
           >
             Blog
           </Link>
+          <Link
+            className="text-secondary hover:text-surface-tint transition-colors duration-300 font-medium"
+            href="/story"
+          >
+            Story
+          </Link>
         </div>
 
         <Link
@@ -119,6 +125,13 @@ export default function Navbar() {
             onClick={() => setOpen(false)}
           >
             Blog
+          </Link>
+          <Link
+            className="text-on-background font-medium py-2 hover:text-surface-tint transition-colors"
+            href="/story"
+            onClick={() => setOpen(false)}
+          >
+            Story
           </Link>
           <Link
             href="/kontakt"
