@@ -21,7 +21,9 @@ interface PostFormProps {
     content: string;
     coverImage: string;
     published: boolean;
+    authorId?: string;
   };
+  authors?: { id: string; name: string | null; email: string }[];
 }
 
 function slugify(text: string): string {
@@ -74,7 +76,7 @@ function ToolbarButton({
   );
 }
 
-export default function PostForm({ initialData }: PostFormProps) {
+export default function PostForm({ initialData, authors }: PostFormProps) {
   const router = useRouter();
   const isEdit = !!initialData?.id;
 
@@ -87,6 +89,7 @@ export default function PostForm({ initialData }: PostFormProps) {
   const [published, setPublished] = useState(
     initialData?.published || false
   );
+  const [authorId, setAuthorId] = useState(initialData?.authorId || "");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [coverUploading, setCoverUploading] = useState(false);
@@ -193,7 +196,7 @@ export default function PostForm({ initialData }: PostFormProps) {
     setSaving(true);
     setError("");
 
-    const body = {
+    const body: Record<string, unknown> = {
       title,
       slug,
       excerpt,
@@ -201,6 +204,10 @@ export default function PostForm({ initialData }: PostFormProps) {
       coverImage,
       published,
     };
+
+    if (authorId) {
+      body.authorId = authorId;
+    }
 
     try {
       const url = isEdit ? `/api/posts/${initialData!.id}` : "/api/posts";
@@ -290,6 +297,26 @@ export default function PostForm({ initialData }: PostFormProps) {
           />
         </div>
       </div>
+
+      {authors && authors.length > 0 && (
+        <div>
+          <label className="block text-sm font-medium text-on-surface mb-1.5">
+            Autor
+          </label>
+          <select
+            value={authorId}
+            onChange={(e) => setAuthorId(e.target.value)}
+            className="w-full px-4 py-3 rounded-lg border border-outline-variant/30 bg-surface focus:outline-none focus:ring-2 focus:ring-surface-tint/50 text-on-background"
+          >
+            {!authorId && <option value="">— Aktueller Benutzer —</option>}
+            {authors.map((author) => (
+              <option key={author.id} value={author.id}>
+                {author.name || author.email}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
 
       <div>
         <label className="block text-sm font-medium text-on-surface mb-1.5">

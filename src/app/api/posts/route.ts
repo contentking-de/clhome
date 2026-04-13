@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json();
-  const { title, slug, excerpt, content, coverImage, published } = body;
+  const { title, slug, excerpt, content, coverImage, published, authorId } = body;
 
   if (!title || !slug || !content) {
     return NextResponse.json(
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
       content,
       coverImage: coverImage || null,
       published: published || false,
-      authorId: session.user.id,
+      authorId: authorId || session.user.id,
     },
   });
 

@@ -10,7 +10,13 @@ export default async function EditPostPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const post = await prisma.post.findUnique({ where: { id } });
+  const [post, authors] = await Promise.all([
+    prisma.post.findUnique({ where: { id } }),
+    prisma.user.findMany({
+      orderBy: { name: "asc" },
+      select: { id: true, name: true, email: true },
+    }),
+  ]);
 
   if (!post) {
     notFound();
@@ -35,7 +41,9 @@ export default async function EditPostPage({
           content: post.content,
           coverImage: post.coverImage || "",
           published: post.published,
+          authorId: post.authorId,
         }}
+        authors={authors}
       />
     </div>
   );
