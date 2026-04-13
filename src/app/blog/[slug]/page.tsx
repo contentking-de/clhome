@@ -4,6 +4,7 @@ import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import PostContent from "@/components/blog/PostContent";
 import AuthorBox from "@/components/blog/AuthorBox";
+import RelatedPostsSidebar from "@/components/blog/RelatedPostsSidebar";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -52,6 +53,22 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) {
     notFound();
   }
+
+  const relatedPosts = await prisma.post.findMany({
+    where: {
+      published: true,
+      slug: { not: slug },
+    },
+    orderBy: { createdAt: "desc" },
+    take: 5,
+    select: {
+      slug: true,
+      title: true,
+      excerpt: true,
+      coverImage: true,
+      createdAt: true,
+    },
+  });
 
   return (
     <>
@@ -138,15 +155,24 @@ export default async function BlogPostPage({ params }: Props) {
               </header>
             )}
 
-            <PostContent content={post.content} />
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12">
+              <div>
+                <PostContent content={post.content} />
+                <AuthorBox
+                  name={post.author.name}
+                  email={post.author.email}
+                  jobTitle={post.author.jobTitle}
+                  bio={post.author.bio}
+                  avatar={post.author.avatar}
+                />
+              </div>
 
-            <AuthorBox
-              name={post.author.name}
-              email={post.author.email}
-              jobTitle={post.author.jobTitle}
-              bio={post.author.bio}
-              avatar={post.author.avatar}
-            />
+              {relatedPosts.length > 0 && (
+                <div className="hidden lg:block">
+                  <RelatedPostsSidebar posts={relatedPosts} />
+                </div>
+              )}
+            </div>
           </div>
         </article>
       </main>

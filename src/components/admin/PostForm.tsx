@@ -167,10 +167,18 @@ export default function PostForm({ initialData }: PostFormProps) {
   }
 
   const handleAiGenerated = useCallback(
-    (data: { title: string; excerpt: string; content: string }) => {
+    (data: {
+      title: string;
+      excerpt: string;
+      content: string;
+      coverImage?: string;
+    }) => {
       setTitle(data.title);
       setSlug(slugify(data.title));
       setExcerpt(data.excerpt);
+      if (data.coverImage) {
+        setCoverImage(data.coverImage);
+      }
       if (editorRef.current) {
         editorRef.current.commands.setContent(data.content);
       }
