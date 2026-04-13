@@ -1,5 +1,6 @@
 import Navbar from "@/components/landing/Navbar";
 import Hero from "@/components/landing/Hero";
+import FocusAreasSection from "@/components/landing/FocusAreasSection";
 import ProblemSection from "@/components/landing/ProblemSection";
 import EngineSection from "@/components/landing/EngineSection";
 import ClusterSelection from "@/components/landing/ClusterSelection";
@@ -15,6 +16,7 @@ export default function Home() {
       <Navbar />
       <main className="pt-20">
         <Hero />
+        <FocusAreasSection />
         <ProblemSection />
         <EngineSection />
         <ClusterSelection />
