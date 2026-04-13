@@ -1,6 +1,6 @@
 export default function Hero() {
   return (
-    <section className="relative min-h-[870px] flex items-center px-8 overflow-hidden">
+    <section className="relative min-h-[620px] flex items-center px-8 overflow-hidden">
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-7 z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-highest rounded-full mb-8">

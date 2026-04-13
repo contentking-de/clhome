@@ -1,6 +1,6 @@
 # clever.legal
 
-Startseite ist generisch // Wichtige Sateliten bekommen eine eigene Startseite (Verlinkung)
+
 Seriös / feste CI guideline 
 
 
@@ -9,8 +9,8 @@ Seriös / feste CI guideline
 
 1.Marc —> Anwalt // Experte für Massenklagen
 2.Nico —> ContentKing
-3.Loth —> Performance Marketing
-4.Ehrke .—> IT Nerd 
+3.Thorsten —> Performance Marketing
+4.Christoph —> IT Nerd 
 
 Name Dropping // Hochglanz Profil SERÖS
 
@@ -89,8 +89,8 @@ Weitere zusammenfassung:
 
 ⠀Die Akquise-Mechanik
 * **Nico (Content):** Schießt gegen verkrustete Strukturen und baut organische Autorität auf.
-* **Loth (Performance):** Jagt den Traffic auf die Satelliten und B2B-Landingpages.
-* **Ehrke (IT):** Liefert die technologische „Black Box“, die alles möglich macht.
+* **Thorsten (Performance):** Jagt den Traffic auf die Satelliten und B2B-Landingpages.
+* **Christoph (IT):** Liefert die technologische „Black Box“, die alles möglich macht.
 * **Marc (Legal):** Der seriöse Anker, der garantiert, dass die Revolution rechtssicher bleibt.
 
 ⠀**Das Ziel:** clever.legal wird das Qualitätssiegel für die effizientesten Kanzleien im deutschsprachigen Raum.
@@ -128,8 +128,5 @@ AI Entwurf:
 * **Headline:** „Exklusivität ist unsere Policy.“
 * **Copy:** „Wir skalieren keine Massenware. Wir wählen unsere Partner gezielt aus. Pro Rechtsgebiet und Region vergeben wir nur eine Lizenz für unsere Engine. Sichern Sie sich Ihren Marktvorsprung, bevor es Ihr Nachbar tut.“
 
-⠀6. Footer (Minimalistisch)
-* clever.legal | Intelligent. Adaptiv. Keine Ehrfurcht.
-* Impressum | Datenschutz | Member Area
 
 

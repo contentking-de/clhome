@@ -80,7 +80,7 @@ export default function FuerAnwaeltePage() {
               </h1>
               <p className="text-secondary text-lg leading-relaxed mb-10">
                 Keine Beratung. Keine Experimente. Wir installieren die
-                KI-Infrastruktur, mit der Sie Massenverfahren skalieren,
+                KI-Infrastruktur, mit der Sie Einzelmandate und sogar Massenverfahren skalieren,
                 während Ihre Konkurrenz noch Akten sortiert.
               </p>
               <Link
@@ -136,7 +136,7 @@ export default function FuerAnwaeltePage() {
                 Die Engine
               </span>
               <h2 className="font-headline text-[2.5rem] font-extrabold leading-tight mb-4">
-                Ihre Kanzlei auf Steroids.
+                Ihre Kanzlei auf Steroiden.
               </h2>
               <p className="text-secondary text-lg max-w-2xl">
                 Vier Module, die ineinandergreifen. Von der automatisierten
