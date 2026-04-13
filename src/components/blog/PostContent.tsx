@@ -5,21 +5,43 @@ interface PostContentProps {
 }
 
 function splitContentAtMiddle(html: string): [string, string] {
-  const blockTagPattern =
-    /<\/(?:p|h[1-6]|ul|ol|table|blockquote|div)>/gi;
-  const closingTags: number[] = [];
+  const splitCandidates: number[] = [];
+  let tableDepth = 0;
+  const tagPattern = /<\/?(?:p|h[1-6]|ul|ol|table|blockquote|div)\b[^>]*>/gi;
 
   let match;
-  while ((match = blockTagPattern.exec(html)) !== null) {
-    closingTags.push(match.index + match[0].length);
+  while ((match = tagPattern.exec(html)) !== null) {
+    const tag = match[0];
+    const isClosing = tag[1] === "/";
+    const tagName = (
+      isClosing ? tag.match(/<\/(\w+)/)?.[1] : tag.match(/<(\w+)/)?.[1]
+    )?.toLowerCase();
+
+    if (tagName === "table") {
+      if (isClosing) {
+        tableDepth = Math.max(0, tableDepth - 1);
+        if (tableDepth === 0) {
+          splitCandidates.push(match.index + tag.length);
+        }
+      } else {
+        tableDepth++;
+      }
+      continue;
+    }
+
+    if (tableDepth > 0) continue;
+
+    if (isClosing) {
+      splitCandidates.push(match.index + tag.length);
+    }
   }
 
-  if (closingTags.length < 4) {
+  if (splitCandidates.length < 6) {
     return [html, ""];
   }
 
-  const midIndex = Math.floor(closingTags.length / 2);
-  const splitPoint = closingTags[midIndex];
+  const midIndex = Math.floor(splitCandidates.length / 2);
+  const splitPoint = splitCandidates[midIndex];
 
   return [html.slice(0, splitPoint), html.slice(splitPoint)];
 }
@@ -45,7 +67,7 @@ export default function PostContent({ content }: PostContentProps) {
         className="prose-blog max-w-none"
         dangerouslySetInnerHTML={{ __html: firstHalf }}
       />
-      <BlogCTA variant="inline" />
+      <BlogCTA variant="end" />
       <div
         className="prose-blog max-w-none"
         dangerouslySetInnerHTML={{ __html: secondHalf }}
