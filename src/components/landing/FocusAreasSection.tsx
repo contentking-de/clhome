@@ -138,7 +138,7 @@ export default function FocusAreasSection() {
                       Digitale Vollmacht:
                     </span>{" "}
                     Auch bei großen Mandatsvolumen maximale Automatisierung – 
-                    vom Erstcontact bis zur unterzeichneten Vollmacht.
+                    vom Erstkontakt bis zur unterzeichneten Vollmacht.
                   </p>
                 </div>
               </div>

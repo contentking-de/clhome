@@ -1,16 +1,19 @@
 const satellites = [
   {
     domain: "meta-datenschutzklage.de",
+    url: "https://meta-datenschutzklage.de",
     label: "Datenschutz",
     icon: "shield",
   },
   {
     domain: "coachinganwalt.com",
+    url: "https://coachinganwalt.com",
     label: "Coaching-Recht",
     icon: "psychology",
   },
   {
     domain: "zockerhelden.de",
+    url: "https://zockerhelden.de",
     label: "Glücksspielrecht",
     icon: "casino",
   },
@@ -61,8 +64,11 @@ export default function SatellitesSection() {
         {/* Beispiel-Satelliten */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-16">
           {satellites.map((sat) => (
-            <div
+            <a
               key={sat.domain}
+              href={sat.url}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group relative bg-surface p-8 rounded-xl border border-outline-variant/10 hover:border-surface-tint/30 transition-all duration-500 overflow-hidden"
             >
               <div className="relative z-10">
@@ -79,7 +85,7 @@ export default function SatellitesSection() {
                   language
                 </span>
               </div>
-            </div>
+            </a>
           ))}
         </div>
 
