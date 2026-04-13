@@ -14,6 +14,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: false },
   title: "clever.legal | Recht haben dauert Sekunden",
   description:
     "clever.legal GmbH – Wir eliminieren die Bürokratie des Wartens. Mit algorithmischer Präzision und menschlicher Exzellenz transformieren wir komplexe Rechtslagen in sofortige Resultate.",
