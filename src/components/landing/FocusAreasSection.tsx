@@ -1,6 +1,6 @@
 export default function FocusAreasSection() {
   return (
-    <section className="py-32 px-8">
+    <section id="schwerpunkte" className="py-32 px-8">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
           <div className="max-w-2xl">

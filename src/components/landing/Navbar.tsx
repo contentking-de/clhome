@@ -23,17 +23,29 @@ export default function Navbar() {
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-10">
+          <a
+            className="text-secondary hover:text-surface-tint transition-colors duration-300 font-medium"
+            href="/#schwerpunkte"
+          >
+            Schwerpunkte
+          </a>
+          <a
+            className="text-secondary hover:text-surface-tint transition-colors duration-300 font-medium"
+            href="/#satelliten"
+          >
+            Satelliten
+          </a>
           <Link
             className="text-secondary hover:text-surface-tint transition-colors duration-300 font-medium"
             href="/fuer-anwaelte"
           >
-            Anwälte
+            Für Anwälte
           </Link>
           <Link
             className="text-secondary hover:text-surface-tint transition-colors duration-300 font-medium"
             href="/fuer-unternehmen"
           >
-            Unternehmen
+            Für Unternehmen
           </Link>
           <Link
             className="text-secondary hover:text-surface-tint transition-colors duration-300 font-medium"
@@ -73,19 +85,33 @@ export default function Navbar() {
         className={`md:hidden overflow-hidden transition-all duration-300 bg-background/95 backdrop-blur-md border-t border-outline-variant/10 ${open ? "max-h-96" : "max-h-0"}`}
       >
         <div className="flex flex-col px-8 py-6 gap-4">
+          <a
+            className="text-on-background font-medium py-2 hover:text-surface-tint transition-colors"
+            href="/#schwerpunkte"
+            onClick={() => setOpen(false)}
+          >
+            Schwerpunkte
+          </a>
+          <a
+            className="text-on-background font-medium py-2 hover:text-surface-tint transition-colors"
+            href="/#satelliten"
+            onClick={() => setOpen(false)}
+          >
+            Satelliten
+          </a>
           <Link
             className="text-on-background font-medium py-2 hover:text-surface-tint transition-colors"
             href="/fuer-anwaelte"
             onClick={() => setOpen(false)}
           >
-            Anwälte
+            Für Anwälte
           </Link>
           <Link
             className="text-on-background font-medium py-2 hover:text-surface-tint transition-colors"
             href="/fuer-unternehmen"
             onClick={() => setOpen(false)}
           >
-            Unternehmen
+            Für Unternehmen
           </Link>
           <Link
             className="text-on-background font-medium py-2 hover:text-surface-tint transition-colors"
