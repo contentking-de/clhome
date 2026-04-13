@@ -4,8 +4,13 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import Image from "@tiptap/extension-image";
+import { Table } from "@tiptap/extension-table";
+import TableRow from "@tiptap/extension-table-row";
+import TableCell from "@tiptap/extension-table-cell";
+import TableHeader from "@tiptap/extension-table-header";
 import { useState, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import AiGenerateDialog from "./AiGenerateDialog";
 
 interface PostFormProps {
   initialData?: {
@@ -85,6 +90,7 @@ export default function PostForm({ initialData }: PostFormProps) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [coverUploading, setCoverUploading] = useState(false);
+  const [aiDialogOpen, setAiDialogOpen] = useState(false);
   const coverInputRef = useRef<HTMLInputElement>(null);
   const editorImageInputRef = useRef<HTMLInputElement>(null);
 
@@ -137,6 +143,10 @@ export default function PostForm({ initialData }: PostFormProps) {
         placeholder: "Beginnen Sie hier mit dem Schreiben...",
       }),
       Image,
+      Table.configure({ resizable: false }),
+      TableRow,
+      TableCell,
+      TableHeader,
     ],
     content: initialData?.content || "",
     editorProps: {
@@ -155,6 +165,18 @@ export default function PostForm({ initialData }: PostFormProps) {
       setSlug(slugify(value));
     }
   }
+
+  const handleAiGenerated = useCallback(
+    (data: { title: string; excerpt: string; content: string }) => {
+      setTitle(data.title);
+      setSlug(slugify(data.title));
+      setExcerpt(data.excerpt);
+      if (editorRef.current) {
+        editorRef.current.commands.setContent(data.content);
+      }
+    },
+    []
+  );
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -200,6 +222,40 @@ export default function PostForm({ initialData }: PostFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="bg-gradient-to-r from-surface-tint/5 to-surface-tint/10 border border-surface-tint/20 rounded-xl p-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-lg bg-surface-tint/15 flex items-center justify-center">
+            <span className="material-symbols-outlined text-surface-tint text-xl">
+              auto_awesome
+            </span>
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-on-background">
+              KI-Assistent
+            </p>
+            <p className="text-xs text-secondary">
+              Artikel mit Web-Recherche generieren
+            </p>
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={() => setAiDialogOpen(true)}
+          className="bg-surface-tint text-white px-4 py-2 rounded-lg text-sm font-semibold hover:brightness-110 transition-all flex items-center gap-2"
+        >
+          <span className="material-symbols-outlined text-base">
+            auto_awesome
+          </span>
+          Mit KI generieren
+        </button>
+      </div>
+
+      <AiGenerateDialog
+        open={aiDialogOpen}
+        onClose={() => setAiDialogOpen(false)}
+        onGenerated={handleAiGenerated}
+      />
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-on-surface mb-1.5">
@@ -384,6 +440,21 @@ export default function PostForm({ initialData }: PostFormProps) {
               >
                 <span className="material-symbols-outlined text-base">
                   image
+                </span>
+              </ToolbarButton>
+              <span className="w-px h-5 bg-outline-variant/30 mx-1" />
+              <ToolbarButton
+                onClick={() =>
+                  editor
+                    .chain()
+                    .focus()
+                    .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+                    .run()
+                }
+                title="Tabelle einfügen"
+              >
+                <span className="material-symbols-outlined text-base">
+                  table
                 </span>
               </ToolbarButton>
             </div>

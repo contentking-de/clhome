@@ -115,6 +115,33 @@
   border-radius: 0.5rem;
   margin: 1.5rem 0;
 }
+.prose-blog table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+.prose-blog thead {
+  background-color: var(--color-surface-container-high);
+}
+.prose-blog th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid var(--color-outline-variant);
+  color: var(--color-on-background);
+}
+.prose-blog td {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--color-outline-variant);
+  color: var(--color-on-surface-variant);
+}
+.prose-blog tbody tr:last-child td {
+  border-bottom: none;
+}
+.prose-blog tbody tr:hover {
+  background-color: var(--color-surface-container-low);
+}
 
 .tiptap-editor .ProseMirror {
   min-height: 400px;
@@ -127,4 +154,26 @@
   float: left;
   height: 0;
   pointer-events: none;
+}
+
+.tiptap-editor .ProseMirror table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  table-layout: fixed;
+}
+.tiptap-editor .ProseMirror th,
+.tiptap-editor .ProseMirror td {
+  border: 1px solid var(--color-outline-variant);
+  padding: 0.5rem 0.75rem;
+  min-width: 80px;
+  vertical-align: top;
+}
+.tiptap-editor .ProseMirror th {
+  background-color: var(--color-surface-container-high);
+  font-weight: 600;
+}
+.tiptap-editor .ProseMirror .selectedCell {
+  background-color: var(--color-surface-tint);
+  opacity: 0.1;
 }
