@@ -101,6 +101,16 @@ export default function CalculatorSection() {
               </div>
             </div>
           </div>
+
+          <p className="text-secondary text-xs text-center mt-6 leading-relaxed max-w-xl mx-auto">
+            Hinweis: Es handelt sich um eine Beispielberechnung mit uns bekannten
+            Durchschnittswerten. Individuelle Fälle können abweichen – sprechen
+            Sie uns für eine{" "}
+            <a href="/kontakt" className="text-surface-tint underline hover:brightness-110 transition-all">
+              kostenlose Erstberatung
+            </a>{" "}
+            gerne an.
+          </p>
         </div>
       </div>
     </section>
