@@ -37,12 +37,6 @@ export default function Navbar() {
           </Link>
           <Link
             className="text-secondary hover:text-surface-tint transition-colors duration-300 font-medium"
-            href="/fuer-privatkunden"
-          >
-            Privatkunden
-          </Link>
-          <Link
-            className="text-secondary hover:text-surface-tint transition-colors duration-300 font-medium"
             href="/blog"
           >
             Blog
@@ -92,13 +86,6 @@ export default function Navbar() {
             onClick={() => setOpen(false)}
           >
             Unternehmen
-          </Link>
-          <Link
-            className="text-on-background font-medium py-2 hover:text-surface-tint transition-colors"
-            href="/fuer-privatkunden"
-            onClick={() => setOpen(false)}
-          >
-            Privatkunden
           </Link>
           <Link
             className="text-on-background font-medium py-2 hover:text-surface-tint transition-colors"

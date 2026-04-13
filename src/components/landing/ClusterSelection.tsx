@@ -12,11 +12,11 @@ export default function ClusterSelection() {
             Wählen Sie Ihre Ebene.
           </h2>
           <p className="text-secondary text-lg max-w-2xl">
-            Drei Cluster. Ein Ökosystem. Jede Lösung ist auf Ihre
+            Zwei Cluster. Ein Ökosystem. Jede Lösung ist auf Ihre
             spezifischen Anforderungen zugeschnitten.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Anwälte */}
           <Link
             href="/fuer-anwaelte"
@@ -80,41 +80,6 @@ export default function ClusterSelection() {
               </span>
             </div>
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-surface-tint/20 blur-[60px] rounded-full" />
-          </Link>
-
-          {/* Privatkunden */}
-          <Link
-            href="/fuer-privatkunden"
-            className="group relative bg-surface p-10 rounded-xl border border-outline-variant/10 hover:border-surface-tint/30 transition-all duration-500 overflow-hidden"
-          >
-            <div className="relative z-10">
-              <span className="material-symbols-outlined text-4xl text-surface-tint mb-6 block">
-                shield
-              </span>
-              <h3 className="font-headline text-2xl font-bold mb-4">
-                Für Privatkunden
-              </h3>
-              <p className="text-secondary mb-4 leading-relaxed">
-                Die{" "}
-                <span className="font-bold text-on-surface">Speerspitze</span>{" "}
-                Ihres Rechtsanspruchs. Automatisierte Abwicklung statt
-                bürokratischer Hürden.
-              </p>
-              <p className="text-secondary text-sm mb-8 leading-relaxed">
-                Sofortige Hilfe. Kurze Wege. Maximaler Durchsatz.
-              </p>
-              <span className="inline-flex items-center gap-2 text-surface-tint font-bold group-hover:gap-4 transition-all">
-                Recht einfordern
-                <span className="material-symbols-outlined text-sm">
-                  chevron_right
-                </span>
-              </span>
-            </div>
-            <div className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
-              <span className="material-symbols-outlined text-[12rem]">
-                gavel
-              </span>
-            </div>
           </Link>
         </div>
       </div>
