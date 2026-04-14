@@ -6,6 +6,7 @@ import Image from "next/image";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [schwerpunkteOpen, setSchwerpunkteOpen] = useState(false);
 
   return (
     <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md">
@@ -23,18 +24,28 @@ export default function Navbar() {
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-10">
-          <a
-            className="text-secondary hover:text-surface-tint transition-colors duration-300 font-medium"
-            href="/#schwerpunkte"
-          >
-            Schwerpunkte
-          </a>
-          <a
-            className="text-secondary hover:text-surface-tint transition-colors duration-300 font-medium"
-            href="/#satelliten"
-          >
-            Satelliten
-          </a>
+          <div className="relative group">
+            <a
+              className="text-secondary hover:text-surface-tint transition-colors duration-300 font-medium inline-flex items-center gap-1"
+              href="/#schwerpunkte"
+            >
+              Schwerpunkte
+              <span className="material-symbols-outlined text-base transition-transform duration-200 group-hover:rotate-180">
+                expand_more
+              </span>
+            </a>
+            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+              <div className="bg-surface/95 backdrop-blur-md border border-outline-variant/15 rounded-xl shadow-lg shadow-on-background/5 py-2 px-1 min-w-[220px]">
+                <a
+                  className="flex items-center gap-2 px-4 py-2.5 text-sm text-secondary hover:text-surface-tint hover:bg-surface-container-low rounded-lg transition-colors"
+                  href="/#satelliten"
+                >
+                  <span className="material-symbols-outlined text-lg">satellite_alt</span>
+                  Lead-Satelliten
+                </a>
+              </div>
+            </div>
+          </div>
           <Link
             className="text-secondary hover:text-surface-tint transition-colors duration-300 font-medium"
             href="/fuer-anwaelte"
@@ -47,26 +58,27 @@ export default function Navbar() {
           >
             Für Unternehmen
           </Link>
-          <Link
-            className="text-secondary hover:text-surface-tint transition-colors duration-300 font-medium"
-            href="/blog"
-          >
-            Blog
-          </Link>
-          <Link
-            className="text-secondary hover:text-surface-tint transition-colors duration-300 font-medium"
-            href="/story"
-          >
-            Story
-          </Link>
         </div>
 
-        <Link
-          href="/kontakt"
-          className="hidden md:inline-flex bg-on-background text-white px-6 py-2.5 rounded-xl font-semibold active:opacity-80 transition-all hover:brightness-150"
-        >
-          Strategie-Gespräch vereinbaren
-        </Link>
+        <div className="hidden md:flex items-center gap-3">
+          <Link
+            href="/legal-alerts"
+            className="inline-flex items-center gap-2 border border-error/30 text-error px-5 py-2.5 rounded-xl font-semibold active:opacity-80 transition-all hover:bg-error/5"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-error opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-error" />
+            </span>
+            Legal Alerts
+          </Link>
+          <Link
+            href="/kontakt"
+            className="inline-flex items-center gap-2 bg-on-background text-white px-6 py-2.5 rounded-xl font-semibold active:opacity-80 transition-all hover:brightness-150"
+          >
+            <span className="material-symbols-outlined text-lg">chat</span>
+            Kostenloses Erstgespräch
+          </Link>
+        </div>
 
         {/* Burger button */}
         <button
@@ -91,20 +103,31 @@ export default function Navbar() {
         className={`md:hidden overflow-hidden transition-all duration-300 bg-background/95 backdrop-blur-md border-t border-outline-variant/10 ${open ? "max-h-96" : "max-h-0"}`}
       >
         <div className="flex flex-col px-8 py-6 gap-4">
-          <a
-            className="text-on-background font-medium py-2 hover:text-surface-tint transition-colors"
-            href="/#schwerpunkte"
-            onClick={() => setOpen(false)}
+          <button
+            className="text-on-background font-medium py-2 hover:text-surface-tint transition-colors flex items-center justify-between w-full"
+            onClick={() => setSchwerpunkteOpen(!schwerpunkteOpen)}
           >
-            Schwerpunkte
-          </a>
-          <a
-            className="text-on-background font-medium py-2 hover:text-surface-tint transition-colors"
-            href="/#satelliten"
-            onClick={() => setOpen(false)}
+            <a href="/#schwerpunkte" onClick={() => setOpen(false)}>
+              Schwerpunkte
+            </a>
+            <span
+              className={`material-symbols-outlined text-base text-secondary transition-transform duration-200 ${schwerpunkteOpen ? "rotate-180" : ""}`}
+            >
+              expand_more
+            </span>
+          </button>
+          <div
+            className={`overflow-hidden transition-all duration-200 ${schwerpunkteOpen ? "max-h-20" : "max-h-0"}`}
           >
-            Satelliten
-          </a>
+            <a
+              className="text-secondary font-medium py-2 pl-4 hover:text-surface-tint transition-colors flex items-center gap-2"
+              href="/#satelliten"
+              onClick={() => setOpen(false)}
+            >
+              <span className="material-symbols-outlined text-lg">satellite_alt</span>
+              Lead-Satelliten
+            </a>
+          </div>
           <Link
             className="text-on-background font-medium py-2 hover:text-surface-tint transition-colors"
             href="/fuer-anwaelte"
@@ -121,24 +144,17 @@ export default function Navbar() {
           </Link>
           <Link
             className="text-on-background font-medium py-2 hover:text-surface-tint transition-colors"
-            href="/blog"
+            href="/legal-alerts"
             onClick={() => setOpen(false)}
           >
-            Blog
-          </Link>
-          <Link
-            className="text-on-background font-medium py-2 hover:text-surface-tint transition-colors"
-            href="/story"
-            onClick={() => setOpen(false)}
-          >
-            Story
+            Legal Alerts
           </Link>
           <Link
             href="/kontakt"
             className="bg-on-background text-white px-6 py-3 rounded-xl font-semibold text-center mt-2 active:opacity-80 transition-all"
             onClick={() => setOpen(false)}
           >
-            Strategie-Gespräch vereinbaren
+            Kostenloses Erstgespräch
           </Link>
         </div>
       </div>
