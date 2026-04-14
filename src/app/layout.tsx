@@ -34,6 +34,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de" className={`${inter.variable} ${manrope.variable}`}>
+      <head>
+        <link
+          rel="preload"
+          href="https://suudphdtlchxrc5q.public.blob.vercel-storage.com/landing/hero-building.webp"
+          as="image"
+          type="image/webp"
+        />
+      </head>
       <body className="bg-background text-on-background font-body selection:bg-surface-tint/20">
         {children}
       </body>
