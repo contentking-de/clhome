@@ -48,6 +48,28 @@ export default function Hero() {
               src="https://suudphdtlchxrc5q.public.blob.vercel-storage.com/landing/hero-building.webp"
             />
             <div className="absolute inset-0 bg-gradient-to-tr from-surface-tint/20 to-transparent" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="grid grid-cols-3 gap-4">
+                <div className="w-14 h-14 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg flex items-center justify-center animate-float-1" title="ChatGPT">
+                  <img src="/chatgpt-icon.svg" alt="ChatGPT" className="w-8 h-8" />
+                </div>
+                <div className="w-14 h-14 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg flex items-center justify-center animate-float-3" title="Claude">
+                  <img src="/claude-ai-icon.svg" alt="Claude" className="w-8 h-8" />
+                </div>
+                <div className="w-14 h-14 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg flex items-center justify-center animate-float-4" title="Google Gemini">
+                  <img src="/google-gemini-icon.svg" alt="Gemini" className="w-8 h-8" />
+                </div>
+                <div className="w-14 h-14 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg flex items-center justify-center animate-float-2" title="Perplexity">
+                  <img src="/perplexity-ai-icon.svg" alt="Perplexity" className="w-8 h-8" />
+                </div>
+                <div className="w-14 h-14 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg flex items-center justify-center animate-float-1" title="DeepSeek">
+                  <img src="/deepseek-logo-icon.svg" alt="DeepSeek" className="w-8 h-8" />
+                </div>
+                <div className="w-14 h-14 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg flex items-center justify-center animate-float-3" title="Grok">
+                  <img src="/grok-icon.svg" alt="Grok" className="w-8 h-8" />
+                </div>
+              </div>
+            </div>
           </div>
           <div className="absolute top-12 -left-8 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px] animate-float-1">
             <div className="flex items-center gap-2 mb-1">
