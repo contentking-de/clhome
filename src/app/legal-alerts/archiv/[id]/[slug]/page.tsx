@@ -126,7 +126,7 @@ export default async function ArchivedAlertPage({ params }: Props) {
                 <MarkdownRenderer content={markdown} className="prose-alerts" />
               </div>
 
-              <aside className="hidden lg:block space-y-8">
+              <aside className="hidden lg:block space-y-8 sticky top-24 self-start">
                 {otherReports.length > 0 && (
                   <div>
                     <h3 className="font-headline font-bold text-sm uppercase tracking-widest text-secondary mb-4">
