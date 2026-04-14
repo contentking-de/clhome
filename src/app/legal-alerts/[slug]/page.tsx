@@ -192,6 +192,29 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                     </div>
                   </div>
                 </div>
+
+                <div className="rounded-2xl p-6 border border-surface-tint/20 bg-surface-tint/5">
+                  <span className="material-symbols-outlined text-3xl text-surface-tint mb-3 block">
+                    rocket_launch
+                  </span>
+                  <h3 className="font-headline font-bold text-lg mb-2">
+                    Mandanten-Satellit bestellen
+                  </h3>
+                  <p className="text-secondary text-sm leading-relaxed mb-4">
+                    Sie haben ein relevantes Rechtsgebiet entdeckt? Wir bauen
+                    Ihnen eine spezialisierte Landingpage, die qualifizierte
+                    Mandanten auf Autopilot liefert.
+                  </p>
+                  <Link
+                    href="/kontakt"
+                    className="inline-flex items-center gap-1.5 bg-surface-tint text-white px-4 py-2.5 rounded-lg text-sm font-bold hover:brightness-110 transition-all w-full justify-center"
+                  >
+                    Jetzt Satellit anfragen
+                    <span className="material-symbols-outlined text-base">
+                      arrow_forward
+                    </span>
+                  </Link>
+                </div>
               </aside>
             </div>
           </div>
