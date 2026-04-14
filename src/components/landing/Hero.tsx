@@ -49,13 +49,40 @@ export default function Hero() {
             />
             <div className="absolute inset-0 bg-gradient-to-tr from-surface-tint/20 to-transparent" />
           </div>
-          <div className="absolute top-12 -left-8 bg-surface-container-highest/90 backdrop-blur-md p-6 rounded-xl shadow-2xl border border-outline-variant/10 max-w-[200px]">
+          <div className="absolute top-12 -left-8 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px]">
             <Icon name="bolt" className="text-surface-tint mb-2 block" />
             <div className="text-sm font-bold font-headline mb-1">
               Zeitersparnis
             </div>
             <div className="text-xs text-secondary leading-snug">
               Automatisierte Fallprüfung in unter 30 Sekunden.
+            </div>
+          </div>
+          <div className="absolute bottom-12 -left-8 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px]">
+            <Icon name="trending_up" className="text-surface-tint mb-2 block" />
+            <div className="text-sm font-bold font-headline mb-1">
+              Effizienzsteigerung
+            </div>
+            <div className="text-xs text-secondary leading-snug">
+              Mehr Mandate in kürzerer Zeit.
+            </div>
+          </div>
+          <div className="absolute top-4 -right-6 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px]">
+            <Icon name="crisis_alert" className="text-surface-tint mb-2 block" />
+            <div className="text-sm font-bold font-headline mb-1">
+              Strategiefokus
+            </div>
+            <div className="text-xs text-secondary leading-snug">
+              Zeitgewinn auf der Strategieebene einsetzen.
+            </div>
+          </div>
+          <div className="absolute bottom-4 -right-6 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px]">
+            <Icon name="psychology" className="text-surface-tint mb-2 block" />
+            <div className="text-sm font-bold font-headline mb-1">
+              Motivation
+            </div>
+            <div className="text-xs text-secondary leading-snug">
+              Digitale Lösungen gegen BoreOut-Syndrom.
             </div>
           </div>
         </div>

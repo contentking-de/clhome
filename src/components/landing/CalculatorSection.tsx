@@ -15,8 +15,8 @@ export default function CalculatorSection() {
 
   return (
     <section id="calculator" className="py-32 px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="max-w-3xl mx-auto text-center mb-16">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div className="lg:sticky lg:top-32">
           <span className="text-surface-tint font-bold font-label uppercase tracking-widest block mb-4">
             Der Beweis
           </span>
@@ -27,9 +27,28 @@ export default function CalculatorSection() {
             Berechnen Sie Ihr Einsparpotenzial. Anwaltliche Sorgfalt ist keine
             Ausrede für analoge Trägheit.
           </p>
+          <p className="text-secondary text-lg leading-relaxed mt-4">
+            Jede Stunde, die in Routineaufgaben fließt, fehlt bei der
+            strategischen Beratung – dem Bereich, in dem Ihre Expertise
+            tatsächlich den Unterschied macht und Mandanten bereit sind, dafür
+            zu zahlen.
+          </p>
+          <p className="text-secondary text-lg leading-relaxed mt-4">
+            Wer repetitive Prozesse automatisiert, gewinnt nicht nur Zeit,
+            sondern steigert Qualität und Konsistenz. Weniger Flüchtigkeitsfehler,
+            schnellere Durchlaufzeiten, zufriedenere Mandanten.
+          </p>
+          <p className="text-secondary text-lg leading-relaxed mt-4">
+            Mit dem clever.legal Rechner sehen Sie schnell und einfach, wie
+            groß das Potenzial Ihrer Kanzlei sein könnte.
+          </p>
+          <p className="text-secondary text-lg leading-relaxed mt-4">
+            Probieren Sie es aus und schieben Sie die Regler auf Ihre
+            individuellen Werte.
+          </p>
         </div>
 
-        <div className="max-w-3xl mx-auto bg-surface-container-low rounded-2xl p-8 md:p-12 border border-outline-variant/10">
+        <div className="bg-surface-container-low rounded-2xl p-8 md:p-12 border border-gray-400">
           <div className="space-y-10">
             <div>
               <div className="flex justify-between items-end mb-3">
