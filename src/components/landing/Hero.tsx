@@ -12,9 +12,13 @@ export default function Hero() {
             </span>
           </div>
           <h1 className="font-headline text-[3.5rem] leading-[1.1] font-extrabold tracking-tight mb-8 text-on-background">
-            Recht haben dauert Sekunden. <br />
-            <span className="text-surface-tint">Recht bekommen</span> ab jetzt
-            auch.
+            Recht haben
+            <br />
+            dauert Sekunden.
+            <br />
+            <span className="text-surface-tint">Recht bekommen</span>
+            <br />
+            ab jetzt auch.
           </h1>
           <p className="text-secondary text-lg max-w-xl mb-10 leading-relaxed">
             Keine Beratung. Keine Experimente. Wir installieren die
