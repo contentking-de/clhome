@@ -14,7 +14,7 @@ export default function Footer() {
             className="h-8 w-auto"
           />
         </Link>
-        <div className="flex gap-8">
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-2">
           <Link
             className="text-secondary hover:text-surface-tint transition-colors text-sm"
             href="/blog"
