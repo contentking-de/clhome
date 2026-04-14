@@ -18,7 +18,7 @@ export default async function ArchivPage() {
   return (
     <>
       <Navbar />
-      <main className="pt-20">
+      <main className="pt-28">
         <section className="py-20 px-8">
           <div className="max-w-7xl mx-auto">
             <Link

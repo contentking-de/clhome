@@ -16,7 +16,7 @@ export default function CalculatorSection() {
   return (
     <section id="calculator" className="py-32 px-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-        <div className="lg:sticky lg:top-32">
+        <div className="lg:sticky lg:top-40">
           <span className="text-surface-tint font-bold font-label uppercase tracking-widest block mb-4">
             Der Beweis
           </span>

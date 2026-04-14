@@ -27,7 +27,7 @@ export default async function LegalAlertsPage() {
     return (
       <>
         <Navbar />
-        <main className="pt-20">
+        <main className="pt-28">
           <section className="py-40 px-8 text-center">
             <Icon name="hourglass_empty" className="text-5xl text-outline mb-4 block" />
             <p className="text-secondary text-lg">
@@ -46,7 +46,7 @@ export default async function LegalAlertsPage() {
   return (
     <>
       <Navbar />
-      <main className="pt-20">
+      <main className="pt-28">
         {/* Hero */}
         <section className="py-24 px-8 relative overflow-hidden">
           <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-surface-tint/8 blur-[120px] rounded-full" />

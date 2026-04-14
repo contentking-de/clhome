@@ -62,7 +62,7 @@ export default function FuerAnwaeltePage() {
   return (
     <>
       <Navbar />
-      <main className="pt-20">
+      <main className="pt-28">
         {/* Hero */}
         <section className="py-24 px-8">
           <div className="max-w-7xl mx-auto">

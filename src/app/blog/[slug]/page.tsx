@@ -74,7 +74,7 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <>
       <Navbar />
-      <main className="pt-20">
+      <main className="pt-28">
         <article className="py-16 px-8">
           <div className="max-w-7xl mx-auto">
             <Link

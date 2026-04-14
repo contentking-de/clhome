@@ -10,8 +10,18 @@ export default function Navbar() {
   const [schwerpunkteOpen, setSchwerpunkteOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md">
-      <nav className="flex justify-between items-center max-w-7xl mx-auto px-8 h-20">
+    <header className="fixed top-0 w-full z-50">
+      <div className="bg-on-background">
+        <div className="max-w-7xl mx-auto px-8 flex justify-between items-center">
+          <span className="text-white text-xs py-1.5 font-medium tracking-wide inline-block md:-ml-[33px]">
+            clever.legal GmbH – Legal, Marketing &amp; Tech Thinktank
+          </span>
+          <span className="hidden md:inline-block text-white text-xs py-1.5 font-medium tracking-wide -mr-[26px]">
+            Mail: getintouch@clever.legal – Phone: +49 7544 506706 4
+          </span>
+        </div>
+      </div>
+      <nav className="flex justify-between items-center max-w-7xl mx-auto px-8 h-20 bg-background/80 backdrop-blur-md">
         <Link href="/" className="md:-ml-9.5">
           <Image
             src="/logo_clever_legal.png"
@@ -62,10 +72,10 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-3 -mr-[26px]">
           <Link
             href="/legal-alerts"
-            className="inline-flex items-center gap-2 border border-error/30 text-error px-5 py-2.5 rounded-xl font-semibold active:opacity-80 transition-all hover:bg-error/5"
+            className="inline-flex items-center gap-2 border border-gray-400 text-gray-700 px-5 py-2.5 rounded-xl font-semibold active:opacity-80 transition-all hover:bg-gray-50"
           >
             <span className="relative">
-              <Icon name="notifications_active" className="text-lg animate-pulse" />
+              <Icon name="notifications_active" className="text-lg text-error animate-pulse" />
             </span>
             Legal Alerts
           </Link>

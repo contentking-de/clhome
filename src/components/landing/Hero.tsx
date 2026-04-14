@@ -8,7 +8,7 @@ export default function Hero() {
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-highest rounded-full mb-8">
             <span className="w-2 h-2 rounded-full bg-surface-tint" />
             <span className="text-[0.75rem] font-bold uppercase tracking-widest text-on-surface-variant font-label">
-              AI-Powered Legal Tech
+              Digitalisierung &amp; KI-Beratung für Kanzleien
             </span>
           </div>
           <h1 className="font-headline text-[3.5rem] leading-[1.1] font-extrabold tracking-tight mb-8 text-on-background">
@@ -50,36 +50,44 @@ export default function Hero() {
             <div className="absolute inset-0 bg-gradient-to-tr from-surface-tint/20 to-transparent" />
           </div>
           <div className="absolute top-12 -left-8 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px]">
-            <Icon name="bolt" className="text-surface-tint mb-2 block" />
-            <div className="text-sm font-bold font-headline mb-1">
-              Zeitersparnis
+            <div className="flex items-center gap-2 mb-1">
+              <Icon name="schedule" className="text-surface-tint" />
+              <div className="text-sm font-bold font-headline">
+                Zeitersparnis
+              </div>
             </div>
             <div className="text-xs text-secondary leading-snug">
               Automatisierte Fallprüfung in unter 30 Sekunden.
             </div>
           </div>
           <div className="absolute bottom-12 -left-8 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px]">
-            <Icon name="trending_up" className="text-surface-tint mb-2 block" />
-            <div className="text-sm font-bold font-headline mb-1">
-              Effizienzsteigerung
+            <div className="flex items-center gap-2 mb-1">
+              <Icon name="trending_up" className="text-surface-tint" />
+              <div className="text-sm font-bold font-headline">
+                Effizienzsteigerung
+              </div>
             </div>
             <div className="text-xs text-secondary leading-snug">
               Mehr Mandate in kürzerer Zeit.
             </div>
           </div>
           <div className="absolute top-4 -right-6 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px]">
-            <Icon name="crisis_alert" className="text-surface-tint mb-2 block" />
-            <div className="text-sm font-bold font-headline mb-1">
-              Strategiefokus
+            <div className="flex items-center gap-2 mb-1">
+              <Icon name="crisis_alert" className="text-surface-tint" />
+              <div className="text-sm font-bold font-headline">
+                Strategiefokus
+              </div>
             </div>
             <div className="text-xs text-secondary leading-snug">
               Zeitgewinn auf der Strategieebene einsetzen.
             </div>
           </div>
           <div className="absolute bottom-4 -right-6 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px]">
-            <Icon name="psychology" className="text-surface-tint mb-2 block" />
-            <div className="text-sm font-bold font-headline mb-1">
-              Motivation
+            <div className="flex items-center gap-2 mb-1">
+              <Icon name="psychology" className="text-surface-tint" />
+              <div className="text-sm font-bold font-headline">
+                Motivation
+              </div>
             </div>
             <div className="text-xs text-secondary leading-snug">
               Digitale Lösungen gegen BoreOut-Syndrom.

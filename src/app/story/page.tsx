@@ -49,7 +49,7 @@ export default function StoryPage() {
   return (
     <>
       <Navbar />
-      <main className="pt-20">
+      <main className="pt-28">
         {/* Hero */}
         <section className="relative py-32 px-8 overflow-hidden">
           <div className="max-w-7xl mx-auto">

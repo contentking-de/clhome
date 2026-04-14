@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="pt-20">
+      <main className="pt-28">
         <Hero />
         <FocusAreasSection />
         <NotWhatWeDoSection />

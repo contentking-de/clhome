@@ -10,7 +10,7 @@ export default function DatenschutzPage() {
   return (
     <>
       <Navbar />
-      <main className="pt-20">
+      <main className="pt-28">
         <div className="py-16 px-8">
           <div className="max-w-3xl mx-auto">
             <h1 className="font-headline text-4xl font-extrabold tracking-tight mb-10">
