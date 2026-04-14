@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Icon from "../ui/Icon";
 
 export default function ClusterSelection() {
   return (
@@ -23,9 +24,7 @@ export default function ClusterSelection() {
             className="group relative bg-surface p-10 rounded-xl border border-outline-variant/10 hover:border-surface-tint/30 transition-all duration-500 overflow-hidden"
           >
             <div className="relative z-10">
-              <span className="material-symbols-outlined text-4xl text-surface-tint mb-6 block">
-                swords
-              </span>
+              <Icon name="swords" className="text-4xl text-surface-tint mb-6 block" />
               <h3 className="font-headline text-2xl font-bold mb-4">
                 Für Anwälte
               </h3>
@@ -40,15 +39,11 @@ export default function ClusterSelection() {
               </p>
               <span className="inline-flex items-center gap-2 text-surface-tint font-bold group-hover:gap-4 transition-all">
                 Kanzlei-Transformation entdecken
-                <span className="material-symbols-outlined text-sm">
-                  chevron_right
-                </span>
+                <Icon name="chevron_right" className="text-sm" />
               </span>
             </div>
             <div className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
-              <span className="material-symbols-outlined text-[12rem]">
-                account_balance
-              </span>
+              <Icon name="account_balance" className="text-[12rem]" />
             </div>
           </Link>
 
@@ -58,9 +53,7 @@ export default function ClusterSelection() {
             className="group relative bg-on-background p-10 rounded-xl border border-outline-variant/10 overflow-hidden"
           >
             <div className="relative z-10">
-              <span className="material-symbols-outlined text-4xl text-tertiary-fixed-dim mb-6 block">
-                precision_manufacturing
-              </span>
+              <Icon name="precision_manufacturing" className="text-4xl text-tertiary-fixed-dim mb-6 block" />
               <h3 className="font-headline text-2xl font-bold mb-4 text-white">
                 Für Unternehmen
               </h3>
@@ -74,9 +67,7 @@ export default function ClusterSelection() {
               </p>
               <span className="inline-flex items-center gap-2 text-tertiary-fixed-dim font-bold group-hover:gap-4 transition-all">
                 System integrieren
-                <span className="material-symbols-outlined text-sm">
-                  chevron_right
-                </span>
+                <Icon name="chevron_right" className="text-sm" />
               </span>
             </div>
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-surface-tint/20 blur-[60px] rounded-full" />

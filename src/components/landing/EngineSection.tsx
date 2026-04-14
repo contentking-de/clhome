@@ -1,3 +1,5 @@
+import Icon from "../ui/Icon";
+
 const modules = [
   {
     icon: "neurology",
@@ -45,9 +47,7 @@ export default function EngineSection() {
             </p>
           </div>
           <div className="flex items-center gap-3 text-secondary shrink-0">
-            <span className="material-symbols-outlined text-surface-tint">
-              verified
-            </span>
+            <Icon name="verified" className="text-surface-tint" />
             <span className="font-bold text-on-background">−90%</span>{" "}
             Routineaufwand
           </div>
@@ -64,13 +64,12 @@ export default function EngineSection() {
               }`}
             >
               <div className="relative z-10">
-                <span
-                  className={`material-symbols-outlined text-4xl mb-6 block ${
+                <Icon
+                  name={mod.icon}
+                  className={`text-4xl mb-6 block ${
                     i === 0 ? "text-tertiary-fixed-dim" : "text-surface-tint"
                   }`}
-                >
-                  {mod.icon}
-                </span>
+                />
                 <h3
                   className={`font-headline text-2xl font-bold mb-4 ${
                     i === 0 ? "text-white" : ""

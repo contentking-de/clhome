@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Icon from "../ui/Icon";
 
 interface BlogCTAProps {
   variant?: "inline" | "end";
@@ -22,7 +23,7 @@ export default function BlogCTA({ variant = "inline" }: BlogCTAProps) {
           className="inline-flex items-center gap-2 bg-white text-on-background px-8 py-4 rounded-xl font-bold hover:bg-surface-container-highest transition-all"
         >
           Strategie-Gespräch vereinbaren
-          <span className="material-symbols-outlined">arrow_forward</span>
+          <Icon name="arrow_forward" />
         </Link>
         <p className="text-white/50 text-sm mt-4">
           Exklusiv: Nur ein Partner pro Rechtsgebiet und Region.
@@ -46,9 +47,7 @@ export default function BlogCTA({ variant = "inline" }: BlogCTAProps) {
         className="inline-flex items-center gap-2 bg-surface-tint text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition-all text-sm"
       >
         Jetzt Kontakt aufnehmen
-        <span className="material-symbols-outlined text-lg">
-          arrow_forward
-        </span>
+        <Icon name="arrow_forward" className="text-lg" />
       </Link>
     </div>
   );

@@ -1,3 +1,5 @@
+import Icon from "../ui/Icon";
+
 const satellites = [
   {
     domain: "meta-datenschutzklage.de",
@@ -72,18 +74,14 @@ export default function SatellitesSection() {
               className="group relative bg-surface p-8 rounded-xl border border-outline-variant/10 hover:border-surface-tint/30 transition-all duration-500 overflow-hidden"
             >
               <div className="relative z-10">
-                <span className="material-symbols-outlined text-3xl text-surface-tint mb-4 block">
-                  {sat.icon}
-                </span>
+                <Icon name={sat.icon} className="text-3xl text-surface-tint mb-4 block" />
                 <p className="text-secondary text-xs font-label uppercase tracking-widest mb-2">
                   {sat.label}
                 </p>
                 <p className="font-headline text-lg font-bold">{sat.domain}</p>
               </div>
               <div className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
-                <span className="material-symbols-outlined text-[10rem]">
-                  language
-                </span>
+                <Icon name="language" className="text-[10rem]" />
               </div>
             </a>
           ))}
@@ -111,9 +109,7 @@ export default function SatellitesSection() {
                     <span className="flex items-center justify-center w-8 h-8 rounded-full bg-tertiary-fixed-dim/20 text-tertiary-fixed-dim font-headline font-bold text-sm">
                       {i + 1}
                     </span>
-                    <span className="material-symbols-outlined text-2xl text-tertiary-fixed-dim">
-                      {step.icon}
-                    </span>
+                    <Icon name={step.icon} className="text-2xl text-tertiary-fixed-dim" />
                     {i < flowSteps.length - 1 && (
                       <span className="hidden md:block flex-1 h-px bg-white/10 ml-2" />
                     )}

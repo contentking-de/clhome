@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import Icon from "../ui/Icon";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -30,9 +31,7 @@ export default function Navbar() {
               href="/#schwerpunkte"
             >
               Schwerpunkte
-              <span className="material-symbols-outlined text-base transition-transform duration-200 group-hover:rotate-180">
-                expand_more
-              </span>
+              <Icon name="expand_more" className="text-base transition-transform duration-200 group-hover:rotate-180" />
             </a>
             <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
               <div className="bg-surface/95 backdrop-blur-md border border-outline-variant/15 rounded-xl shadow-lg shadow-on-background/5 py-2 px-1 min-w-[220px]">
@@ -40,7 +39,7 @@ export default function Navbar() {
                   className="flex items-center gap-2 px-4 py-2.5 text-sm text-secondary hover:text-surface-tint hover:bg-surface-container-low rounded-lg transition-colors"
                   href="/#satelliten"
                 >
-                  <span className="material-symbols-outlined text-lg">satellite_alt</span>
+                  <Icon name="satellite_alt" className="text-lg" />
                   Lead-Satelliten
                 </a>
               </div>
@@ -75,7 +74,7 @@ export default function Navbar() {
             href="/kontakt"
             className="inline-flex items-center gap-2 bg-on-background text-white px-6 py-2.5 rounded-xl font-semibold active:opacity-80 transition-all hover:brightness-150"
           >
-            <span className="material-symbols-outlined text-lg">chat</span>
+            <Icon name="chat" className="text-lg" />
             Kostenloses Erstgespräch
           </Link>
         </div>
@@ -110,11 +109,10 @@ export default function Navbar() {
             <a href="/#schwerpunkte" onClick={() => setOpen(false)}>
               Schwerpunkte
             </a>
-            <span
-              className={`material-symbols-outlined text-base text-secondary transition-transform duration-200 ${schwerpunkteOpen ? "rotate-180" : ""}`}
-            >
-              expand_more
-            </span>
+            <Icon
+              name="expand_more"
+              className={`text-base text-secondary transition-transform duration-200 ${schwerpunkteOpen ? "rotate-180" : ""}`}
+            />
           </button>
           <div
             className={`overflow-hidden transition-all duration-200 ${schwerpunkteOpen ? "max-h-20" : "max-h-0"}`}
@@ -124,7 +122,7 @@ export default function Navbar() {
               href="/#satelliten"
               onClick={() => setOpen(false)}
             >
-              <span className="material-symbols-outlined text-lg">satellite_alt</span>
+              <Icon name="satellite_alt" className="text-lg" />
               Lead-Satelliten
             </a>
           </div>

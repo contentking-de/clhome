@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import Icon from "@/components/ui/Icon";
 
 export const dynamic = "force-dynamic";
 
@@ -22,16 +23,14 @@ export default async function PostsListPage() {
           href="/admin/posts/new"
           className="bg-surface-tint text-white px-5 py-2.5 rounded-lg font-semibold hover:brightness-110 transition-all inline-flex items-center gap-2"
         >
-          <span className="material-symbols-outlined text-xl">add</span>
+          <Icon name="add" className="text-xl" />
           Neuer Beitrag
         </Link>
       </div>
 
       {posts.length === 0 ? (
         <div className="text-center py-16 bg-surface-container-low rounded-xl border border-outline-variant/10">
-          <span className="material-symbols-outlined text-5xl text-outline mb-4 block">
-            article
-          </span>
+          <Icon name="article" className="text-5xl text-outline mb-4 block" />
           <p className="text-secondary mb-4">Noch keine Beiträge vorhanden.</p>
           <Link
             href="/admin/posts/new"
@@ -78,18 +77,14 @@ export default async function PostsListPage() {
                   className="p-2 rounded-lg text-secondary hover:text-on-background hover:bg-surface-container-highest transition-colors"
                   title="Vorschau"
                 >
-                  <span className="material-symbols-outlined text-xl">
-                    visibility
-                  </span>
+                  <Icon name="visibility" className="text-xl" />
                 </Link>
                 <Link
                   href={`/admin/posts/${post.id}/edit`}
                   className="p-2 rounded-lg text-secondary hover:text-on-background hover:bg-surface-container-highest transition-colors"
                   title="Bearbeiten"
                 >
-                  <span className="material-symbols-outlined text-xl">
-                    edit
-                  </span>
+                  <Icon name="edit" className="text-xl" />
                 </Link>
               </div>
             </div>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Icon from "@/components/ui/Icon";
 
 export default function VerifyPage() {
   return (
@@ -10,9 +11,7 @@ export default function VerifyPage() {
           </h1>
         </div>
         <div className="bg-surface-container-low p-8 rounded-xl border border-outline-variant/10">
-          <span className="material-symbols-outlined text-5xl text-surface-tint mb-4 block">
-            mark_email_read
-          </span>
+          <Icon name="mark_email_read" className="text-5xl text-surface-tint mb-4 block" />
           <h2 className="font-headline text-xl font-bold mb-2">
             Prüfen Sie Ihr Postfach
           </h2>

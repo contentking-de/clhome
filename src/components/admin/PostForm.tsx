@@ -11,6 +11,7 @@ import TableHeader from "@tiptap/extension-table-header";
 import { useState, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import AiGenerateDialog from "./AiGenerateDialog";
+import Icon from "../ui/Icon";
 
 interface PostFormProps {
   initialData?: {
@@ -240,9 +241,7 @@ export default function PostForm({ initialData, authors }: PostFormProps) {
       <div className="bg-gradient-to-r from-surface-tint/5 to-surface-tint/10 border border-surface-tint/20 rounded-xl p-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-lg bg-surface-tint/15 flex items-center justify-center">
-            <span className="material-symbols-outlined text-surface-tint text-xl">
-              auto_awesome
-            </span>
+            <Icon name="auto_awesome" className="text-surface-tint text-xl" />
           </div>
           <div>
             <p className="text-sm font-semibold text-on-background">
@@ -258,9 +257,7 @@ export default function PostForm({ initialData, authors }: PostFormProps) {
           onClick={() => setAiDialogOpen(true)}
           className="bg-surface-tint text-white px-4 py-2 rounded-lg text-sm font-semibold hover:brightness-110 transition-all flex items-center gap-2"
         >
-          <span className="material-symbols-outlined text-base">
-            auto_awesome
-          </span>
+          <Icon name="auto_awesome" className="text-base" />
           Mit KI generieren
         </button>
       </div>
@@ -374,16 +371,12 @@ export default function PostForm({ initialData, authors }: PostFormProps) {
           >
             {coverUploading ? (
               <>
-                <span className="material-symbols-outlined text-3xl animate-spin">
-                  progress_activity
-                </span>
+                <Icon name="progress_activity" className="text-3xl animate-spin" />
                 <span className="text-sm">Wird hochgeladen...</span>
               </>
             ) : (
               <>
-                <span className="material-symbols-outlined text-3xl">
-                  cloud_upload
-                </span>
+                <Icon name="cloud_upload" className="text-3xl" />
                 <span className="text-sm">Bild hochladen</span>
                 <span className="text-xs text-secondary/60">
                   JPEG, PNG, WebP oder GIF
@@ -442,9 +435,7 @@ export default function PostForm({ initialData, authors }: PostFormProps) {
                 active={editor.isActive("bulletList")}
                 title="Aufzählung"
               >
-                <span className="material-symbols-outlined text-base">
-                  format_list_bulleted
-                </span>
+                <Icon name="format_list_bulleted" className="text-base" />
               </ToolbarButton>
               <ToolbarButton
                 onClick={() =>
@@ -453,9 +444,7 @@ export default function PostForm({ initialData, authors }: PostFormProps) {
                 active={editor.isActive("orderedList")}
                 title="Nummerierung"
               >
-                <span className="material-symbols-outlined text-base">
-                  format_list_numbered
-                </span>
+                <Icon name="format_list_numbered" className="text-base" />
               </ToolbarButton>
               <ToolbarButton
                 onClick={() =>
@@ -464,18 +453,14 @@ export default function PostForm({ initialData, authors }: PostFormProps) {
                 active={editor.isActive("blockquote")}
                 title="Zitat"
               >
-                <span className="material-symbols-outlined text-base">
-                  format_quote
-                </span>
+                <Icon name="format_quote" className="text-base" />
               </ToolbarButton>
               <span className="w-px h-5 bg-outline-variant/30 mx-1" />
               <ToolbarButton
                 onClick={() => editorImageInputRef.current?.click()}
                 title="Bild hochladen"
               >
-                <span className="material-symbols-outlined text-base">
-                  image
-                </span>
+                <Icon name="image" className="text-base" />
               </ToolbarButton>
               <span className="w-px h-5 bg-outline-variant/30 mx-1" />
               <ToolbarButton
@@ -488,9 +473,7 @@ export default function PostForm({ initialData, authors }: PostFormProps) {
                 }
                 title="Tabelle einfügen"
               >
-                <span className="material-symbols-outlined text-base">
-                  table
-                </span>
+                <Icon name="table" className="text-base" />
               </ToolbarButton>
             </div>
             <input

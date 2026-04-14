@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Icon from "../ui/Icon";
 
 export default function ExclusivitySection() {
   return (
@@ -9,9 +10,7 @@ export default function ExclusivitySection() {
           <div className="absolute -bottom-20 -right-20 w-60 h-60 bg-tertiary-fixed-dim/15 blur-[100px] rounded-full" />
 
           <div className="relative z-10 max-w-3xl mx-auto text-center">
-            <span className="material-symbols-outlined text-5xl text-tertiary-fixed-dim mb-6 block">
-              workspace_premium
-            </span>
+            <Icon name="workspace_premium" className="text-5xl text-tertiary-fixed-dim mb-6 block" />
             <h2 className="font-headline text-[2.5rem] md:text-[3rem] font-extrabold leading-tight text-white mb-6">
               Exklusivität ist unsere Policy.
             </h2>
@@ -28,7 +27,7 @@ export default function ExclusivitySection() {
               className="inline-flex items-center gap-2 bg-surface-tint text-white px-8 py-4 rounded-xl font-bold hover:brightness-110 transition-all"
             >
               Verfügbarkeit prüfen
-              <span className="material-symbols-outlined">lock</span>
+              <Icon name="lock" />
             </Link>
           </div>
         </div>

@@ -2,6 +2,7 @@ import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import Link from "next/link";
 import type { Metadata } from "next";
+import Icon from "@/components/ui/Icon";
 
 export const metadata: Metadata = {
   title: "Unsere Story | clever.legal",
@@ -102,9 +103,7 @@ export default function StoryPage() {
                 <div className="relative">
                   <div className="bg-on-background rounded-2xl p-10 text-white relative overflow-hidden">
                     <div className="absolute -top-10 -right-10 w-40 h-40 bg-surface-tint/20 blur-[60px] rounded-full" />
-                    <span className="material-symbols-outlined text-5xl text-tertiary-fixed-dim mb-6 block relative z-10">
-                      forest
-                    </span>
+                    <Icon name="forest" className="text-5xl text-tertiary-fixed-dim mb-6 block relative z-10" />
                     <p className="text-lg leading-relaxed font-medium relative z-10">
                       &bdquo;Während wir uns hier über die Evolution der Primaten
                       wundern, steckt das deutsche Rechtssystem noch in der
@@ -132,18 +131,14 @@ export default function StoryPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               <div className="bg-surface-container-low p-10 rounded-xl border border-outline-variant/10">
-                <span className="material-symbols-outlined text-4xl text-surface-tint mb-6 block">
-                  schedule
-                </span>
+                <Icon name="schedule" className="text-4xl text-surface-tint mb-6 block" />
                 <p className="text-on-background text-lg font-medium leading-relaxed">
                   Warum dauert &bdquo;Recht bekommen&ldquo; in einer Welt der
                   Echtzeit-Daten immer noch Monate?
                 </p>
               </div>
               <div className="bg-surface-container-low p-10 rounded-xl border border-outline-variant/10">
-                <span className="material-symbols-outlined text-4xl text-surface-tint mb-6 block">
-                  psychology
-                </span>
+                <Icon name="psychology" className="text-4xl text-surface-tint mb-6 block" />
                 <p className="text-on-background text-lg font-medium leading-relaxed">
                   Warum wälzen hochbezahlte Juristen stapelweise Akten, während
                   KI bereits komplexe Muster in Sekunden erkennen kann?
@@ -175,9 +170,7 @@ export default function StoryPage() {
               <div className="relative bg-surface p-10 rounded-xl border border-outline-variant/10 overflow-hidden">
                 <div className="absolute -top-10 -right-10 w-32 h-32 bg-surface-tint/10 blur-[60px] rounded-full" />
                 <div className="relative z-10">
-                  <span className="material-symbols-outlined text-4xl text-surface-tint mb-6 block">
-                    diversity_1
-                  </span>
+                  <Icon name="diversity_1" className="text-4xl text-surface-tint mb-6 block" />
                   <h3 className="font-headline text-2xl font-bold mb-2">
                     Die Nachbarn
                   </h3>
@@ -217,9 +210,7 @@ export default function StoryPage() {
               <div className="relative bg-surface p-10 rounded-xl border border-outline-variant/10 overflow-hidden">
                 <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-tertiary-fixed-dim/10 blur-[60px] rounded-full" />
                 <div className="relative z-10">
-                  <span className="material-symbols-outlined text-4xl text-surface-tint mb-6 block">
-                    handshake
-                  </span>
+                  <Icon name="handshake" className="text-4xl text-surface-tint mb-6 block" />
                   <h3 className="font-headline text-2xl font-bold mb-2">
                     Die Tech-Partner
                   </h3>
@@ -264,9 +255,7 @@ export default function StoryPage() {
               <div className="absolute -top-20 -left-20 w-60 h-60 bg-surface-tint/15 blur-[100px] rounded-full" />
               <div className="absolute -bottom-20 -right-20 w-60 h-60 bg-tertiary-fixed-dim/15 blur-[100px] rounded-full" />
               <div className="relative z-10 max-w-3xl mx-auto text-center">
-                <span className="material-symbols-outlined text-5xl text-tertiary-fixed-dim mb-8 block">
-                  cloud_upload
-                </span>
+                <Icon name="cloud_upload" className="text-5xl text-tertiary-fixed-dim mb-8 block" />
                 <blockquote className="font-headline text-2xl md:text-3xl font-extrabold text-white leading-snug mb-6">
                   Vom Affenberg direkt in die Cloud.
                 </blockquote>
@@ -315,9 +304,7 @@ export default function StoryPage() {
                           className="w-full h-full object-cover grayscale"
                         />
                       </div>
-                      <span className="material-symbols-outlined text-2xl text-surface-tint mb-2 block">
-                        {f.icon}
-                      </span>
+                      <Icon name={f.icon} className="text-2xl text-surface-tint mb-2 block" />
                       <h4 className="font-headline text-sm font-bold">
                         {f.name}
                       </h4>
@@ -487,7 +474,7 @@ export default function StoryPage() {
               className="inline-flex items-center gap-2 bg-on-primary-container text-on-primary px-8 py-4 rounded-xl font-bold hover:brightness-110 transition-all"
             >
               Strategie-Gespräch anfordern
-              <span className="material-symbols-outlined">arrow_forward</span>
+              <Icon name="arrow_forward" />
             </Link>
           </div>
         </section>

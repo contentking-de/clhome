@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import Icon from "../ui/Icon";
 
 interface AiGenerateDialogProps {
   open: boolean;
@@ -247,9 +248,7 @@ export default function AiGenerateDialog({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-surface-tint/10 flex items-center justify-center">
-                <span className="material-symbols-outlined text-surface-tint">
-                  auto_awesome
-                </span>
+                <Icon name="auto_awesome" className="text-surface-tint" />
               </div>
               <div>
                 <h2 className="font-headline text-lg font-bold text-on-background">
@@ -266,7 +265,7 @@ export default function AiGenerateDialog({
               disabled={isLoading}
               className="p-2 rounded-lg text-secondary hover:text-on-background hover:bg-surface-container-highest transition-colors disabled:opacity-30"
             >
-              <span className="material-symbols-outlined">close</span>
+              <Icon name="close" />
             </button>
           </div>
         </div>
@@ -312,9 +311,7 @@ export default function AiGenerateDialog({
                   onClick={() => setShowInstructions(!showInstructions)}
                   className="text-sm text-secondary hover:text-on-background flex items-center gap-1 transition-colors"
                 >
-                  <span className="material-symbols-outlined text-base">
-                    {showInstructions ? "expand_less" : "expand_more"}
-                  </span>
+                  <Icon name={showInstructions ? "expand_less" : "expand_more"} className="text-base" />
                   Zusätzliche Anweisungen
                 </button>
                 {showInstructions && (
@@ -330,9 +327,7 @@ export default function AiGenerateDialog({
 
               {phase === "error" && (
                 <div className="bg-error-container text-on-error-container px-4 py-3 rounded-lg text-sm flex items-start gap-2">
-                  <span className="material-symbols-outlined text-base mt-0.5">
-                    error
-                  </span>
+                  <Icon name="error" className="text-base mt-0.5" />
                   <span>{errorMessage}</span>
                 </div>
               )}
@@ -344,9 +339,7 @@ export default function AiGenerateDialog({
                   disabled={!topic.trim()}
                   className="flex-1 bg-surface-tint text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  <span className="material-symbols-outlined text-xl">
-                    auto_awesome
-                  </span>
+                  <Icon name="auto_awesome" className="text-xl" />
                   Artikel + Bild generieren
                 </button>
                 <button
@@ -362,15 +355,11 @@ export default function AiGenerateDialog({
             <div className="py-12 flex flex-col items-center gap-6">
               <div className="relative">
                 <div className="w-20 h-20 rounded-2xl bg-surface-tint/10 flex items-center justify-center">
-                  <span className="material-symbols-outlined text-4xl text-surface-tint animate-pulse">
-                    {phaseConfig[phase as keyof typeof phaseConfig]?.icon ||
-                      "hourglass_top"}
-                  </span>
+                  <Icon name={phaseConfig[phase as keyof typeof phaseConfig]?.icon ||
+                      "hourglass_top"} className="text-4xl text-surface-tint animate-pulse" />
                 </div>
                 <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-surface-tint flex items-center justify-center">
-                  <span className="material-symbols-outlined text-white text-sm animate-spin">
-                    progress_activity
-                  </span>
+                  <Icon name="progress_activity" className="text-white text-sm animate-spin" />
                 </div>
               </div>
 
@@ -444,9 +433,7 @@ export default function AiGenerateDialog({
                 />
               )}
               <div className="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center">
-                <span className="material-symbols-outlined text-3xl text-green-600">
-                  check_circle
-                </span>
+                <Icon name="check_circle" className="text-3xl text-green-600" />
               </div>
               <div className="text-center">
                 <p className="font-headline font-bold text-on-background">

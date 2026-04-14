@@ -4,6 +4,7 @@ import {
   getReportMeta,
   getAllReportMeta,
 } from "@/lib/skynet";
+import Icon from "@/components/ui/Icon";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
@@ -59,19 +60,16 @@ export default async function LegalAlertDetailPage({ params }: Props) {
               href="/legal-alerts"
               className="inline-flex items-center gap-1 text-surface-tint font-medium text-sm mb-8 hover:gap-2 transition-all"
             >
-              <span className="material-symbols-outlined text-lg">
-                arrow_back
-              </span>
+              <Icon name="arrow_back" className="text-lg" />
               Zurück zu Legal Alerts
             </Link>
 
             <header className="mb-12">
               <div className="flex items-center gap-4 mb-6">
-                <span
-                  className={`material-symbols-outlined text-5xl ${meta.accent}`}
-                >
-                  {meta.icon}
-                </span>
+                <Icon
+                  name={meta.icon}
+                  className={`text-5xl ${meta.accent}`}
+                />
                 <div>
                   <h1 className="font-headline text-3xl md:text-4xl font-extrabold tracking-tight">
                     {meta.title}
@@ -81,9 +79,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
               </div>
               <div className="flex flex-wrap gap-4 text-sm text-secondary">
                 <div className="inline-flex items-center gap-1.5 bg-surface-container rounded-full px-3 py-1">
-                  <span className="material-symbols-outlined text-base text-surface-tint">
-                    calendar_today
-                  </span>
+                  <Icon name="calendar_today" className="text-base text-surface-tint" />
                   {generatedDate.toLocaleDateString("de-DE", {
                     day: "2-digit",
                     month: "long",
@@ -91,15 +87,11 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                   })}
                 </div>
                 <div className="inline-flex items-center gap-1.5 bg-surface-container rounded-full px-3 py-1">
-                  <span className="material-symbols-outlined text-base text-surface-tint">
-                    schedule
-                  </span>
+                  <Icon name="schedule" className="text-base text-surface-tint" />
                   {edition.period}
                 </div>
                 <div className="inline-flex items-center gap-1.5 bg-surface-container rounded-full px-3 py-1">
-                  <span className="material-symbols-outlined text-base text-surface-tint">
-                    query_stats
-                  </span>
+                  <Icon name="query_stats" className="text-base text-surface-tint" />
                   {edition.stats.articleCount} Quellen
                 </div>
               </div>
@@ -123,11 +115,10 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                           href={`/legal-alerts/${m.slug}`}
                           className="flex items-start gap-3 p-4 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors border border-outline-variant/10"
                         >
-                          <span
-                            className={`material-symbols-outlined text-2xl ${m.accent} shrink-0`}
-                          >
-                            {m.icon}
-                          </span>
+                          <Icon
+                            name={m.icon}
+                            className={`text-2xl ${m.accent} shrink-0`}
+                          />
                           <div>
                             <div className="font-semibold text-sm">
                               {m.title}
@@ -146,9 +137,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                   href="/legal-alerts/archiv"
                   className="flex items-center gap-3 p-4 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors border border-outline-variant/10"
                 >
-                  <span className="material-symbols-outlined text-2xl text-secondary shrink-0">
-                    inventory_2
-                  </span>
+                  <Icon name="inventory_2" className="text-2xl text-secondary shrink-0" />
                   <div>
                     <div className="font-semibold text-sm">Archiv</div>
                     <div className="text-secondary text-xs mt-0.5">
@@ -160,9 +149,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                 <div className="bg-on-background text-white rounded-2xl p-6 relative overflow-hidden">
                   <div className="absolute -top-10 -right-10 w-32 h-32 bg-surface-tint/20 blur-[50px] rounded-full" />
                   <div className="relative z-10">
-                    <span className="material-symbols-outlined text-3xl text-tertiary-fixed-dim mb-3 block">
-                      notifications_active
-                    </span>
+                    <Icon name="notifications_active" className="text-3xl text-tertiary-fixed-dim mb-3 block" />
                     <h3 className="font-headline font-bold text-lg mb-2">
                       Jeden {edition.runDay} neu
                     </h3>
@@ -175,9 +162,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                       className="inline-flex items-center gap-1.5 bg-surface-tint text-white px-4 py-2 rounded-lg text-sm font-semibold hover:brightness-110 transition-all"
                     >
                       Zugang sichern
-                      <span className="material-symbols-outlined text-base">
-                        arrow_forward
-                      </span>
+                      <Icon name="arrow_forward" className="text-base" />
                     </Link>
                   </div>
                 </div>
@@ -209,9 +194,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                 </div>
 
                 <div className="rounded-2xl p-6 border border-surface-tint/20 bg-surface-tint/5">
-                  <span className="material-symbols-outlined text-3xl text-surface-tint mb-3 block">
-                    rocket_launch
-                  </span>
+                  <Icon name="rocket_launch" className="text-3xl text-surface-tint mb-3 block" />
                   <h3 className="font-headline font-bold text-lg mb-2">
                     Mandanten-Satellit bestellen
                   </h3>
@@ -225,9 +208,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                     className="inline-flex items-center gap-1.5 bg-surface-tint text-white px-4 py-2.5 rounded-lg text-sm font-bold hover:brightness-110 transition-all w-full justify-center"
                   >
                     Jetzt Satellit anfragen
-                    <span className="material-symbols-outlined text-base">
-                      arrow_forward
-                    </span>
+                    <Icon name="arrow_forward" className="text-base" />
                   </Link>
                 </div>
               </aside>

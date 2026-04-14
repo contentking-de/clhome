@@ -1,3 +1,5 @@
+import Icon from "../ui/Icon";
+
 export default function FocusAreasSection() {
   return (
     <section id="schwerpunkte" className="py-32 px-8">
@@ -26,9 +28,7 @@ export default function FocusAreasSection() {
             <div className="relative z-10">
               <div className="flex items-center gap-4 mb-8">
                 <span className="flex items-center justify-center w-12 h-12 rounded-xl bg-surface-tint/15">
-                  <span className="material-symbols-outlined text-3xl text-tertiary-fixed-dim">
-                    psychology
-                  </span>
+                  <Icon name="psychology" className="text-3xl text-tertiary-fixed-dim" />
                 </span>
                 <span className="text-tertiary-fixed-dim font-label font-bold text-xs uppercase tracking-widest">
                   Schwerpunkt 01
@@ -44,9 +44,7 @@ export default function FocusAreasSection() {
               </p>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-tertiary-fixed-dim text-xl mt-0.5 shrink-0">
-                    check_circle
-                  </span>
+                  <Icon name="check_circle" className="text-tertiary-fixed-dim text-xl mt-0.5 shrink-0" />
                   <p className="text-secondary-fixed-dim text-sm leading-relaxed">
                     <span className="font-bold text-white">
                       Prozess-Audit:
@@ -56,9 +54,7 @@ export default function FocusAreasSection() {
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-tertiary-fixed-dim text-xl mt-0.5 shrink-0">
-                    check_circle
-                  </span>
+                  <Icon name="check_circle" className="text-tertiary-fixed-dim text-xl mt-0.5 shrink-0" />
                   <p className="text-secondary-fixed-dim text-sm leading-relaxed">
                     <span className="font-bold text-white">
                       Workflow-Automatisierung:
@@ -68,9 +64,7 @@ export default function FocusAreasSection() {
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-tertiary-fixed-dim text-xl mt-0.5 shrink-0">
-                    check_circle
-                  </span>
+                  <Icon name="check_circle" className="text-tertiary-fixed-dim text-xl mt-0.5 shrink-0" />
                   <p className="text-secondary-fixed-dim text-sm leading-relaxed">
                     <span className="font-bold text-white">
                       Skalierung:
@@ -88,9 +82,7 @@ export default function FocusAreasSection() {
             <div className="relative z-10">
               <div className="flex items-center gap-4 mb-8">
                 <span className="flex items-center justify-center w-12 h-12 rounded-xl bg-surface-tint/10">
-                  <span className="material-symbols-outlined text-3xl text-surface-tint">
-                    conversion_path
-                  </span>
+                  <Icon name="conversion_path" className="text-3xl text-surface-tint" />
                 </span>
                 <span className="text-surface-tint font-label font-bold text-xs uppercase tracking-widest">
                   Schwerpunkt 02
@@ -106,9 +98,7 @@ export default function FocusAreasSection() {
               </p>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-surface-tint text-xl mt-0.5 shrink-0">
-                    check_circle
-                  </span>
+                  <Icon name="check_circle" className="text-surface-tint text-xl mt-0.5 shrink-0" />
                   <p className="text-secondary text-sm leading-relaxed">
                     <span className="font-bold text-on-surface">
                       Digitale Angebote:
@@ -118,9 +108,7 @@ export default function FocusAreasSection() {
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-surface-tint text-xl mt-0.5 shrink-0">
-                    check_circle
-                  </span>
+                  <Icon name="check_circle" className="text-surface-tint text-xl mt-0.5 shrink-0" />
                   <p className="text-secondary text-sm leading-relaxed">
                     <span className="font-bold text-on-surface">
                       Lead-Generierung:
@@ -130,9 +118,7 @@ export default function FocusAreasSection() {
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-surface-tint text-xl mt-0.5 shrink-0">
-                    check_circle
-                  </span>
+                  <Icon name="check_circle" className="text-surface-tint text-xl mt-0.5 shrink-0" />
                   <p className="text-secondary text-sm leading-relaxed">
                     <span className="font-bold text-on-surface">
                       Digitale Vollmacht:
@@ -144,9 +130,7 @@ export default function FocusAreasSection() {
               </div>
             </div>
             <div className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
-              <span className="material-symbols-outlined text-[12rem]">
-                trending_up
-              </span>
+              <Icon name="trending_up" className="text-[12rem]" />
             </div>
           </div>
         </div>

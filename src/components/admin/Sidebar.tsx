@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import Icon from "../ui/Icon";
 
 const links = [
   { id: "dashboard", label: "Dashboard", href: "/admin", icon: "dashboard" },
@@ -52,9 +53,7 @@ export default function Sidebar() {
                 : "text-secondary hover:bg-surface-container-highest/50 hover:text-on-background"
             }`}
           >
-            <span className="material-symbols-outlined text-xl">
-              {link.icon}
-            </span>
+            <Icon name={link.icon} className="text-xl" />
             {link.label}
           </Link>
         ))}
@@ -64,7 +63,7 @@ export default function Sidebar() {
           href="/api/auth/signout"
           className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-secondary hover:text-error transition-colors"
         >
-          <span className="material-symbols-outlined text-xl">logout</span>
+          <Icon name="logout" className="text-xl" />
           Abmelden
         </Link>
       </div>

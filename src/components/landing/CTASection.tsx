@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Icon from "../ui/Icon";
 
 export default function CTASection() {
   return (
@@ -47,7 +48,7 @@ export default function CTASection() {
             className="inline-flex items-center gap-2 bg-on-primary-container text-on-primary px-8 py-4 rounded-xl font-bold hover:brightness-110 transition-all"
           >
             Strategie-Gespräch anfordern
-            <span className="material-symbols-outlined">arrow_forward</span>
+            <Icon name="arrow_forward" />
           </Link>
           <p className="text-secondary text-sm mt-3">
             Nur ein Partner pro Rechtsgebiet und Region.

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
+import Icon from "../ui/Icon";
 
 interface User {
   id: string;
@@ -170,9 +171,7 @@ export default function UserManagement({
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <span className="material-symbols-outlined text-4xl text-secondary animate-spin">
-          progress_activity
-        </span>
+        <Icon name="progress_activity" className="text-4xl text-secondary animate-spin" />
       </div>
     );
   }
@@ -193,9 +192,7 @@ export default function UserManagement({
             onClick={() => setShowInvite(true)}
             className="bg-surface-tint text-white px-5 py-2.5 rounded-lg font-semibold hover:brightness-110 transition-all inline-flex items-center gap-2"
           >
-            <span className="material-symbols-outlined text-xl">
-              person_add
-            </span>
+            <Icon name="person_add" className="text-xl" />
             Nutzer einladen
           </button>
         )}
@@ -203,9 +200,7 @@ export default function UserManagement({
 
       {successMessage && (
         <div className="mb-6 bg-surface-tint/10 text-surface-tint px-4 py-3 rounded-lg text-sm font-medium flex items-center gap-2">
-          <span className="material-symbols-outlined text-lg">
-            check_circle
-          </span>
+          <Icon name="check_circle" className="text-lg" />
           {successMessage}
         </div>
       )}
@@ -300,9 +295,7 @@ export default function UserManagement({
 
       {users.length === 0 ? (
         <div className="text-center py-16 bg-surface-container-low rounded-xl border border-outline-variant/10">
-          <span className="material-symbols-outlined text-5xl text-outline mb-4 block">
-            group
-          </span>
+          <Icon name="group" className="text-5xl text-outline mb-4 block" />
           <p className="text-secondary mb-4">Noch keine Nutzer vorhanden.</p>
         </div>
       ) : (
@@ -325,9 +318,7 @@ export default function UserManagement({
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <span className="material-symbols-outlined text-surface-tint text-xl">
-                          person
-                        </span>
+                        <Icon name="person" className="text-surface-tint text-xl" />
                       )}
                     </div>
                     <div className="min-w-0">
@@ -372,9 +363,7 @@ export default function UserManagement({
                       }`}
                       title="Autorenprofil bearbeiten"
                     >
-                      <span className="material-symbols-outlined text-xl">
-                        edit
-                      </span>
+                      <Icon name="edit" className="text-xl" />
                     </button>
                     {!isCurrentUser && (
                       <>
@@ -396,9 +385,7 @@ export default function UserManagement({
                           className="p-2 rounded-lg text-secondary hover:text-error hover:bg-error-container/30 transition-colors"
                           title="Nutzer löschen"
                         >
-                          <span className="material-symbols-outlined text-xl">
-                            delete
-                          </span>
+                          <Icon name="delete" className="text-xl" />
                         </button>
                       </>
                     )}
@@ -463,9 +450,7 @@ function ProfileEditor({
   return (
     <div className="border-t border-outline-variant/10 p-5">
       <h3 className="font-headline font-bold text-sm mb-4 flex items-center gap-2">
-        <span className="material-symbols-outlined text-lg text-surface-tint">
-          badge
-        </span>
+        <Icon name="badge" className="text-lg text-surface-tint" />
         Autorenprofil
       </h3>
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -492,19 +477,13 @@ function ProfileEditor({
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="material-symbols-outlined text-white text-xl">
-                      photo_camera
-                    </span>
+                    <Icon name="photo_camera" className="text-white text-xl" />
                   </div>
                 </>
               ) : uploading ? (
-                <span className="material-symbols-outlined text-secondary animate-spin">
-                  progress_activity
-                </span>
+                <Icon name="progress_activity" className="text-secondary animate-spin" />
               ) : (
-                <span className="material-symbols-outlined text-secondary text-2xl group-hover:text-surface-tint transition-colors">
-                  add_a_photo
-                </span>
+                <Icon name="add_a_photo" className="text-secondary text-2xl group-hover:text-surface-tint transition-colors" />
               )}
             </button>
             {avatar && (

@@ -2,6 +2,7 @@ import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import Link from "next/link";
 import type { Metadata } from "next";
+import Icon from "@/components/ui/Icon";
 
 export const metadata: Metadata = {
   title: "Für Anwälte | clever.legal",
@@ -88,9 +89,7 @@ export default function FuerAnwaeltePage() {
                 className="inline-flex items-center gap-2 bg-on-primary-container text-on-primary px-8 py-4 rounded-xl font-bold hover:brightness-110 transition-all"
               >
                 Strategie-Gespräch anfordern
-                <span className="material-symbols-outlined">
-                  arrow_forward
-                </span>
+                <Icon name="arrow_forward" />
               </Link>
             </div>
           </div>
@@ -113,9 +112,7 @@ export default function FuerAnwaeltePage() {
                   key={b.title}
                   className="bg-surface p-10 rounded-xl border border-outline-variant/10"
                 >
-                  <span className="material-symbols-outlined text-4xl text-surface-tint mb-6 block">
-                    {b.icon}
-                  </span>
+                  <Icon name={b.icon} className="text-4xl text-surface-tint mb-6 block" />
                   <h3 className="font-headline text-xl font-bold mb-3">
                     {b.title}
                   </h3>
@@ -154,15 +151,14 @@ export default function FuerAnwaeltePage() {
                       : "bg-surface-container-low"
                   }`}
                 >
-                  <span
-                    className={`material-symbols-outlined text-4xl mb-6 block ${
+                  <Icon
+                    name={mod.icon}
+                    className={`text-4xl mb-6 block ${
                       i === 0
                         ? "text-tertiary-fixed-dim"
                         : "text-surface-tint"
                     }`}
-                  >
-                    {mod.icon}
-                  </span>
+                  />
                   <h3
                     className={`font-headline text-2xl font-bold mb-4 ${
                       i === 0 ? "text-white" : ""
@@ -195,9 +191,7 @@ export default function FuerAnwaeltePage() {
               <div className="absolute -top-20 -left-20 w-60 h-60 bg-surface-tint/15 blur-[100px] rounded-full" />
               <div className="absolute -bottom-20 -right-20 w-60 h-60 bg-tertiary-fixed-dim/15 blur-[100px] rounded-full" />
               <div className="relative z-10 max-w-2xl mx-auto">
-                <span className="material-symbols-outlined text-5xl text-tertiary-fixed-dim mb-6 block">
-                  workspace_premium
-                </span>
+                <Icon name="workspace_premium" className="text-5xl text-tertiary-fixed-dim mb-6 block" />
                 <h2 className="font-headline text-3xl md:text-4xl font-extrabold text-white mb-6">
                   Nur ein Partner pro Rechtsgebiet.
                 </h2>
@@ -211,7 +205,7 @@ export default function FuerAnwaeltePage() {
                   className="inline-flex items-center gap-2 bg-surface-tint text-white px-8 py-4 rounded-xl font-bold hover:brightness-110 transition-all"
                 >
                   Verfügbarkeit prüfen
-                  <span className="material-symbols-outlined">lock</span>
+                  <Icon name="lock" />
                 </Link>
               </div>
             </div>

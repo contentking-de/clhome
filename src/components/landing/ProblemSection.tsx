@@ -1,3 +1,5 @@
+import Icon from "../ui/Icon";
+
 const painPoints = [
   {
     icon: "trending_down",
@@ -44,9 +46,7 @@ export default function ProblemSection() {
               key={point.title}
               className="group relative bg-surface-container-low p-8 rounded-xl border border-outline-variant/10 hover:border-surface-tint/20 transition-all duration-500"
             >
-              <span className="material-symbols-outlined text-3xl text-surface-tint mb-5 block">
-                {point.icon}
-              </span>
+              <Icon name={point.icon} className="text-3xl text-surface-tint mb-5 block" />
               <h3 className="font-headline text-xl font-bold mb-3">
                 {point.title}
               </h3>

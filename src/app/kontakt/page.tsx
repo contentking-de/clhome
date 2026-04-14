@@ -1,6 +1,7 @@
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import type { Metadata } from "next";
+import Icon from "@/components/ui/Icon";
 
 export const metadata: Metadata = {
   title: "Kontakt | clever.legal",
@@ -96,9 +97,7 @@ export default function KontaktPage() {
                   </h2>
                   <div className="space-y-4">
                     <div className="flex items-start gap-4">
-                      <span className="material-symbols-outlined text-surface-tint text-xl mt-0.5">
-                        business
-                      </span>
+                      <Icon name="business" className="text-surface-tint text-xl mt-0.5" />
                       <div>
                         <p className="font-medium text-on-background">
                           clever.legal GmbH i. Gr.
@@ -111,9 +110,7 @@ export default function KontaktPage() {
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
-                      <span className="material-symbols-outlined text-surface-tint text-xl mt-0.5">
-                        mail
-                      </span>
+                      <Icon name="mail" className="text-surface-tint text-xl mt-0.5" />
                       <div>
                         <a
                           href="mailto:info@clever.legal"
@@ -124,9 +121,7 @@ export default function KontaktPage() {
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
-                      <span className="material-symbols-outlined text-surface-tint text-xl mt-0.5">
-                        person
-                      </span>
+                      <Icon name="person" className="text-surface-tint text-xl mt-0.5" />
                       <div>
                         <p className="text-secondary text-sm">
                           Geschäftsführer

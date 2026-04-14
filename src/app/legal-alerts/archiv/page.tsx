@@ -3,6 +3,7 @@ import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import Link from "next/link";
 import type { Metadata } from "next";
+import Icon from "@/components/ui/Icon";
 
 export const dynamic = "force-dynamic";
 
@@ -24,9 +25,7 @@ export default async function ArchivPage() {
               href="/legal-alerts"
               className="inline-flex items-center gap-1 text-surface-tint font-medium text-sm mb-8 hover:gap-2 transition-all"
             >
-              <span className="material-symbols-outlined text-lg">
-                arrow_back
-              </span>
+              <Icon name="arrow_back" className="text-lg" />
               Zurück zu Legal Alerts
             </Link>
 
@@ -46,9 +45,7 @@ export default async function ArchivPage() {
 
             {editions.length === 0 ? (
               <div className="text-center py-20">
-                <span className="material-symbols-outlined text-5xl text-outline mb-4 block">
-                  inventory_2
-                </span>
+                <Icon name="inventory_2" className="text-5xl text-outline mb-4 block" />
                 <p className="text-secondary">
                   Noch keine archivierten Ausgaben vorhanden.
                 </p>
@@ -63,9 +60,7 @@ export default async function ArchivPage() {
                       className="bg-surface rounded-xl border border-outline-variant/10 p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-4 md:gap-8"
                     >
                       <div className="flex items-center gap-3 md:min-w-[200px]">
-                        <span className="material-symbols-outlined text-2xl text-secondary">
-                          calendar_today
-                        </span>
+                        <Icon name="calendar_today" className="text-2xl text-secondary" />
                         <div>
                           <div className="font-headline font-bold">
                             {date.toLocaleDateString("de-DE", {
@@ -95,9 +90,7 @@ export default async function ArchivPage() {
                               href={`/legal-alerts/archiv/${edition.id}/${meta.slug}`}
                               className="inline-flex items-center gap-1.5 text-sm font-semibold text-surface-tint bg-surface-tint/5 px-4 py-2 rounded-lg hover:bg-surface-tint/10 transition-colors"
                             >
-                              <span className="material-symbols-outlined text-base">
-                                {meta.icon}
-                              </span>
+                              <Icon name={meta.icon} className="text-base" />
                               {meta.title}
                             </Link>
                           );

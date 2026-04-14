@@ -1,3 +1,5 @@
+import Icon from "../ui/Icon";
+
 export default function Hero() {
   return (
     <section className="relative min-h-[620px] flex items-center px-8 overflow-hidden">
@@ -25,7 +27,7 @@ export default function Hero() {
               className="bg-on-primary-container text-on-primary px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:brightness-110 transition-all"
             >
               Zeitvorteil & Gewinn berechnen
-              <span className="material-symbols-outlined">calculate</span>
+              <Icon name="calculate" />
             </a>
             <a
               href="#engine"
@@ -48,9 +50,7 @@ export default function Hero() {
             <div className="absolute inset-0 bg-gradient-to-tr from-surface-tint/20 to-transparent" />
           </div>
           <div className="absolute top-12 -left-8 bg-surface-container-highest/90 backdrop-blur-md p-6 rounded-xl shadow-2xl border border-outline-variant/10 max-w-[200px]">
-            <span className="material-symbols-outlined text-surface-tint mb-2 block">
-              bolt
-            </span>
+            <Icon name="bolt" className="text-surface-tint mb-2 block" />
             <div className="text-sm font-bold font-headline mb-1">
               Zeitersparnis
             </div>

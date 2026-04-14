@@ -3,6 +3,7 @@ import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import PostCard from "@/components/blog/PostCard";
 import type { Metadata } from "next";
+import Icon from "@/components/ui/Icon";
 
 export const dynamic = "force-dynamic";
 
@@ -40,9 +41,7 @@ export default async function BlogPage() {
 
             {posts.length === 0 ? (
               <div className="text-center py-20">
-                <span className="material-symbols-outlined text-5xl text-outline mb-4 block">
-                  article
-                </span>
+                <Icon name="article" className="text-5xl text-outline mb-4 block" />
                 <p className="text-secondary">
                   Noch keine Beiträge vorhanden. Schauen Sie bald wieder vorbei!
                 </p>

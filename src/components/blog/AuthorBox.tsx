@@ -1,3 +1,5 @@
+import Icon from "../ui/Icon";
+
 interface AuthorBoxProps {
   name: string | null;
   email: string;
@@ -26,9 +28,7 @@ export default function AuthorBox({
               className="w-full h-full object-cover"
             />
           ) : (
-            <span className="material-symbols-outlined text-surface-tint text-3xl">
-              person
-            </span>
+            <Icon name="person" className="text-surface-tint text-3xl" />
           )}
         </div>
         <div className="flex-1 min-w-0">

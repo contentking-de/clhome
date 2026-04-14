@@ -2,6 +2,7 @@ import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import Link from "next/link";
 import type { Metadata } from "next";
+import Icon from "@/components/ui/Icon";
 
 export const metadata: Metadata = {
   title: "Für Unternehmen | clever.legal",
@@ -85,9 +86,7 @@ export default function FuerUnternehmenPage() {
                 className="inline-flex items-center gap-2 bg-on-primary-container text-on-primary px-8 py-4 rounded-xl font-bold hover:brightness-110 transition-all"
               >
                 Beratungsgespräch vereinbaren
-                <span className="material-symbols-outlined">
-                  arrow_forward
-                </span>
+                <Icon name="arrow_forward" />
               </Link>
             </div>
           </div>
@@ -110,9 +109,7 @@ export default function FuerUnternehmenPage() {
                   key={b.title}
                   className="bg-surface p-10 rounded-xl border border-outline-variant/10"
                 >
-                  <span className="material-symbols-outlined text-4xl text-surface-tint mb-6 block">
-                    {b.icon}
-                  </span>
+                  <Icon name={b.icon} className="text-4xl text-surface-tint mb-6 block" />
                   <h3 className="font-headline text-xl font-bold mb-3">
                     {b.title}
                   </h3>
@@ -198,7 +195,7 @@ export default function FuerUnternehmenPage() {
               className="inline-flex items-center gap-2 bg-on-primary-container text-on-primary px-8 py-4 rounded-xl font-bold hover:brightness-110 transition-all"
             >
               Beratungsgespräch vereinbaren
-              <span className="material-symbols-outlined">arrow_forward</span>
+              <Icon name="arrow_forward" />
             </Link>
           </div>
         </section>

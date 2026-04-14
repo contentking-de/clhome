@@ -4,6 +4,7 @@ import {
   getAllReportMeta,
   getReportMeta,
 } from "@/lib/skynet";
+import Icon from "@/components/ui/Icon";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import Link from "next/link";
@@ -28,9 +29,7 @@ export default async function LegalAlertsPage() {
         <Navbar />
         <main className="pt-20">
           <section className="py-40 px-8 text-center">
-            <span className="material-symbols-outlined text-5xl text-outline mb-4 block">
-              hourglass_empty
-            </span>
+            <Icon name="hourglass_empty" className="text-5xl text-outline mb-4 block" />
             <p className="text-secondary text-lg">
               Noch keine Alerts vorhanden. Die erste Ausgabe wird in Kürze
               generiert.
@@ -74,9 +73,7 @@ export default async function LegalAlertsPage() {
               </p>
               <div className="flex flex-wrap gap-6 text-sm text-secondary">
                 <div className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-lg text-surface-tint">
-                    calendar_today
-                  </span>
+                  <Icon name="calendar_today" className="text-lg text-surface-tint" />
                   <span>
                     Aktualisiert:{" "}
                     {generatedDate.toLocaleDateString("de-DE", {
@@ -87,15 +84,11 @@ export default async function LegalAlertsPage() {
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-lg text-surface-tint">
-                    schedule
-                  </span>
+                  <Icon name="schedule" className="text-lg text-surface-tint" />
                   <span>Zeitraum: {edition.period}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-lg text-surface-tint">
-                    query_stats
-                  </span>
+                  <Icon name="query_stats" className="text-lg text-surface-tint" />
                   <span>
                     {edition.stats.articleCount} Quellen analysiert
                   </span>
@@ -120,11 +113,10 @@ export default async function LegalAlertsPage() {
                   >
                     <div className="absolute -top-10 -right-10 w-40 h-40 bg-surface-tint/5 blur-[60px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="relative z-10">
-                      <span
-                        className={`material-symbols-outlined text-5xl ${meta.accent} mb-6 block`}
-                      >
-                        {meta.icon}
-                      </span>
+                      <Icon
+                        name={meta.icon}
+                        className={`text-5xl ${meta.accent} mb-6 block`}
+                      />
                       <h2 className="font-headline text-2xl font-bold mb-3 group-hover:text-surface-tint transition-colors">
                         {meta.title}
                       </h2>
@@ -133,9 +125,7 @@ export default async function LegalAlertsPage() {
                       </p>
                       <div className="flex items-center gap-2 text-surface-tint font-semibold text-sm">
                         Report lesen
-                        <span className="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">
-                          arrow_forward
-                        </span>
+                        <Icon name="arrow_forward" className="text-lg group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
                   </Link>
@@ -195,9 +185,7 @@ export default async function LegalAlertsPage() {
                   className="inline-flex items-center gap-1.5 text-surface-tint font-semibold text-sm hover:gap-2.5 transition-all"
                 >
                   Alle anzeigen
-                  <span className="material-symbols-outlined text-lg">
-                    arrow_forward
-                  </span>
+                  <Icon name="arrow_forward" className="text-lg" />
                 </Link>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -209,9 +197,7 @@ export default async function LegalAlertsPage() {
                       className="bg-surface rounded-xl border border-outline-variant/10 p-6"
                     >
                       <div className="flex items-center gap-2 text-sm text-secondary mb-3">
-                        <span className="material-symbols-outlined text-base">
-                          calendar_today
-                        </span>
+                        <Icon name="calendar_today" className="text-base" />
                         {archDate.toLocaleDateString("de-DE", {
                           day: "2-digit",
                           month: "long",
@@ -231,9 +217,7 @@ export default async function LegalAlertsPage() {
                               href={`/legal-alerts/archiv/${arch.id}/${meta.slug}`}
                               className="inline-flex items-center gap-1.5 text-xs font-semibold text-surface-tint bg-surface-tint/5 px-3 py-1.5 rounded-lg hover:bg-surface-tint/10 transition-colors"
                             >
-                              <span className="material-symbols-outlined text-sm">
-                                {meta.icon}
-                              </span>
+                              <Icon name={meta.icon} className="text-sm" />
                               {meta.title}
                             </Link>
                           );
@@ -254,9 +238,7 @@ export default async function LegalAlertsPage() {
               <div className="absolute -top-20 -left-20 w-60 h-60 bg-surface-tint/15 blur-[100px] rounded-full" />
               <div className="absolute -bottom-20 -right-20 w-60 h-60 bg-error/10 blur-[100px] rounded-full" />
               <div className="relative z-10 max-w-2xl mx-auto">
-                <span className="material-symbols-outlined text-5xl text-tertiary-fixed-dim mb-6 block">
-                  notifications_active
-                </span>
+                <Icon name="notifications_active" className="text-5xl text-tertiary-fixed-dim mb-6 block" />
                 <h2 className="font-headline text-3xl md:text-4xl font-extrabold text-white mb-6">
                   Nie wieder kalte Mandate.
                 </h2>
@@ -270,9 +252,7 @@ export default async function LegalAlertsPage() {
                   className="inline-flex items-center gap-2 bg-surface-tint text-white px-8 py-4 rounded-xl font-bold hover:brightness-110 transition-all"
                 >
                   Jetzt Zugang sichern
-                  <span className="material-symbols-outlined">
-                    arrow_forward
-                  </span>
+                  <Icon name="arrow_forward" />
                 </Link>
               </div>
             </div>

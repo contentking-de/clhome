@@ -7,6 +7,7 @@ import AuthorBox from "@/components/blog/AuthorBox";
 import RelatedPostsSidebar from "@/components/blog/RelatedPostsSidebar";
 import Link from "next/link";
 import type { Metadata } from "next";
+import Icon from "@/components/ui/Icon";
 
 export const dynamic = "force-dynamic";
 
@@ -80,9 +81,7 @@ export default async function BlogPostPage({ params }: Props) {
               href="/blog"
               className="inline-flex items-center gap-1 text-surface-tint font-medium text-sm mb-8 hover:gap-2 transition-all"
             >
-              <span className="material-symbols-outlined text-lg">
-                arrow_back
-              </span>
+              <Icon name="arrow_back" className="text-lg" />
               Zurück zum Blog
             </Link>
 
@@ -109,7 +108,7 @@ export default async function BlogPostPage({ params }: Props) {
                       <img src={post.author.avatar} alt={post.author.name || ""} className="w-7 h-7 rounded-full object-cover" />
                     ) : (
                       <span className="w-7 h-7 rounded-full bg-surface-tint/10 flex items-center justify-center">
-                        <span className="material-symbols-outlined text-surface-tint text-sm">person</span>
+                        <Icon name="person" className="text-surface-tint text-sm" />
                       </span>
                     )}
                     <span>{post.author.name || post.author.email}</span>
@@ -139,7 +138,7 @@ export default async function BlogPostPage({ params }: Props) {
                     <img src={post.author.avatar} alt={post.author.name || ""} className="w-7 h-7 rounded-full object-cover" />
                   ) : (
                     <span className="w-7 h-7 rounded-full bg-surface-tint/10 flex items-center justify-center">
-                      <span className="material-symbols-outlined text-surface-tint text-sm">person</span>
+                      <Icon name="person" className="text-surface-tint text-sm" />
                     </span>
                   )}
                   <span>{post.author.name || post.author.email}</span>

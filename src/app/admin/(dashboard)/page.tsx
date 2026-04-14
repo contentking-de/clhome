@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import Icon from "@/components/ui/Icon";
 
 export const dynamic = "force-dynamic";
 
@@ -54,7 +55,7 @@ export default async function AdminDashboard() {
           href="/admin/posts/new"
           className="bg-surface-tint text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition-all inline-flex items-center gap-2"
         >
-          <span className="material-symbols-outlined text-xl">add</span>
+          <Icon name="add" className="text-xl" />
           Neuer Beitrag
         </Link>
         <Link
@@ -67,7 +68,7 @@ export default async function AdminDashboard() {
           href="/admin/users"
           className="px-6 py-3 rounded-lg border border-outline-variant/30 font-semibold hover:bg-surface-container-low transition-all inline-flex items-center gap-2"
         >
-          <span className="material-symbols-outlined text-xl">group</span>
+          <Icon name="group" className="text-xl" />
           Nutzer verwalten
         </Link>
       </div>

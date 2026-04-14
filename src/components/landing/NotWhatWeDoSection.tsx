@@ -1,3 +1,5 @@
+import Icon from "../ui/Icon";
+
 export default function NotWhatWeDoSection() {
   return (
     <section id="abgrenzung" className="py-32 px-8 bg-surface-container-low">
@@ -9,9 +11,7 @@ export default function NotWhatWeDoSection() {
           <div className="relative z-10 max-w-3xl mx-auto text-center">
             <div className="flex items-center justify-center gap-4 mb-8">
               <span className="flex items-center justify-center w-12 h-12 rounded-xl bg-red-400/15">
-                <span className="material-symbols-outlined text-3xl text-red-400">
-                  block
-                </span>
+                <Icon name="block" className="text-3xl text-red-400" />
               </span>
               <span className="text-red-400 font-label font-bold text-xs uppercase tracking-widest">
                 Klare Abgrenzung
@@ -31,9 +31,7 @@ export default function NotWhatWeDoSection() {
 
             <div className="bg-white/5 border border-white/10 rounded-xl p-8 md:p-10">
               <div className="flex items-start gap-5">
-                <span className="material-symbols-outlined text-3xl text-tertiary-fixed-dim mt-1 shrink-0">
-                  rocket_launch
-                </span>
+                <Icon name="rocket_launch" className="text-3xl text-tertiary-fixed-dim mt-1 shrink-0" />
                 <div>
                   <h3 className="font-headline text-xl font-bold text-white mb-3">
                     Mehr Mandate. Gleiches Team. Höhere Qualität.
