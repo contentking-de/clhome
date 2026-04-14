@@ -33,7 +33,7 @@ export default function CalculatorSection() {
           <div className="space-y-10">
             <div>
               <div className="flex justify-between items-end mb-3">
-                <label className="font-headline font-bold text-lg">
+                <label htmlFor="cases-per-month" className="font-headline font-bold text-lg">
                   Fälle pro Monat
                 </label>
                 <span className="text-2xl font-extrabold font-headline text-surface-tint">
@@ -41,6 +41,7 @@ export default function CalculatorSection() {
                 </span>
               </div>
               <input
+                id="cases-per-month"
                 type="range"
                 min={5}
                 max={500}
@@ -57,7 +58,7 @@ export default function CalculatorSection() {
 
             <div>
               <div className="flex justify-between items-end mb-3">
-                <label className="font-headline font-bold text-lg">
+                <label htmlFor="hours-per-case" className="font-headline font-bold text-lg">
                   Stunden pro Fall (manuell)
                 </label>
                 <span className="text-2xl font-extrabold font-headline text-surface-tint">
@@ -65,6 +66,7 @@ export default function CalculatorSection() {
                 </span>
               </div>
               <input
+                id="hours-per-case"
                 type="range"
                 min={0.5}
                 max={10}
