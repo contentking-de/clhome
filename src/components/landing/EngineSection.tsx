@@ -48,7 +48,7 @@ export default function EngineSection() {
           </div>
           <div className="flex items-center gap-3 text-secondary shrink-0">
             <Icon name="verified" className="text-surface-tint" />
-            <span className="font-bold text-on-background">−90%</span>{" "}
+            <span className="font-bold text-on-background">bis zu 90% weniger</span>{" "}
             Routineaufwand
           </div>
         </div>

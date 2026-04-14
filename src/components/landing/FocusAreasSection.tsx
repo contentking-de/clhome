@@ -26,10 +26,7 @@ export default function FocusAreasSection() {
           <div className="group relative bg-on-background p-10 md:p-12 rounded-xl border border-outline-variant/10 overflow-hidden">
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-surface-tint/20 blur-[60px] rounded-full" />
             <div className="relative z-10">
-              <div className="flex items-center gap-4 mb-8">
-                <span className="flex items-center justify-center w-12 h-12 rounded-xl bg-surface-tint/15">
-                  <Icon name="psychology" className="text-3xl text-tertiary-fixed-dim" />
-                </span>
+              <div className="mb-8">
                 <span className="text-tertiary-fixed-dim font-label font-bold text-xs uppercase tracking-widest">
                   Schwerpunkt 01
                 </span>
@@ -75,15 +72,15 @@ export default function FocusAreasSection() {
                 </div>
               </div>
             </div>
+            <div className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 opacity-[0.06] group-hover:opacity-[0.12] transition-opacity">
+              <Icon name="neurology" className="text-[12rem] text-white" />
+            </div>
           </div>
 
           {/* Schwerpunkt 2 */}
-          <div className="group relative bg-surface p-10 md:p-12 rounded-xl border border-outline-variant/10 hover:border-surface-tint/30 transition-all duration-500 overflow-hidden">
+          <div className="group relative bg-surface p-10 md:p-12 rounded-xl border border-gray-400 hover:border-surface-tint/30 transition-all duration-500 overflow-hidden">
             <div className="relative z-10">
-              <div className="flex items-center gap-4 mb-8">
-                <span className="flex items-center justify-center w-12 h-12 rounded-xl bg-surface-tint/10">
-                  <Icon name="conversion_path" className="text-3xl text-surface-tint" />
-                </span>
+              <div className="mb-8">
                 <span className="text-surface-tint font-label font-bold text-xs uppercase tracking-widest">
                   Schwerpunkt 02
                 </span>

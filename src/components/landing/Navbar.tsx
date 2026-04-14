@@ -59,14 +59,13 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-3 -mr-[26px]">
           <Link
             href="/legal-alerts"
             className="inline-flex items-center gap-2 border border-error/30 text-error px-5 py-2.5 rounded-xl font-semibold active:opacity-80 transition-all hover:bg-error/5"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-error opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-error" />
+            <span className="relative">
+              <Icon name="notifications_active" className="text-lg animate-pulse" />
             </span>
             Legal Alerts
           </Link>

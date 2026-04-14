@@ -18,7 +18,7 @@ export default function CTASection() {
           <div className="flex flex-wrap justify-center gap-8">
             <div className="flex flex-col items-center">
               <span className="text-3xl font-extrabold font-headline text-on-background mb-1">
-                −90%
+                bis zu 90% weniger
               </span>
               <span className="text-xs uppercase font-label tracking-tighter text-secondary">
                 Routineaufwand
