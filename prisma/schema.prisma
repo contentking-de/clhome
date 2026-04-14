@@ -53,6 +53,7 @@ model VerificationToken {
   identifier String
   token      String   @unique
   expires    DateTime
+  useCount   Int      @default(0)
 
   @@unique([identifier, token])
 }
