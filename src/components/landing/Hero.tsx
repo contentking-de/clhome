@@ -49,9 +49,9 @@ export default function Hero() {
             />
             <div className="absolute inset-0 bg-gradient-to-tr from-surface-tint/20 to-transparent" />
           </div>
-          <div className="absolute top-12 -left-8 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px]">
+          <div className="absolute top-12 -left-8 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px] animate-float-1">
             <div className="flex items-center gap-2 mb-1">
-              <Icon name="schedule" className="text-surface-tint" />
+              <Icon name="schedule" className="text-gray-700" />
               <div className="text-sm font-bold font-headline">
                 Zeitersparnis
               </div>
@@ -60,9 +60,9 @@ export default function Hero() {
               Automatisierte Fallprüfung in unter 30 Sekunden.
             </div>
           </div>
-          <div className="absolute bottom-12 -left-8 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px]">
+          <div className="absolute bottom-12 -left-8 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px] animate-float-2">
             <div className="flex items-center gap-2 mb-1">
-              <Icon name="trending_up" className="text-surface-tint" />
+              <Icon name="trending_up" className="text-gray-700" />
               <div className="text-sm font-bold font-headline">
                 Effizienzsteigerung
               </div>
@@ -71,9 +71,9 @@ export default function Hero() {
               Mehr Mandate in kürzerer Zeit.
             </div>
           </div>
-          <div className="absolute top-4 -right-6 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px]">
+          <div className="absolute top-4 -right-6 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px] animate-float-3">
             <div className="flex items-center gap-2 mb-1">
-              <Icon name="crisis_alert" className="text-surface-tint" />
+              <Icon name="crisis_alert" className="text-gray-700" />
               <div className="text-sm font-bold font-headline">
                 Strategiefokus
               </div>
@@ -82,9 +82,9 @@ export default function Hero() {
               Zeitgewinn auf der Strategieebene einsetzen.
             </div>
           </div>
-          <div className="absolute bottom-4 -right-6 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px]">
+          <div className="absolute bottom-4 -right-6 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px] animate-float-4">
             <div className="flex items-center gap-2 mb-1">
-              <Icon name="psychology" className="text-surface-tint" />
+              <Icon name="psychology" className="text-gray-700" />
               <div className="text-sm font-bold font-headline">
                 Motivation
               </div>
