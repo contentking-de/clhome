@@ -40,7 +40,7 @@ export default function Hero() {
             <img
               alt="Modernes Gebäude aus Glas und Stahl"
               className="w-full h-full object-cover grayscale"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGHru1M58SvpMA1w8Ip3qlRdpqKPhM6lYCi1vIKJbELDbQHcdvnS0sQCW3OJXiSNd1uXeCnh0uoaaGLABYt5cn0YBb8ZTv6gUz0UYFMtNgYUX5XgieaugGNaqNbYMClMfB8o9zFe4gWqkrGqqLcgygMY2P-o25zXcFnTrKcoO_UxfrLNHEu72SO7sm9cw3_vHSNpjD7rWgyG-TKPX_WSlwgmmFgCB-Xt_1wUK8RsmzdKatApHm-N2MyImjNBNf88zXChypyAUuilbN"
+              src="https://suudphdtlchxrc5q.public.blob.vercel-storage.com/landing/hero-building.webp"
             />
             <div className="absolute inset-0 bg-gradient-to-tr from-surface-tint/20 to-transparent" />
           </div>
