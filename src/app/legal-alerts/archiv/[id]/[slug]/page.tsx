@@ -1,5 +1,5 @@
 import {
-  getCurrentEdition,
+  getEditionById,
   getReportKeyBySlug,
   getReportMeta,
   getAllReportMeta,
@@ -14,29 +14,37 @@ import type { Metadata } from "next";
 export const dynamic = "force-dynamic";
 
 interface Props {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ id: string; slug: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { id, slug } = await params;
   const key = getReportKeyBySlug(slug);
   if (!key) return { title: "Nicht gefunden | clever.legal" };
   const meta = getReportMeta(key);
   if (!meta) return { title: "Nicht gefunden | clever.legal" };
+  const edition = await getEditionById(id);
+  if (!edition) return { title: "Nicht gefunden | clever.legal" };
+
+  const date = new Date(edition.generatedAt).toLocaleDateString("de-DE", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
 
   return {
-    title: `${meta.title} | Legal Alerts | clever.legal`,
+    title: `${meta.title} (${date}) | Archiv | clever.legal`,
     description: meta.subtitle,
   };
 }
 
-export default async function LegalAlertDetailPage({ params }: Props) {
-  const { slug } = await params;
+export default async function ArchivedAlertPage({ params }: Props) {
+  const { id, slug } = await params;
   const key = getReportKeyBySlug(slug);
   if (!key) notFound();
 
   const meta = getReportMeta(key)!;
-  const edition = await getCurrentEdition();
+  const edition = await getEditionById(id);
   if (!edition) notFound();
 
   const markdown = edition.reports[key];
@@ -56,16 +64,24 @@ export default async function LegalAlertDetailPage({ params }: Props) {
         <article className="py-16 px-8">
           <div className="max-w-7xl mx-auto">
             <Link
-              href="/legal-alerts"
+              href="/legal-alerts/archiv"
               className="inline-flex items-center gap-1 text-surface-tint font-medium text-sm mb-8 hover:gap-2 transition-all"
             >
               <span className="material-symbols-outlined text-lg">
                 arrow_back
               </span>
-              Zurück zu Legal Alerts
+              Zurück zum Archiv
             </Link>
 
             <header className="mb-12">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="inline-flex items-center gap-1.5 bg-secondary/10 text-secondary rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest">
+                  <span className="material-symbols-outlined text-sm">
+                    inventory_2
+                  </span>
+                  Archiv
+                </div>
+              </div>
               <div className="flex items-center gap-4 mb-6">
                 <span
                   className={`material-symbols-outlined text-5xl ${meta.accent}`}
@@ -114,13 +130,13 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                 {otherReports.length > 0 && (
                   <div>
                     <h3 className="font-headline font-bold text-sm uppercase tracking-widest text-secondary mb-4">
-                      Weitere Reports
+                      Gleiche Ausgabe
                     </h3>
                     <div className="space-y-3">
                       {otherReports.map(([k, m]) => (
                         <Link
                           key={k}
-                          href={`/legal-alerts/${m.slug}`}
+                          href={`/legal-alerts/archiv/${id}/${m.slug}`}
                           className="flex items-start gap-3 p-4 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors border border-outline-variant/10"
                         >
                           <span
@@ -143,6 +159,23 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                 )}
 
                 <Link
+                  href="/legal-alerts"
+                  className="flex items-center gap-3 p-4 rounded-xl bg-surface-tint/5 hover:bg-surface-tint/10 transition-colors border border-surface-tint/20"
+                >
+                  <span className="material-symbols-outlined text-2xl text-surface-tint shrink-0">
+                    bolt
+                  </span>
+                  <div>
+                    <div className="font-semibold text-sm text-surface-tint">
+                      Aktuelle Ausgabe
+                    </div>
+                    <div className="text-secondary text-xs mt-0.5">
+                      Zur neuesten Ausgabe wechseln
+                    </div>
+                  </div>
+                </Link>
+
+                <Link
                   href="/legal-alerts/archiv"
                   className="flex items-center gap-3 p-4 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors border border-outline-variant/10"
                 >
@@ -156,57 +189,6 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                     </div>
                   </div>
                 </Link>
-
-                <div className="bg-on-background text-white rounded-2xl p-6 relative overflow-hidden">
-                  <div className="absolute -top-10 -right-10 w-32 h-32 bg-surface-tint/20 blur-[50px] rounded-full" />
-                  <div className="relative z-10">
-                    <span className="material-symbols-outlined text-3xl text-tertiary-fixed-dim mb-3 block">
-                      notifications_active
-                    </span>
-                    <h3 className="font-headline font-bold text-lg mb-2">
-                      Jeden {edition.runDay} neu
-                    </h3>
-                    <p className="text-secondary-fixed-dim text-sm leading-relaxed mb-4">
-                      Verpassen Sie keine Klagewelle. Unsere Alerts werden
-                      wöchentlich aktualisiert.
-                    </p>
-                    <Link
-                      href="/kontakt"
-                      className="inline-flex items-center gap-1.5 bg-surface-tint text-white px-4 py-2 rounded-lg text-sm font-semibold hover:brightness-110 transition-all"
-                    >
-                      Zugang sichern
-                      <span className="material-symbols-outlined text-base">
-                        arrow_forward
-                      </span>
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="bg-surface-container-low rounded-2xl p-6 border border-outline-variant/10">
-                  <h3 className="font-headline font-bold text-sm uppercase tracking-widest text-secondary mb-4">
-                    Datenquellen
-                  </h3>
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-secondary">Feeds überwacht</span>
-                      <span className="font-semibold">
-                        {edition.stats.feedsProcessed}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-secondary">Artikel gescannt</span>
-                      <span className="font-semibold">
-                        {edition.stats.articleCount}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-secondary">Deep Scrapes</span>
-                      <span className="font-semibold">
-                        {edition.stats.scrapeCount}
-                      </span>
-                    </div>
-                  </div>
-                </div>
 
                 <div className="rounded-2xl p-6 border border-surface-tint/20 bg-surface-tint/5">
                   <span className="material-symbols-outlined text-3xl text-surface-tint mb-3 block">

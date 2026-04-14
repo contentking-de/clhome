@@ -1,3 +1,6 @@
+import { prisma } from "@/lib/prisma";
+import type { LegalAlertEdition } from "@prisma/client";
+
 const BASE_URL = "https://skynet42.de/clever-legal";
 
 function getAuthHeader(): string {
@@ -20,22 +23,104 @@ export interface FeedData {
   reports: Record<string, string>;
 }
 
-export async function fetchFeed(): Promise<FeedData> {
+export async function fetchFeedFromSkynet(): Promise<FeedData> {
   const res = await fetch(`${BASE_URL}/feed.json`, {
     headers: { Authorization: getAuthHeader() },
-    next: { revalidate: 3600 },
+    cache: "no-store",
   });
   if (!res.ok) throw new Error(`Feed fetch failed: ${res.status}`);
   return res.json();
 }
 
-export async function fetchReport(filename: string): Promise<string> {
+export async function fetchReportFromSkynet(filename: string): Promise<string> {
   const res = await fetch(`${BASE_URL}/${filename}`, {
     headers: { Authorization: getAuthHeader() },
-    next: { revalidate: 3600 },
+    cache: "no-store",
   });
   if (!res.ok) throw new Error(`Report fetch failed: ${res.status}`);
   return res.text();
+}
+
+async function seedInitialEdition(): Promise<LegalAlertEdition> {
+  const feed = await fetchFeedFromSkynet();
+  const reportContents: Record<string, string> = {};
+  for (const [key, filename] of Object.entries(feed.reports)) {
+    reportContents[key] = await fetchReportFromSkynet(filename as string);
+  }
+
+  const [, edition] = await prisma.$transaction([
+    prisma.legalAlertEdition.updateMany({
+      where: { isCurrent: true },
+      data: { isCurrent: false },
+    }),
+    prisma.legalAlertEdition.create({
+      data: {
+        generatedAt: new Date(feed.generatedAt),
+        period: feed.period,
+        runDay: feed.runDay,
+        stats: feed.stats,
+        reports: reportContents,
+        feedJson: JSON.parse(JSON.stringify(feed)),
+        isCurrent: true,
+      },
+    }),
+  ]);
+  return edition;
+}
+
+export interface EditionView {
+  id: string;
+  generatedAt: Date;
+  period: string;
+  runDay: string;
+  stats: FeedData["stats"];
+  reports: Record<string, string>;
+  isCurrent: boolean;
+  createdAt: Date;
+}
+
+function toEditionView(edition: LegalAlertEdition): EditionView {
+  return {
+    id: edition.id,
+    generatedAt: edition.generatedAt,
+    period: edition.period,
+    runDay: edition.runDay,
+    stats: edition.stats as FeedData["stats"],
+    reports: edition.reports as Record<string, string>,
+    isCurrent: edition.isCurrent,
+    createdAt: edition.createdAt,
+  };
+}
+
+export async function getCurrentEdition(): Promise<EditionView | null> {
+  let edition = await prisma.legalAlertEdition.findFirst({
+    where: { isCurrent: true },
+  });
+
+  if (!edition) {
+    try {
+      edition = await seedInitialEdition();
+    } catch {
+      return null;
+    }
+  }
+
+  return toEditionView(edition);
+}
+
+export async function getEditionById(id: string): Promise<EditionView | null> {
+  const edition = await prisma.legalAlertEdition.findUnique({
+    where: { id },
+  });
+  return edition ? toEditionView(edition) : null;
+}
+
+export async function getArchivedEditions(): Promise<EditionView[]> {
+  const editions = await prisma.legalAlertEdition.findMany({
+    where: { isCurrent: false },
+    orderBy: { generatedAt: "desc" },
+  });
+  return editions.map(toEditionView);
 }
 
 const REPORT_META: Record<string, {

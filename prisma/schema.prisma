@@ -75,3 +75,15 @@ enum Role {
   ADMIN
   EDITOR
 }
+
+model LegalAlertEdition {
+  id          String   @id @default(cuid())
+  generatedAt DateTime
+  period      String
+  runDay      String
+  stats       Json
+  reports     Json
+  feedJson    Json
+  isCurrent   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}

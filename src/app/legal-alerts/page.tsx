@@ -1,4 +1,9 @@
-import { fetchFeed, getAllReportMeta, getReportMeta } from "@/lib/skynet";
+import {
+  getCurrentEdition,
+  getArchivedEditions,
+  getAllReportMeta,
+  getReportMeta,
+} from "@/lib/skynet";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import Link from "next/link";
@@ -13,9 +18,31 @@ export const metadata: Metadata = {
 };
 
 export default async function LegalAlertsPage() {
-  const feed = await fetchFeed();
+  const edition = await getCurrentEdition();
+  const archived = await getArchivedEditions();
   const allMeta = getAllReportMeta();
-  const generatedDate = new Date(feed.generatedAt);
+
+  if (!edition) {
+    return (
+      <>
+        <Navbar />
+        <main className="pt-20">
+          <section className="py-40 px-8 text-center">
+            <span className="material-symbols-outlined text-5xl text-outline mb-4 block">
+              hourglass_empty
+            </span>
+            <p className="text-secondary text-lg">
+              Noch keine Alerts vorhanden. Die erste Ausgabe wird in Kürze
+              generiert.
+            </p>
+          </section>
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
+  const generatedDate = new Date(edition.generatedAt);
 
   return (
     <>
@@ -63,14 +90,14 @@ export default async function LegalAlertsPage() {
                   <span className="material-symbols-outlined text-lg text-surface-tint">
                     schedule
                   </span>
-                  <span>Zeitraum: {feed.period}</span>
+                  <span>Zeitraum: {edition.period}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="material-symbols-outlined text-lg text-surface-tint">
                     query_stats
                   </span>
                   <span>
-                    {feed.stats.articleCount} Quellen analysiert
+                    {edition.stats.articleCount} Quellen analysiert
                   </span>
                 </div>
               </div>
@@ -82,7 +109,7 @@ export default async function LegalAlertsPage() {
         <section className="py-16 px-8">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {Object.entries(feed.reports).map(([key, filename]) => {
+              {Object.keys(edition.reports).map((key) => {
                 const meta = getReportMeta(key);
                 if (!meta) return null;
                 return (
@@ -124,31 +151,101 @@ export default async function LegalAlertsPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <div className="text-center">
                 <div className="text-4xl font-headline font-extrabold text-on-background mb-2">
-                  {feed.stats.feedsProcessed}
+                  {edition.stats.feedsProcessed}
                 </div>
                 <div className="text-secondary text-sm">Quellen überwacht</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-headline font-extrabold text-on-background mb-2">
-                  {feed.stats.articleCount}
+                  {edition.stats.articleCount}
                 </div>
                 <div className="text-secondary text-sm">Artikel analysiert</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-headline font-extrabold text-on-background mb-2">
-                  {Object.keys(feed.reports).length}
+                  {Object.keys(edition.reports).length}
                 </div>
                 <div className="text-secondary text-sm">Reports erstellt</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-headline font-extrabold text-surface-tint mb-2">
-                  Jeden {feed.runDay}
+                  Jeden {edition.runDay}
                 </div>
                 <div className="text-secondary text-sm">Neues Update</div>
               </div>
             </div>
           </div>
         </section>
+
+        {/* Archiv */}
+        {archived.length > 0 && (
+          <section className="py-16 px-8">
+            <div className="max-w-7xl mx-auto">
+              <div className="flex items-center justify-between mb-8">
+                <div>
+                  <span className="text-surface-tint font-bold font-label uppercase tracking-widest block mb-2">
+                    Archiv
+                  </span>
+                  <h2 className="font-headline text-2xl font-extrabold">
+                    Vergangene Ausgaben
+                  </h2>
+                </div>
+                <Link
+                  href="/legal-alerts/archiv"
+                  className="inline-flex items-center gap-1.5 text-surface-tint font-semibold text-sm hover:gap-2.5 transition-all"
+                >
+                  Alle anzeigen
+                  <span className="material-symbols-outlined text-lg">
+                    arrow_forward
+                  </span>
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {archived.slice(0, 3).map((arch) => {
+                  const archDate = new Date(arch.generatedAt);
+                  return (
+                    <div
+                      key={arch.id}
+                      className="bg-surface rounded-xl border border-outline-variant/10 p-6"
+                    >
+                      <div className="flex items-center gap-2 text-sm text-secondary mb-3">
+                        <span className="material-symbols-outlined text-base">
+                          calendar_today
+                        </span>
+                        {archDate.toLocaleDateString("de-DE", {
+                          day: "2-digit",
+                          month: "long",
+                          year: "numeric",
+                        })}
+                      </div>
+                      <div className="text-xs text-secondary mb-4">
+                        {arch.period} · {arch.stats.articleCount} Quellen
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {Object.keys(arch.reports).map((key) => {
+                          const meta = getReportMeta(key);
+                          if (!meta) return null;
+                          return (
+                            <Link
+                              key={key}
+                              href={`/legal-alerts/archiv/${arch.id}/${meta.slug}`}
+                              className="inline-flex items-center gap-1.5 text-xs font-semibold text-surface-tint bg-surface-tint/5 px-3 py-1.5 rounded-lg hover:bg-surface-tint/10 transition-colors"
+                            >
+                              <span className="material-symbols-outlined text-sm">
+                                {meta.icon}
+                              </span>
+                              {meta.title}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* CTA */}
         <section className="py-24 px-8">
