@@ -1,6 +1,12 @@
 @import "tailwindcss";
 @import "material-symbols/outlined.css";
 
+@font-face {
+  font-family: "Material Symbols Outlined";
+  font-display: swap;
+  src: url("material-symbols/material-symbols-outlined.woff2") format("woff2");
+}
+
 @theme {
   --color-on-tertiary-fixed-variant: #004f54;
   --color-on-secondary-fixed-variant: #3c475a;
