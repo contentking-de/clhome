@@ -289,7 +289,7 @@ export default function TeamSection() {
               }}
             >
               <a
-                href="#story"
+                href="/story"
                 className="mono"
                 style={{
                   fontSize: 12,
