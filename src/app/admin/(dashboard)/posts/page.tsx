@@ -21,7 +21,7 @@ export default async function PostsListPage() {
         </div>
         <Link
           href="/admin/posts/new"
-          className="bg-surface-tint text-white px-5 py-2.5 rounded-lg font-semibold hover:brightness-110 transition-all inline-flex items-center gap-2"
+          className="bg-primary text-on-primary px-5 py-2.5 rounded-lg font-semibold hover:bg-on-background transition-all inline-flex items-center gap-2"
         >
           <Icon name="add" className="text-xl" />
           Neuer Beitrag
