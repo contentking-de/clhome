@@ -93,68 +93,79 @@ export default function Hero() {
       </div>
 
       <div
+        className="l-container"
+        style={{
+          position: "relative",
+          padding: "72px 32px 0",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 12,
+            marginBottom: 28,
+            flexWrap: "wrap",
+          }}
+        >
+          <span className="l-chip">
+            <span className="dot" />
+            Authority Disruptor // Edition 2026
+          </span>
+          <span
+            className="mono"
+            style={{
+              fontSize: 11,
+              color: "var(--ink-3)",
+              letterSpacing: "0.1em",
+            }}
+          >
+            N = 4 Gründer · 50+ Jahre Erfahrung
+          </span>
+        </div>
+
+        <h1
+          className="display"
+          style={{
+            fontSize: "clamp(56px, 9vw, 148px)",
+            fontWeight: 800,
+            lineHeight: 0.95,
+            letterSpacing: "-0.04em",
+            textAlign: "center",
+          }}
+        >
+          Recht haben
+          <br />
+          dauert Sekunden.
+          <br />
+          <span style={{ color: "var(--accent)" }}>
+            Recht bekommen
+            {blink ? (
+              <span style={{ color: "var(--accent)" }}>_</span>
+            ) : (
+              <span style={{ opacity: 0 }}>_</span>
+            )}
+          </span>
+          <br />
+          <span style={{ color: "var(--ink-2)" }}>ab jetzt auch.</span>
+        </h1>
+      </div>
+
+      <div
         className="l-container l-grid-hero"
         style={{
           position: "relative",
-          padding: "72px 32px 56px",
+          padding: "56px 32px 56px",
         }}
       >
         <div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 12,
-              marginBottom: 28,
-              flexWrap: "wrap",
-            }}
-          >
-            <span className="l-chip">
-              <span className="dot" />
-              Authority Disruptor // Edition 2026
-            </span>
-            <span
-              className="mono"
-              style={{
-                fontSize: 11,
-                color: "var(--ink-3)",
-                letterSpacing: "0.1em",
-              }}
-            >
-              N = 4 Gründer · 50+ Jahre Erfahrung
-            </span>
-          </div>
-
-          <h1
-            className="display"
-            style={{
-              fontSize: "clamp(56px, 9vw, 148px)",
-              fontWeight: 800,
-            }}
-          >
-            Recht haben
-            <br />
-            dauert Sekunden.
-            <br />
-            <span style={{ color: "var(--accent)" }}>
-              Recht bekommen
-              {blink ? (
-                <span style={{ color: "var(--accent)" }}>_</span>
-              ) : (
-                <span style={{ opacity: 0 }}>_</span>
-              )}
-            </span>
-            <br />
-            <span style={{ color: "var(--ink-2)" }}>ab jetzt auch.</span>
-          </h1>
-
           <p
             style={{
               maxWidth: 560,
               fontSize: 18,
               lineHeight: 1.55,
               color: "var(--ink-2)",
-              marginTop: 36,
             }}
           >
             Wir verkaufen keine Software, sondern{" "}
