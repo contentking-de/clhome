@@ -170,10 +170,10 @@ export default function Hero() {
           >
             Wir verkaufen keine Software, sondern{" "}
             <span style={{ color: "var(--ink)", fontWeight: 600 }}>
-              Kapazität
+              Kapazität & Zeit
             </span>
             . clever.legal installiert die KI-Infrastruktur, mit der Sie
-            Massenverfahren skalieren — während Ihre Konkurrenz noch PDFs
+            Einzelmandanten und Massenverfahren gleichermaßen vereinfachen und skalieren — während Ihre Konkurrenz noch PDFs
             sortiert.
           </p>
 
