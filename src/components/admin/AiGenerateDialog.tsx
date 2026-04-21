@@ -14,7 +14,7 @@ interface AiGenerateDialogProps {
   }) => void;
 }
 
-const TOPIC_SUGGESTIONS = [
+const DEFAULT_SUGGESTIONS = [
   "Legal Tech Trends 2026 – Was Kanzleien jetzt wissen müssen",
   "KI in der Rechtsberatung: Chancen, Risiken und aktuelle Rechtslage",
   "Digitalisierung von Kanzleien: Ein Praxis-Leitfaden",
@@ -43,6 +43,8 @@ export default function AiGenerateDialog({
   const [errorMessage, setErrorMessage] = useState("");
   const [showInstructions, setShowInstructions] = useState(false);
   const [imagePreview, setImagePreview] = useState("");
+  const [suggestions, setSuggestions] = useState(DEFAULT_SUGGESTIONS);
+  const [refreshingSuggestions, setRefreshingSuggestions] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
   const topicInputRef = useRef<HTMLInputElement>(null);
 
@@ -106,6 +108,26 @@ export default function AiGenerateDialog({
     },
     []
   );
+
+  const refreshSuggestions = useCallback(async () => {
+    setRefreshingSuggestions(true);
+    try {
+      const res = await fetch("/api/ai/suggest-topics", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ current: suggestions }),
+      });
+      if (!res.ok) throw new Error("Fehler beim Laden");
+      const data = await res.json();
+      if (data.suggestions?.length) {
+        setSuggestions(data.suggestions);
+      }
+    } catch (err) {
+      console.warn("Vorschläge konnten nicht geladen werden:", err);
+    } finally {
+      setRefreshingSuggestions(false);
+    }
+  }, [suggestions]);
 
   const handleGenerate = useCallback(async () => {
     if (!topic.trim()) return;
@@ -291,7 +313,7 @@ export default function AiGenerateDialog({
               </div>
 
               <div className="flex flex-wrap gap-2">
-                {TOPIC_SUGGESTIONS.map((suggestion) => (
+                {suggestions.map((suggestion) => (
                   <button
                     key={suggestion}
                     type="button"
@@ -303,6 +325,19 @@ export default function AiGenerateDialog({
                       : suggestion}
                   </button>
                 ))}
+                <button
+                  type="button"
+                  onClick={refreshSuggestions}
+                  disabled={refreshingSuggestions}
+                  className="text-xs px-3 py-1.5 rounded-full border border-outline-variant/20 text-surface-tint hover:bg-surface-tint/10 transition-all disabled:opacity-40 inline-flex items-center gap-1"
+                  title="Neue Vorschläge von der KI generieren"
+                >
+                  <Icon
+                    name="refresh"
+                    className={`text-sm ${refreshingSuggestions ? "animate-spin" : ""}`}
+                  />
+                  {refreshingSuggestions ? "Lädt…" : "Neue Ideen"}
+                </button>
               </div>
 
               <div>

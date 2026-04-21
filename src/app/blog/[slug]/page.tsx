@@ -131,7 +131,7 @@ export default async function BlogPostPage({ params }: Props) {
                       lineHeight: 1.55,
                       marginBottom: 16,
                       fontSize: 16,
-                      fontWeight: 500,
+                      fontWeight: 700,
                     }}
                   >
                     {post.excerpt}
@@ -183,7 +183,7 @@ export default async function BlogPostPage({ params }: Props) {
                     lineHeight: 1.55,
                     marginBottom: 16,
                     fontSize: 16,
-                    fontWeight: 500,
+                    fontWeight: 700,
                   }}
                 >
                   {post.excerpt}
