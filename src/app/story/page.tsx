@@ -15,32 +15,28 @@ const founders = [
     role: "Massenklage-Stratege",
     code: "MEK",
     tag: "LEGAL",
-    image:
-      "https://suudphdtlchxrc5q.public.blob.vercel-storage.com/landing/expert-marc-ellerbrock.webp",
+    image: "/team/marc-ellerbrock.jpeg",
   },
   {
     name: "Nico Sacotte",
     role: "Content-Stratege",
     code: "NSA",
     tag: "CONTENT",
-    image:
-      "https://suudphdtlchxrc5q.public.blob.vercel-storage.com/landing/expert-nico-sacotte.webp",
+    image: "/team/nico-sacotte.png",
   },
   {
     name: "Thorsten Loth",
     role: "Performance Marketing",
     code: "TLO",
     tag: "GROWTH",
-    image:
-      "https://suudphdtlchxrc5q.public.blob.vercel-storage.com/landing/expert-thorsten-loth.webp",
+    image: "/team/thorsten-loth.webp",
   },
   {
     name: "Christoph Ehrke",
     role: "IT-Architekt",
     code: "CEH",
     tag: "TECH",
-    image:
-      "https://suudphdtlchxrc5q.public.blob.vercel-storage.com/landing/expert-christoph-ehrke.webp",
+    image: "/team/christoph-ehrke.jpeg",
   },
 ];
 
@@ -175,13 +171,13 @@ export default function StoryPage() {
                 beim Gang zur „Höhle der Löwen" begleitet. Marc, der erfahrene Massenklage-Stratege,
                 lieferte das juristische Gewissen.
               </p>
-              <div style={{ display: "flex", gap: 8, marginTop: 24 }}>
+              <div style={{ display: "flex", gap: 12, marginTop: 24 }}>
                 {[founders[1], founders[0]].map((f) => (
                   <div
                     key={f.code}
                     style={{
-                      width: 48,
-                      height: 48,
+                      width: 80,
+                      height: 80,
                       overflow: "hidden",
                       border: "1px solid var(--line-2)",
                     }}
@@ -204,13 +200,13 @@ export default function StoryPage() {
                 Team die Agenturen OMlocal und OMfire. Christoph ist der IT-Architekt, der nicht in
                 Paragraphen, sondern in hochperformanter, skalierbarer Logik denkt.
               </p>
-              <div style={{ display: "flex", gap: 8, marginTop: 24 }}>
+              <div style={{ display: "flex", gap: 12, marginTop: 24 }}>
                 {[founders[2], founders[3]].map((f) => (
                   <div
                     key={f.code}
                     style={{
-                      width: 48,
-                      height: 48,
+                      width: 80,
+                      height: 80,
                       overflow: "hidden",
                       border: "1px solid var(--line-2)",
                     }}
@@ -245,7 +241,7 @@ export default function StoryPage() {
           <div className="l-grid-4 l-team-cards" style={{ gap: 0, border: "1px solid var(--line-2)" }}>
             {founders.map((f, i) => (
               <div key={f.code} style={{ padding: 24, borderRight: i < 3 ? "1px solid var(--line-2)" : "none", background: "var(--bg-2)", textAlign: "center" }}>
-                <div style={{ width: 64, height: 64, overflow: "hidden", margin: "0 auto 16px", border: "1px solid var(--line-2)" }}>
+                <div style={{ width: 120, height: 120, overflow: "hidden", margin: "0 auto 16px", border: "1px solid var(--line-2)" }}>
                   <img src={f.image} alt={f.name} style={{ width: "100%", height: "100%", objectFit: "cover", filter: "grayscale(100%)" }} />
                 </div>
                 <div className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", color: "var(--accent)", marginBottom: 8 }}>#{f.tag}</div>
