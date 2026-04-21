@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, Manrope } from "next/font/google";
+import { Inter } from "next/font/google";
+import { Inter_Tight } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -7,10 +9,16 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const manrope = Manrope({
+const interTight = Inter_Tight({
   subsets: ["latin"],
-  variable: "--font-manrope",
-  weight: ["700", "800"],
+  variable: "--font-inter-tight",
+  weight: ["400", "500", "600", "700", "800", "900"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -33,16 +41,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de" className={`${inter.variable} ${manrope.variable}`}>
-      <head>
-        <link
-          rel="preload"
-          href="https://suudphdtlchxrc5q.public.blob.vercel-storage.com/landing/hero-building.webp"
-          as="image"
-          type="image/webp"
-        />
-      </head>
-      <body className="bg-background text-on-background font-body selection:bg-surface-tint/20">
+    <html
+      lang="de"
+      className={`${inter.variable} ${interTight.variable} ${jetbrainsMono.variable}`}
+    >
+      <body>
         {children}
       </body>
     </html>

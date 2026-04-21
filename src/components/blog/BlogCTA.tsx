@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Icon from "../ui/Icon";
+import { ArrowSvg } from "../landing/Icons";
 
 interface BlogCTAProps {
   variant?: "inline" | "end";
@@ -8,24 +8,50 @@ interface BlogCTAProps {
 export default function BlogCTA({ variant = "inline" }: BlogCTAProps) {
   if (variant === "end") {
     return (
-      <div className="mt-16 mb-8 rounded-2xl bg-gradient-to-br from-on-background to-inverse-surface p-10 text-center">
-        <h3 className="font-headline text-2xl md:text-3xl font-extrabold text-white mb-3">
-          Schluss mit <span className="text-primary-fixed-dim">#FOMO</span> –
-          lassen Sie uns sprechen
+      <div
+        style={{
+          marginTop: 64,
+          marginBottom: 32,
+          padding: 48,
+          background: "var(--bg-2)",
+          border: "1px solid var(--line-2)",
+          textAlign: "center",
+        }}
+      >
+        <h3
+          className="display"
+          style={{ fontSize: 28, fontWeight: 700, marginBottom: 12 }}
+        >
+          Schluss mit{" "}
+          <span style={{ color: "var(--accent)" }}>#FOMO</span> – lassen Sie
+          uns sprechen
         </h3>
-        <p className="text-white/70 max-w-xl mx-auto mb-8">
+        <p
+          style={{
+            color: "var(--ink-2)",
+            maxWidth: 520,
+            margin: "0 auto 32px",
+            fontSize: 15,
+            lineHeight: 1.55,
+          }}
+        >
           Sie haben bis hierher gelesen – das zeigt echtes Interesse an der
           Zukunft Ihrer Kanzlei. Lassen Sie uns herausfinden, wie clever.legal
           Ihnen konkret weiterhilft.
         </p>
-        <Link
-          href="/kontakt"
-          className="inline-flex items-center gap-2 bg-white text-on-background px-8 py-4 rounded-xl font-bold hover:bg-surface-container-highest transition-all"
-        >
+        <Link href="/kontakt" className="l-btn l-btn-primary">
           Strategie-Gespräch vereinbaren
-          <Icon name="arrow_forward" />
+          <ArrowSvg />
         </Link>
-        <p className="text-white/50 text-sm mt-4">
+        <p
+          className="mono"
+          style={{
+            color: "var(--ink-3)",
+            fontSize: 11,
+            marginTop: 16,
+            letterSpacing: "0.1em",
+          }}
+        >
           Exklusiv: Nur ein Partner pro Rechtsgebiet und Region.
         </p>
       </div>
@@ -33,21 +59,42 @@ export default function BlogCTA({ variant = "inline" }: BlogCTAProps) {
   }
 
   return (
-    <div className="my-12 rounded-xl border border-surface-tint/20 bg-gradient-to-r from-surface-tint/5 to-surface-tint/10 p-6 md:p-8 text-center">
-      <p className="font-headline text-lg md:text-xl font-bold text-on-background mb-2">
-        Schluss mit <span className="text-surface-tint">#FOMO</span> – lassen
-        Sie uns sprechen
+    <div
+      style={{
+        margin: "48px 0",
+        padding: "24px 32px",
+        border: "1px solid var(--line-2)",
+        background:
+          "color-mix(in oklab, var(--accent), var(--bg) 96%)",
+        textAlign: "center",
+      }}
+    >
+      <p
+        className="display"
+        style={{ fontSize: 20, fontWeight: 700, marginBottom: 8 }}
+      >
+        Schluss mit <span style={{ color: "var(--accent)" }}>#FOMO</span> –
+        lassen Sie uns sprechen
       </p>
-      <p className="text-secondary text-sm mb-5 max-w-md mx-auto">
+      <p
+        style={{
+          color: "var(--ink-2)",
+          fontSize: 14,
+          marginBottom: 20,
+          maxWidth: 480,
+          margin: "0 auto 20px",
+        }}
+      >
         Erfahren Sie in einem persönlichen Gespräch, wie Ihre Kanzlei von
         KI-Infrastruktur profitieren kann.
       </p>
       <Link
         href="/kontakt"
-        className="inline-flex items-center gap-2 bg-surface-tint text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition-all text-sm"
+        className="l-btn l-btn-primary"
+        style={{ fontSize: 13, padding: "10px 18px" }}
       >
         Jetzt Kontakt aufnehmen
-        <Icon name="arrow_forward" className="text-lg" />
+        <ArrowSvg />
       </Link>
     </div>
   );

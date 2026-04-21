@@ -1,95 +1,251 @@
-import Icon from "../ui/Icon";
+import { Icons } from "./Icons";
 
-const modules = [
+function EngineModule({
+  num,
+  icon,
+  title,
+  desc,
+  metrics,
+  featured,
+}: {
+  num: string;
+  icon: string;
+  title: string;
+  desc: string;
+  metrics: { l: string; v: string }[];
+  featured?: boolean;
+}) {
+  const IconComponent = Icons[icon];
+  return (
+    <div
+      style={{
+        border: "1px solid var(--line-2)",
+        padding: "32px 32px 28px",
+        background: featured
+          ? "color-mix(in oklab, var(--accent), var(--bg) 94%)"
+          : "var(--bg-2)",
+        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        gap: 20,
+        minHeight: 320,
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+        }}
+      >
+        <div
+          style={{
+            color: featured ? "var(--accent)" : "var(--ink)",
+          }}
+        >
+          {IconComponent && <IconComponent size={28} />}
+        </div>
+        <span
+          className="mono"
+          style={{
+            fontSize: 11,
+            letterSpacing: "0.14em",
+            color: "var(--ink-3)",
+          }}
+        >
+          MOD.{num}
+        </span>
+      </div>
+      <div
+        className="display"
+        style={{
+          fontSize: 30,
+          fontWeight: 700,
+          letterSpacing: "-0.03em",
+          lineHeight: 1.05,
+        }}
+      >
+        {title}
+      </div>
+      <p style={{ fontSize: 14.5, lineHeight: 1.55, color: "var(--ink-2)" }}>
+        {desc}
+      </p>
+      <div
+        style={{
+          marginTop: "auto",
+          display: "flex",
+          gap: 18,
+          paddingTop: 16,
+          borderTop: "1px dashed var(--line-2)",
+        }}
+      >
+        {metrics.map((m, i) => (
+          <div key={i}>
+            <div
+              className="mono"
+              style={{
+                fontSize: 10,
+                color: "var(--ink-3)",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+              }}
+            >
+              {m.l}
+            </div>
+            <div
+              className="display"
+              style={{
+                fontSize: 22,
+                fontWeight: 700,
+                color: featured ? "var(--accent)" : "var(--ink)",
+              }}
+            >
+              {m.v}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+const MODULES = [
   {
-    icon: "neurology",
+    num: "01",
+    icon: "IconCpu",
     title: "Custom Intake AI",
-    description:
-      "Validiert Mandate in Sekunden, nicht Stunden. Automatische Extraktion von Kerndaten, OCR-Erkennung und intelligente Fallbewertung.",
+    desc: "OCR extrahiert Kerndaten aus Mandanten-Dokumenten in Sekunden. Vertragsnummern, Beträge, Fristen — strukturiert, validiert, archiviert.",
+    metrics: [
+      { l: "Genauigkeit", v: "99.4%" },
+      { l: "Ø Zeit", v: "12s" },
+    ],
+    featured: true,
   },
   {
-    icon: "edit_note",
+    num: "02",
+    icon: "IconDoc",
     title: "Auto-Drafting Engine",
-    description:
-      "Generiert fertige Schriftsätze auf Basis bewährter Erfolgs-Templates. Vom Erstkontakt bis zur fertigen Klage in unter 5 Minuten.",
+    desc: "Fertige Schriftsätze auf Basis Ihrer Erfolgs-Templates. Jeder Mandant einzigartig, jeder Schriftsatz individuell — aber in Minuten, nicht Tagen.",
+    metrics: [
+      { l: "Output", v: "< 5 min" },
+      { l: "Templates", v: "∞" },
+    ],
   },
   {
-    icon: "rocket_launch",
+    num: "03",
+    icon: "IconSat",
     title: "Performance-Satelliten",
-    description:
-      "Spezialisierte Landingpages, die Ihre neue Kapazität sofort mit qualifizierten Mandanten füllen. Lead-Generierung auf Autopilot.",
+    desc: "Spezialisierte Landingpages für Ihre Rechtsgebiete. Thorsten jagt Traffic, Nico baut Autorität, der Funnel liefert qualifizierte Mandate.",
+    metrics: [
+      { l: "CAC", v: "−62%" },
+      { l: "Conv.", v: "8.4%" },
+    ],
   },
   {
-    icon: "school",
+    num: "04",
+    icon: "IconGavel",
     title: "The Workshop",
-    description:
-      "48-Stunden-Vollintegration Ihres Teams. Wir gehen erst, wenn das System läuft und Ihr Team es beherrscht.",
+    desc: "48 Stunden Vollintegration. Vor Ort. Ihr Team, unser System. Wir gehen erst, wenn jede Kraft im Haus die Engine beherrscht.",
+    metrics: [
+      { l: "Dauer", v: "48 h" },
+      { l: "Adoption", v: "100%" },
+    ],
   },
 ];
 
 export default function EngineSection() {
   return (
-    <section id="engine" className="py-32 px-8 bg-surface-container-low">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
-          <div className="max-w-2xl">
-            <span className="text-surface-tint font-bold font-label uppercase tracking-widest block mb-4">
-              Die Lösung
-            </span>
-            <h2 className="font-headline text-[2.5rem] font-extrabold leading-tight">
-              Die clever.legal Engine.
-            </h2>
-            <p className="text-secondary text-lg mt-4 leading-relaxed">
-              Wir verkaufen nicht nur Software, sondern{" "}
-              <span className="font-bold text-on-background">Kapazität</span>.
-              Während die Konkurrenz noch Akten sichtet, haben Sie bereits die
-              Klageschrift generiert.
-            </p>
+    <section
+      id="engine"
+      style={{
+        borderBottom: "1px solid var(--line-2)",
+        background: "var(--bg)",
+      }}
+    >
+      <div className="l-container" style={{ padding: "96px 32px 64px" }}>
+        <div
+          className="l-grid-sh"
+        >
+          <div>
+            <div className="l-label" style={{ marginBottom: 18 }}>
+              § 02 — Die Engine
+            </div>
+            <div className="l-chip" style={{ marginBottom: 24 }}>
+              <span className="dot" />
+              Vier Module · ein geschlossenes System
+            </div>
           </div>
-          <div className="flex items-center gap-3 text-secondary shrink-0">
-            <Icon name="verified" className="text-surface-tint" />
-            <span className="font-bold text-on-background">bis zu 90% weniger</span>{" "}
-            Routineaufwand
-          </div>
+          <h2
+            className="display"
+            style={{
+              fontSize: "clamp(44px, 5.5vw, 88px)",
+              fontWeight: 700,
+            }}
+          >
+            Ihre Kanzlei
+            <br />
+            <span style={{ color: "var(--ink-2)" }}>auf</span>{" "}
+            <span style={{ color: "var(--accent)" }}>Steroiden.</span>
+          </h2>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {modules.map((mod, i) => (
+      </div>
+      <div className="l-container" style={{ padding: "0 32px 96px" }}>
+        <div
+          className="l-grid-half l-modules"
+          style={{
+            gap: 0,
+            border: "1px solid var(--line-2)",
+          }}
+        >
+          {MODULES.map((m, i) => (
             <div
-              key={mod.title}
-              className={`group relative p-10 rounded-xl border border-outline-variant/10 transition-all duration-500 overflow-hidden ${
-                i === 0
-                  ? "bg-on-background text-white"
-                  : "bg-surface hover:border-surface-tint/30"
-              }`}
+              key={m.num}
+              style={{
+                borderRight:
+                  i % 2 === 0 ? "1px solid var(--line-2)" : "none",
+                borderBottom:
+                  i < 2 ? "1px solid var(--line-2)" : "none",
+              }}
             >
-              <div className="relative z-10">
-                <Icon
-                  name={mod.icon}
-                  className={`text-4xl mb-6 block ${
-                    i === 0 ? "text-tertiary-fixed-dim" : "text-surface-tint"
-                  }`}
-                />
-                <h3
-                  className={`font-headline text-2xl font-bold mb-4 ${
-                    i === 0 ? "text-white" : ""
-                  }`}
-                >
-                  {mod.title}
-                </h3>
-                <p
-                  className={`leading-relaxed ${
-                    i === 0 ? "text-secondary-fixed-dim" : "text-secondary"
-                  }`}
-                >
-                  {mod.description}
-                </p>
-              </div>
-              {i === 0 && (
-                <div className="absolute -top-10 -right-10 w-40 h-40 bg-surface-tint/20 blur-[60px] rounded-full" />
-              )}
+              <EngineModule {...m} />
             </div>
           ))}
+        </div>
+        <div
+          className="l-engine-bar"
+          style={{
+            marginTop: 24,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "18px 24px",
+            border: "1px solid var(--line-2)",
+            background: "var(--bg-2)",
+          }}
+        >
+          <span
+            className="mono"
+            style={{
+              fontSize: 12,
+              letterSpacing: "0.1em",
+              color: "var(--ink-2)",
+            }}
+          >
+            <span style={{ color: "var(--accent)" }}>▸</span>&nbsp; Intake →
+            Draft → File → Follow-up. Ein Flow. Kein Medienbruch.
+          </span>
+          <a
+            href="#kontakt"
+            className="mono"
+            style={{
+              fontSize: 12,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              color: "var(--accent)",
+            }}
+          >
+            Architektur-Deck anfordern →
+          </a>
         </div>
       </div>
     </section>

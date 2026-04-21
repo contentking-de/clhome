@@ -1,33 +1,47 @@
-import Navbar from "@/components/landing/Navbar";
+import { prisma } from "@/lib/prisma";
+import Header from "@/components/landing/Header";
 import Hero from "@/components/landing/Hero";
-import FocusAreasSection from "@/components/landing/FocusAreasSection";
-import NotWhatWeDoSection from "@/components/landing/NotWhatWeDoSection";
-import SatellitesSection from "@/components/landing/SatellitesSection";
 import ProblemSection from "@/components/landing/ProblemSection";
 import EngineSection from "@/components/landing/EngineSection";
-import ClusterSelection from "@/components/landing/ClusterSelection";
+import SatelliteSection from "@/components/landing/SatelliteSection";
+import ClusterSection from "@/components/landing/ClusterSection";
 import CalculatorSection from "@/components/landing/CalculatorSection";
-import ExpertsSection from "@/components/landing/ExpertsSection";
-import ExclusivitySection from "@/components/landing/ExclusivitySection";
-import CTASection from "@/components/landing/CTASection";
+import AlertsSection from "@/components/landing/AlertsSection";
+import TeamSection from "@/components/landing/TeamSection";
+import BlogSection from "@/components/landing/BlogSection";
+import ContactSection from "@/components/landing/ContactSection";
 import Footer from "@/components/landing/Footer";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const posts = await prisma.post.findMany({
+    where: { published: true },
+    orderBy: { createdAt: "desc" },
+    take: 3,
+    select: {
+      slug: true,
+      title: true,
+      excerpt: true,
+      coverImage: true,
+      createdAt: true,
+    },
+  });
+
   return (
     <>
-      <Navbar />
-      <main className="pt-28">
+      <Header />
+      <main>
         <Hero />
-        <FocusAreasSection />
-        <NotWhatWeDoSection />
-        <SatellitesSection />
         <ProblemSection />
         <EngineSection />
-        <ClusterSelection />
+        <SatelliteSection />
+        <ClusterSection />
         <CalculatorSection />
-        <ExpertsSection />
-        <ExclusivitySection />
-        <CTASection />
+        <AlertsSection />
+        <TeamSection />
+        <BlogSection posts={posts} />
+        <ContactSection />
       </main>
       <Footer />
     </>

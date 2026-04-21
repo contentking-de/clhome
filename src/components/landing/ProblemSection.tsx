@@ -1,73 +1,282 @@
-import Icon from "../ui/Icon";
+function Row({
+  left,
+  right,
+  highlight,
+}: {
+  left: string;
+  right: string;
+  highlight?: boolean;
+}) {
+  return (
+    <div
+      className="l-grid-half"
+      style={{
+        borderTop: "1px solid var(--line-2)",
+      }}
+    >
+      <div
+        style={{
+          padding: "22px 28px",
+          color: "var(--ink-3)",
+          display: "flex",
+          gap: 14,
+          alignItems: "baseline",
+        }}
+        className="l-compare-cell"
+      >
+        <span
+          className="mono"
+          style={{
+            fontSize: 11,
+            color: "var(--ink-3)",
+            minWidth: 60,
+            letterSpacing: "0.14em",
+          }}
+        >
+          STATUS&nbsp;QUO
+        </span>
+        <span style={{ fontSize: 16, lineHeight: 1.5 }}>{left}</span>
+      </div>
+      <div
+        className="l-split-border l-compare-cell"
+        style={{
+          padding: "22px 28px",
+          borderLeft: "1px solid var(--line-2)",
+          background: highlight
+            ? "color-mix(in oklab, var(--accent), var(--bg) 92%)"
+            : "transparent",
+          display: "flex",
+          gap: 14,
+          alignItems: "baseline",
+        }}
+      >
+        <span
+          className="mono"
+          style={{
+            fontSize: 11,
+            color: "var(--accent)",
+            minWidth: 80,
+            letterSpacing: "0.14em",
+          }}
+        >
+          CLEVER.LEGAL
+        </span>
+        <span style={{ fontSize: 16, lineHeight: 1.5, color: "var(--ink)" }}>
+          {right}
+        </span>
+      </div>
+    </div>
+  );
+}
 
-const painPoints = [
+const ROWS = [
   {
-    icon: "trending_down",
-    title: "Margen-Killer",
-    description:
-      "Manuelle Fallprüfung ist unwirtschaftlich. Jede Stunde, die ein Junior mit PDF-Lesen verbringt, ist verbranntes Kapital.",
+    l: "Junioren lesen PDFs, die Uhr tickt, die Marge schrumpft.",
+    r: "KI validiert. Sie entscheiden. In Sekunden, nicht Stunden.",
+    h: true,
   },
   {
-    icon: "group_off",
-    title: "Personal-Falle",
-    description:
-      "Fachkräftemangel stoppt Ihr Wachstum. Sie finden keine qualifizierten Juristen – und die wenigen, die Sie haben, verschwenden Zeit mit Routinearbeit.",
+    l: "Massenverfahren = Massenaufwand. Team skaliert nicht mit.",
+    r: "Massenverfahren ohne Massenaufwand. Schriftsätze auf Autopilot.",
+    h: false,
   },
   {
-    icon: "speed",
-    title: "Innovations-Angst",
-    description:
-      "Die Konkurrenz schläft nicht, sie automatisiert bereits. Wer heute nicht digitalisiert, verliert morgen den Markt.",
+    l: "Mandanten-Akquise per Flyer und Hoffnung.",
+    r: "Performance-Satelliten liefern qualifizierte Leads auf Knopfdruck.",
+    h: false,
+  },
+  {
+    l: '„KI-Strategie" als Powerpoint. Seit 18 Monaten.',
+    r: "48-Stunden-Vollintegration. Wir gehen erst, wenn das System läuft.",
+    h: false,
+  },
+  {
+    l: "Fachkräftemangel stoppt Wachstum.",
+    r: "Kapazität pro Mitarbeiter × 10. Personal bleibt optional.",
+    h: false,
+  },
+];
+
+const PAINS = [
+  {
+    n: "01",
+    t: "Margen-Killer",
+    d: "Manuelle Fallprüfung ist unwirtschaftlich. Jede Stunde in PDFs ist eine Stunde weniger Strategie.",
+  },
+  {
+    n: "02",
+    t: "Personal-Falle",
+    d: "Fachkräftemangel stoppt Wachstum. Neue Mandate brauchen neue Menschen. Oder: neue Systeme.",
+  },
+  {
+    n: "03",
+    t: "Innovations-Angst",
+    d: "Die Konkurrenz schläft nicht. Sie automatisiert bereits. AI-FoMo ist real.",
   },
 ];
 
 export default function ProblemSection() {
   return (
-    <section className="py-32 px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="max-w-3xl mb-16">
-          <span className="text-surface-tint font-bold font-label uppercase tracking-widest block mb-4">
-            Das Problem
-          </span>
-          <h2 className="font-headline text-[2.5rem] font-extrabold leading-tight mb-6">
-            Das Ende der Billable Hour.
+    <section
+      id="problem"
+      style={{ borderBottom: "1px solid var(--line-2)" }}
+    >
+      <div className="l-container" style={{ padding: "88px 32px 0" }}>
+        <div
+          className="l-grid-sh-w"
+          style={{
+            paddingBottom: 48,
+          }}
+        >
+          <div>
+            <div className="l-label" style={{ marginBottom: 18 }}>
+              § 01 — Das Problem
+            </div>
+            <div className="mono" style={{ fontSize: 12, color: "var(--ink-3)" }}>
+              +++ medium agro +++
+            </div>
+          </div>
+          <h2
+            className="display"
+            style={{
+              fontSize: "clamp(44px, 5.5vw, 88px)",
+              fontWeight: 700,
+            }}
+          >
+            Das System ist langsam.
+            <br />
+            <span style={{ color: "var(--accent)" }}>
+              Wir sind es nicht.
+            </span>
           </h2>
-          <p className="text-secondary text-lg leading-relaxed">
-            Das deutsche Rechtssystem ist träge, aber die Technologie ist es
-            nicht mehr. Wer heute noch Junioren dafür bezahlt, PDFs zu lesen,
-            verliert gegen den Algorithmus. Wir zeigen Ihnen nicht, wie man KI
-            nutzt – wir bauen Ihre Kanzlei um die KI herum.
-          </p>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {painPoints.map((point) => (
+      <div className="l-container" style={{ padding: "0 32px" }}>
+        <div
+          style={{
+            border: "1px solid var(--line-2)",
+            borderBottom: "none",
+          }}
+        >
+          <div
+            className="l-grid-half"
+            style={{
+              background: "var(--bg-2)",
+            }}
+          >
+            <div style={{ padding: "14px 28px" }} className="mono">
+              <span
+                style={{
+                  fontSize: 11,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: "var(--ink-3)",
+                }}
+              >
+                Analoge Trägheit
+              </span>
+            </div>
             <div
-              key={point.title}
-              className="group relative bg-surface-container-low p-8 rounded-xl border border-outline-variant/10 hover:border-surface-tint/20 transition-all duration-500"
+              style={{
+                padding: "14px 28px",
+                borderLeft: "1px solid var(--line-2)",
+              }}
+              className="mono l-split-border"
             >
-              <Icon name={point.icon} className="text-3xl text-surface-tint mb-5 block" />
-              <h3 className="font-headline text-xl font-bold mb-3">
-                {point.title}
-              </h3>
-              <p className="text-secondary leading-relaxed">
-                {point.description}
+              <span
+                style={{
+                  fontSize: 11,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: "var(--accent)",
+                }}
+              >
+                Automatisierte Exzellenz
+              </span>
+            </div>
+          </div>
+          {ROWS.map((r, i) => (
+            <Row key={i} left={r.l} right={r.r} highlight={r.h} />
+          ))}
+          <div
+            className="l-problem-footer"
+            style={{
+              borderTop: "1px solid var(--line-2)",
+              padding: "20px 28px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <span
+              className="mono"
+              style={{
+                fontSize: 11,
+                letterSpacing: "0.14em",
+                color: "var(--ink-3)",
+              }}
+            >
+              — Anwaltliche Sorgfalt ist keine Ausrede für analoge Trägheit.
+            </span>
+            <span
+              className="mono"
+              style={{
+                fontSize: 11,
+                letterSpacing: "0.14em",
+                color: "var(--ink-3)",
+              }}
+            >
+              [ 05 / 05 ]
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="l-container" style={{ padding: "56px 32px 88px" }}>
+        <div
+          className="l-grid-3"
+          style={{
+            gap: 24,
+          }}
+        >
+          {PAINS.map((p) => (
+            <div
+              key={p.n}
+              style={{
+                borderLeft: "1px solid var(--line)",
+                paddingLeft: 24,
+                paddingTop: 4,
+              }}
+            >
+              <div
+                className="mono"
+                style={{
+                  fontSize: 11,
+                  color: "var(--accent)",
+                  letterSpacing: "0.14em",
+                  marginBottom: 16,
+                }}
+              >
+                PAIN · {p.n}
+              </div>
+              <div
+                className="display"
+                style={{ fontSize: 28, fontWeight: 700, marginBottom: 12 }}
+              >
+                {p.t}
+              </div>
+              <p
+                style={{
+                  fontSize: 15,
+                  lineHeight: 1.55,
+                  color: "var(--ink-2)",
+                }}
+              >
+                {p.d}
               </p>
             </div>
           ))}
-        </div>
-
-        <div className="relative py-12 px-8 md:px-16 bg-on-background rounded-2xl overflow-hidden">
-          <div className="absolute -top-10 -right-10 w-40 h-40 bg-surface-tint/20 blur-[60px] rounded-full" />
-          <blockquote className="relative z-10 text-center">
-            <p className="font-headline text-2xl md:text-3xl font-extrabold text-white leading-snug">
-              &ldquo;Das System ist langsam.{" "}
-              <span className="text-tertiary-fixed-dim">
-                Wir sind es nicht.
-              </span>
-              &rdquo;
-            </p>
-          </blockquote>
         </div>
       </div>
     </section>

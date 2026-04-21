@@ -1,9 +1,7 @@
 import { prisma } from "@/lib/prisma";
-import Navbar from "@/components/landing/Navbar";
-import Footer from "@/components/landing/Footer";
+import SubpageShell from "@/components/landing/SubpageShell";
 import PostCard from "@/components/blog/PostCard";
 import type { Metadata } from "next";
-import Icon from "@/components/ui/Icon";
 
 export const dynamic = "force-dynamic";
 
@@ -21,36 +19,66 @@ export default async function BlogPage() {
   });
 
   return (
-    <>
-      <Navbar />
-      <main className="pt-28">
-        <section className="py-20 px-8">
-          <div className="max-w-7xl mx-auto">
-            <div className="mb-16">
-              <span className="text-surface-tint font-bold font-label uppercase tracking-widest block mb-4">
-                Blog
-              </span>
-              <h1 className="font-headline text-[2.5rem] font-extrabold leading-tight mb-4">
-                Insights & Aktuelles
-              </h1>
-              <p className="text-secondary text-lg max-w-2xl">
-                Entdecken Sie unsere neuesten Artikel rund um Legal Tech,
-                Rechtsautomatisierung und die Zukunft des Rechts.
-              </p>
+    <SubpageShell>
+      <section
+        style={{ borderBottom: "1px solid var(--line-2)" }}
+      >
+        <div className="l-container" style={{ padding: "96px 32px" }}>
+          <div style={{ marginBottom: 48 }}>
+            <div className="l-label" style={{ marginBottom: 18 }}>
+              Blog
             </div>
+            <h1
+              className="display"
+              style={{
+                fontSize: "clamp(40px, 5vw, 72px)",
+                fontWeight: 700,
+                marginBottom: 16,
+              }}
+            >
+              Insights &{" "}
+              <span style={{ color: "var(--accent)" }}>Aktuelles.</span>
+            </h1>
+            <p style={{ color: "var(--ink-2)", fontSize: 18, maxWidth: 640 }}>
+              Entdecken Sie unsere neuesten Artikel rund um Legal Tech,
+              Rechtsautomatisierung und die Zukunft des Rechts.
+            </p>
+          </div>
 
-            {posts.length === 0 ? (
-              <div className="text-center py-20">
-                <Icon name="article" className="text-5xl text-outline mb-4 block" />
-                <p className="text-secondary">
-                  Noch keine Beiträge vorhanden. Schauen Sie bald wieder vorbei!
-                </p>
+          {posts.length === 0 ? (
+            <div style={{ textAlign: "center", padding: "80px 0" }}>
+              <div
+                className="mono"
+                style={{
+                  fontSize: 11,
+                  letterSpacing: "0.14em",
+                  color: "var(--ink-3)",
+                }}
+              >
+                Noch keine Beiträge vorhanden. Schauen Sie bald wieder vorbei!
               </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {posts.map((post) => (
+            </div>
+          ) : (
+            <div
+              className="l-grid-3 l-sat-cards"
+              style={{
+                gap: 0,
+                border: "1px solid var(--line-2)",
+              }}
+            >
+              {posts.map((post, i) => (
+                <div
+                  key={post.id}
+                  style={{
+                    borderRight:
+                      i % 3 < 2 ? "1px solid var(--line-2)" : "none",
+                    borderBottom:
+                      i < posts.length - 3
+                        ? "1px solid var(--line-2)"
+                        : "none",
+                  }}
+                >
                   <PostCard
-                    key={post.id}
                     title={post.title}
                     slug={post.slug}
                     excerpt={post.excerpt}
@@ -58,13 +86,12 @@ export default async function BlogPage() {
                     authorName={post.author.name || post.author.email}
                     createdAt={post.createdAt}
                   />
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+    </SubpageShell>
   );
 }

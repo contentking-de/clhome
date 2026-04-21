@@ -1,5 +1,3 @@
-import Icon from "../ui/Icon";
-
 interface AuthorBoxProps {
   name: string | null;
   email: string;
@@ -18,33 +16,86 @@ export default function AuthorBox({
   const displayName = name || email;
 
   return (
-    <div className="mt-16 pt-8 border-t border-outline-variant/20">
-      <div className="flex items-start gap-5">
-        <div className="w-16 h-16 rounded-full bg-surface-tint/10 flex items-center justify-center flex-shrink-0 overflow-hidden">
+    <div
+      style={{
+        marginTop: 64,
+        paddingTop: 32,
+        borderTop: "1px solid var(--line-2)",
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "start", gap: 20 }}>
+        <div
+          style={{
+            width: 64,
+            height: 64,
+            flexShrink: 0,
+            overflow: "hidden",
+            background: "var(--bg-3)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           {avatar ? (
             <img
               src={avatar}
               alt={displayName}
-              className="w-full h-full object-cover"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           ) : (
-            <Icon name="person" className="text-surface-tint text-3xl" />
+            <span
+              className="display"
+              style={{
+                fontSize: 24,
+                fontWeight: 800,
+                color: "var(--ink-3)",
+              }}
+            >
+              {displayName.charAt(0).toUpperCase()}
+            </span>
           )}
         </div>
-        <div className="flex-1 min-w-0">
-          <p className="text-xs font-label uppercase tracking-widest text-secondary mb-1">
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <p
+            className="mono"
+            style={{
+              fontSize: 10,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              color: "var(--ink-3)",
+              marginBottom: 4,
+            }}
+          >
             Autor
           </p>
-          <h3 className="font-headline text-lg font-bold text-on-background">
+          <h3
+            className="display"
+            style={{ fontSize: 20, fontWeight: 700, color: "var(--ink)" }}
+          >
             {displayName}
           </h3>
           {jobTitle && (
-            <p className="text-sm text-surface-tint font-medium mt-0.5">
+            <p
+              className="mono"
+              style={{
+                fontSize: 12,
+                color: "var(--accent)",
+                marginTop: 4,
+                letterSpacing: "0.1em",
+              }}
+            >
               {jobTitle}
             </p>
           )}
           {bio && (
-            <p className="text-secondary text-sm leading-relaxed mt-2">
+            <p
+              style={{
+                color: "var(--ink-2)",
+                fontSize: 14,
+                lineHeight: 1.55,
+                marginTop: 8,
+              }}
+            >
               {bio}
             </p>
           )}

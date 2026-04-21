@@ -1,5 +1,4 @@
-import Navbar from "@/components/landing/Navbar";
-import Footer from "@/components/landing/Footer";
+import SubpageShell from "@/components/landing/SubpageShell";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,173 +7,103 @@ export const metadata: Metadata = {
 
 export default function DatenschutzPage() {
   return (
-    <>
-      <Navbar />
-      <main className="pt-28">
-        <div className="py-16 px-8">
-          <div className="max-w-3xl mx-auto">
-            <h1 className="font-headline text-4xl font-extrabold tracking-tight mb-10">
-              Datenschutzerklärung
-            </h1>
+    <SubpageShell>
+      <section style={{ borderBottom: "1px solid var(--line-2)" }}>
+        <div className="l-container" style={{ padding: "96px 32px" }}>
+          <div className="l-label" style={{ marginBottom: 18 }}>Recht</div>
+          <h1 className="display" style={{ fontSize: "clamp(40px, 5vw, 72px)", fontWeight: 700, marginBottom: 48 }}>
+            Datenschutz
+          </h1>
 
-            <div className="prose-blog space-y-8">
-              <section>
-                <h2 className="font-headline text-xl font-bold mb-3">
-                  1. Datenschutz auf einen Blick
-                </h2>
-                <h3 className="font-headline text-lg font-semibold mb-2">
-                  Allgemeine Hinweise
-                </h3>
-                <p className="text-on-background leading-relaxed">
-                  Die folgenden Hinweise geben einen einfachen Überblick
-                  darüber, was mit Ihren personenbezogenen Daten passiert, wenn
-                  Sie diese Website besuchen. Personenbezogene Daten sind alle
-                  Daten, mit denen Sie persönlich identifiziert werden können.
-                  Ausführliche Informationen zum Thema Datenschutz entnehmen Sie
-                  unserer unter diesem Text aufgeführten Datenschutzerklärung.
-                </p>
-              </section>
+          <div style={{ maxWidth: 720, display: "flex", flexDirection: "column", gap: 40 }}>
+            <Block title="1 · Datenschutz auf einen Blick">
+              <p>
+                Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren
+                personenbezogenen Daten passiert, wenn Sie diese Website besuchen.
+              </p>
+            </Block>
 
-              <section>
-                <h2 className="font-headline text-xl font-bold mb-3">
-                  2. Verantwortliche Stelle
-                </h2>
-                <p className="text-on-background leading-relaxed">
-                  Die verantwortliche Stelle für die Datenverarbeitung auf
-                  dieser Website ist:
-                </p>
-                <p className="text-on-background leading-relaxed mt-2">
-                  clever.legal GmbH i. Gr.
-                  <br />
-                  Florianweg 1
-                  <br />
-                  88677 Markdorf
-                </p>
-                <p className="text-on-background leading-relaxed mt-2">
-                  Geschäftsführer: RA Marc Ellerbrock
-                  <br />
-                  E-Mail: info@clever.legal
-                </p>
-                <p className="text-on-background leading-relaxed mt-2">
-                  Verantwortliche Stelle ist die natürliche oder juristische
-                  Person, die allein oder gemeinsam mit anderen über die Zwecke
-                  und Mittel der Verarbeitung von personenbezogenen Daten (z.B.
-                  Namen, E-Mail-Adressen o.Ä.) entscheidet.
-                </p>
-              </section>
+            <Block title="2 · Verantwortliche Stelle">
+              <p>clever.legal GmbH i. Gr.<br />Florianweg 1<br />88677 Markdorf</p>
+              <p style={{ marginTop: 8 }}>Geschäftsführer: RA Marc Ellerbrock<br />E-Mail: <a href="mailto:info@clever.legal" style={{ color: "var(--accent)" }}>info@clever.legal</a></p>
+            </Block>
 
-              <section>
-                <h2 className="font-headline text-xl font-bold mb-3">
-                  3. Datenerfassung auf dieser Website
-                </h2>
-
-                <h3 className="font-headline text-lg font-semibold mb-2">
-                  Server-Log-Dateien
-                </h3>
-                <p className="text-on-background leading-relaxed">
-                  Der Provider der Seiten erhebt und speichert automatisch
-                  Informationen in so genannten Server-Log-Dateien, die Ihr
-                  Browser automatisch an uns übermittelt. Dies sind:
+            <Block title="3 · Datenerfassung auf dieser Website">
+              <Sub title="Server-Log-Dateien">
+                <p>
+                  Der Provider erhebt und speichert automatisch Informationen in Server-Log-Dateien:
                 </p>
-                <ul className="list-disc list-inside text-on-background leading-relaxed mt-2 space-y-1">
-                  <li>Browsertyp und Browserversion</li>
-                  <li>Verwendetes Betriebssystem</li>
-                  <li>Referrer URL</li>
-                  <li>Hostname des zugreifenden Rechners</li>
-                  <li>Uhrzeit der Serveranfrage</li>
-                  <li>IP-Adresse</li>
+                <ul style={{ listStyle: "none", marginTop: 12, display: "flex", flexDirection: "column", gap: 8 }}>
+                  {["Browsertyp und Browserversion", "Verwendetes Betriebssystem", "Referrer URL", "Hostname des zugreifenden Rechners", "Uhrzeit der Serveranfrage", "IP-Adresse"].map((item) => (
+                    <li key={item} style={{ display: "flex", gap: 12, alignItems: "baseline" }}>
+                      <span className="mono" style={{ color: "var(--accent)", fontSize: 12 }}>›</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
                 </ul>
-                <p className="text-on-background leading-relaxed mt-2">
-                  Eine Zusammenführung dieser Daten mit anderen Datenquellen
-                  wird nicht vorgenommen. Die Erfassung dieser Daten erfolgt auf
-                  Grundlage von Art. 6 Abs. 1 lit. f DSGVO.
+                <p style={{ marginTop: 12 }}>Die Erfassung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO.</p>
+              </Sub>
+              <Sub title="Cookies">
+                <p>
+                  Diese Website verwendet technisch notwendige Cookies. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.
                 </p>
+              </Sub>
+              <Sub title="Kontaktformular">
+                <p>
+                  Ihre Angaben aus dem Kontaktformular werden zwecks Bearbeitung bei uns gespeichert.
+                  Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.
+                </p>
+              </Sub>
+            </Block>
 
-                <h3 className="font-headline text-lg font-semibold mb-2 mt-6">
-                  Cookies
-                </h3>
-                <p className="text-on-background leading-relaxed">
-                  Diese Website verwendet technisch notwendige Cookies, die für
-                  den Betrieb der Seite erforderlich sind. Hierfür ist keine
-                  Einwilligung erforderlich. Die Rechtsgrundlage ist Art. 6 Abs.
-                  1 lit. f DSGVO (berechtigtes Interesse).
-                </p>
+            <Block title="4 · Hosting">
+              <p>
+                Diese Website wird bei Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA gehostet.
+                Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.
+              </p>
+            </Block>
 
-                <h3 className="font-headline text-lg font-semibold mb-2 mt-6">
-                  Kontaktformular
-                </h3>
-                <p className="text-on-background leading-relaxed">
-                  Wenn Sie uns per Kontaktformular Anfragen zukommen lassen,
-                  werden Ihre Angaben aus dem Anfrageformular inklusive der von
-                  Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der
-                  Anfrage und für den Fall von Anschlussfragen bei uns
-                  gespeichert. Diese Daten geben wir nicht ohne Ihre
-                  Einwilligung weiter. Die Verarbeitung dieser Daten erfolgt auf
-                  Grundlage von Art. 6 Abs. 1 lit. b DSGVO.
-                </p>
-              </section>
+            <Block title="5 · Ihre Rechte">
+              <p>
+                Sie haben jederzeit das Recht auf Auskunft, Berichtigung oder Löschung Ihrer gespeicherten
+                personenbezogenen Daten. Wenden Sie sich an:{" "}
+                <a href="mailto:info@clever.legal" style={{ color: "var(--accent)" }}>info@clever.legal</a>
+              </p>
+            </Block>
 
-              <section>
-                <h2 className="font-headline text-xl font-bold mb-3">
-                  4. Hosting
-                </h2>
-                <p className="text-on-background leading-relaxed">
-                  Diese Website wird bei einem externen Dienstleister gehostet
-                  (Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723,
-                  USA). Die personenbezogenen Daten, die auf dieser Website
-                  erfasst werden, werden auf den Servern des Hosters
-                  gespeichert. Hierbei kann es sich v.a. um IP-Adressen,
-                  Kontaktanfragen, Meta- und Kommunikationsdaten,
-                  Vertragsdaten, Kontaktdaten, Namen, Websitezugriffe und
-                  sonstige Daten, die über eine Website generiert werden,
-                  handeln.
-                </p>
-                <p className="text-on-background leading-relaxed mt-2">
-                  Die Nutzung des Hosters erfolgt auf Grundlage von Art. 6 Abs.
-                  1 lit. f DSGVO. Wir haben ein berechtigtes Interesse an einer
-                  möglichst zuverlässigen Darstellung unserer Website.
-                </p>
-              </section>
-
-              <section>
-                <h2 className="font-headline text-xl font-bold mb-3">
-                  5. Ihre Rechte
-                </h2>
-                <p className="text-on-background leading-relaxed">
-                  Sie haben jederzeit das Recht, unentgeltlich Auskunft über
-                  Herkunft, Empfänger und Zweck Ihrer gespeicherten
-                  personenbezogenen Daten zu erhalten. Sie haben außerdem ein
-                  Recht, die Berichtigung oder Löschung dieser Daten zu
-                  verlangen. Wenn Sie eine Einwilligung zur Datenverarbeitung
-                  erteilt haben, können Sie diese Einwilligung jederzeit für die
-                  Zukunft widerrufen. Außerdem haben Sie das Recht, unter
-                  bestimmten Umständen die Einschränkung der Verarbeitung Ihrer
-                  personenbezogenen Daten zu verlangen. Des Weiteren steht Ihnen
-                  ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu.
-                </p>
-                <p className="text-on-background leading-relaxed mt-2">
-                  Hierzu sowie zu weiteren Fragen zum Thema Datenschutz können
-                  Sie sich jederzeit an uns wenden: info@clever.legal
-                </p>
-              </section>
-
-              <section>
-                <h2 className="font-headline text-xl font-bold mb-3">
-                  6. Widerruf Ihrer Einwilligung zur Datenverarbeitung
-                </h2>
-                <p className="text-on-background leading-relaxed">
-                  Viele Datenverarbeitungsvorgänge sind nur mit Ihrer
-                  ausdrücklichen Einwilligung möglich. Sie können eine bereits
-                  erteilte Einwilligung jederzeit widerrufen. Die Rechtmäßigkeit
-                  der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom
-                  Widerruf unberührt.
-                </p>
-              </section>
-            </div>
+            <Block title="6 · Widerruf Ihrer Einwilligung">
+              <p>
+                Bereits erteilte Einwilligungen können jederzeit widerrufen werden. Die Rechtmäßigkeit
+                der bis zum Widerruf erfolgten Datenverarbeitung bleibt unberührt.
+              </p>
+            </Block>
           </div>
         </div>
-      </main>
-      <Footer />
-    </>
+      </section>
+    </SubpageShell>
+  );
+}
+
+function Block({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div style={{ borderLeft: "1px solid var(--line)", paddingLeft: 24 }}>
+      <div className="mono" style={{ fontSize: 11, letterSpacing: "0.14em", color: "var(--accent)", marginBottom: 12, textTransform: "uppercase" }}>
+        {title}
+      </div>
+      <div style={{ color: "var(--ink-2)", fontSize: 15, lineHeight: 1.65 }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function Sub({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div style={{ marginTop: 20 }}>
+      <div className="display" style={{ fontSize: 16, fontWeight: 600, marginBottom: 8, color: "var(--ink)" }}>
+        {title}
+      </div>
+      {children}
+    </div>
   );
 }

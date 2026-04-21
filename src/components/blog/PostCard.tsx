@@ -19,26 +19,68 @@ export default function PostCard({
 }: PostCardProps) {
   return (
     <Link href={`/blog/${slug}`} className="group block">
-      <article className="bg-surface-container-low rounded-xl border border-outline-variant/10 overflow-hidden hover:border-surface-tint/30 transition-all duration-300">
+      <article
+        style={{
+          background: "var(--bg-2)",
+          border: "1px solid var(--line-2)",
+          overflow: "hidden",
+          transition: "border-color 0.15s",
+        }}
+      >
         {coverImage && (
-          <div className="aspect-[16/9] overflow-hidden">
+          <div style={{ aspectRatio: "16/9", overflow: "hidden" }}>
             <img
               src={coverImage}
               alt={title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                transition: "transform 0.5s",
+              }}
             />
           </div>
         )}
-        <div className="p-6">
-          <h3 className="font-headline text-xl font-bold mb-2 text-on-background group-hover:text-surface-tint transition-colors">
+        <div style={{ padding: 24 }}>
+          <h3
+            className="display"
+            style={{
+              fontSize: 20,
+              fontWeight: 700,
+              lineHeight: 1.2,
+              marginBottom: 8,
+              color: "var(--ink)",
+            }}
+          >
             {title}
           </h3>
           {excerpt && (
-            <p className="text-secondary text-sm leading-relaxed mb-4 line-clamp-2">
+            <p
+              style={{
+                color: "var(--ink-2)",
+                fontSize: 14,
+                lineHeight: 1.55,
+                marginBottom: 12,
+                display: "-webkit-box",
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+              }}
+            >
               {excerpt}
             </p>
           )}
-          <div className="flex items-center gap-2 text-xs text-secondary">
+          <div
+            className="mono"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              fontSize: 11,
+              color: "var(--ink-3)",
+              letterSpacing: "0.1em",
+            }}
+          >
             <span>{authorName}</span>
             <span>·</span>
             <time>

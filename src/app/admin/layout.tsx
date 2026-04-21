@@ -3,5 +3,15 @@ export default function AdminRootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <div
+      style={{
+        background: "#faf8ff",
+        color: "#131b2e",
+        minHeight: "100vh",
+      }}
+    >
+      {children}
+    </div>
+  );
 }

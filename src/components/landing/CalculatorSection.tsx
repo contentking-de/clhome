@@ -2,136 +2,263 @@
 
 import { useState } from "react";
 
-const HOURLY_RATE = 250;
-const SAVINGS_FACTOR = 0.9;
+function Slider({
+  label,
+  value,
+  min,
+  max,
+  step,
+  unit,
+  onChange,
+}: {
+  label: string;
+  value: number;
+  min: number;
+  max: number;
+  step: number;
+  unit: string;
+  onChange: (v: number) => void;
+}) {
+  return (
+    <div style={{ marginBottom: 28 }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "baseline",
+          marginBottom: 10,
+        }}
+      >
+        <span style={{ fontSize: 14, color: "var(--ink-2)" }}>{label}</span>
+        <span
+          className="mono display"
+          style={{ fontSize: 22, fontWeight: 700, color: "var(--ink)" }}
+        >
+          {value.toLocaleString("de-DE")}&nbsp;
+          <span
+            style={{ fontSize: 12, color: "var(--ink-3)", fontWeight: 400 }}
+          >
+            {unit}
+          </span>
+        </span>
+      </div>
+      <input
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={(e) => onChange(+e.target.value)}
+        style={{
+          width: "100%",
+          accentColor: "oklch(0.88 0.22 125)",
+          height: 4,
+        }}
+      />
+    </div>
+  );
+}
 
 export default function CalculatorSection() {
-  const [casesPerMonth, setCasesPerMonth] = useState(50);
-  const [hoursPerCase, setHoursPerCase] = useState(3);
+  const [cases, setCases] = useState(80);
+  const [mins, setMins] = useState(120);
+  const [rate, setRate] = useState(280);
 
-  const totalHours = casesPerMonth * hoursPerCase;
-  const savedHours = Math.round(totalHours * SAVINGS_FACTOR);
-  const savedRevenue = savedHours * HOURLY_RATE;
+  const manualHours = (cases * mins) / 60;
+  const savedHours = manualHours * 0.9;
+  const savedEuro = savedHours * rate;
+  const fmt = (n: number) => Math.round(n).toLocaleString("de-DE");
 
   return (
-    <section id="calculator" className="py-32 px-8">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-        <div className="lg:sticky lg:top-40">
-          <span className="text-surface-tint font-bold font-label uppercase tracking-widest block mb-4">
-            Der Beweis
-          </span>
-          <h2 className="font-headline text-[2.5rem] font-extrabold leading-tight mb-4">
-            Wie viel Zeit verschwenden Sie?
+    <section
+      id="calculator"
+      style={{
+        borderBottom: "1px solid var(--line-2)",
+        background: "var(--bg)",
+      }}
+    >
+      <div className="l-container" style={{ padding: "96px 32px" }}>
+        <div
+          className="l-grid-sh"
+          style={{
+            paddingBottom: 48,
+          }}
+        >
+          <div>
+            <div className="l-label" style={{ marginBottom: 18 }}>
+              § 04 — Der Beweis
+            </div>
+            <div className="mono" style={{ fontSize: 12, color: "var(--ink-3)" }}>
+              Zeit ist die einzige limitierte Währung.
+            </div>
+          </div>
+          <h2
+            className="display"
+            style={{
+              fontSize: "clamp(44px, 5.5vw, 88px)",
+              fontWeight: 700,
+            }}
+          >
+            Wie viel Zeit
+            <br />
+            <span style={{ color: "var(--ink-2)" }}>verschwenden Sie</span>{" "}
+            <span style={{ color: "var(--accent)" }}>gerade?</span>
           </h2>
-          <p className="text-secondary text-lg leading-relaxed">
-            Berechnen Sie Ihr Einsparpotenzial. Anwaltliche Sorgfalt ist keine
-            Ausrede für analoge Trägheit.
-          </p>
-          <p className="text-secondary text-lg leading-relaxed mt-4">
-            Jede Stunde, die in Routineaufgaben fließt, fehlt bei der
-            strategischen Beratung – dem Bereich, in dem Ihre Expertise
-            tatsächlich den Unterschied macht und Mandanten bereit sind, dafür
-            zu zahlen.
-          </p>
-          <p className="text-secondary text-lg leading-relaxed mt-4">
-            Wer repetitive Prozesse automatisiert, gewinnt nicht nur Zeit,
-            sondern steigert Qualität und Konsistenz. Weniger Flüchtigkeitsfehler,
-            schnellere Durchlaufzeiten, zufriedenere Mandanten.
-          </p>
-          <p className="text-secondary text-lg leading-relaxed mt-4">
-            Mit dem clever.legal Rechner sehen Sie schnell und einfach, wie
-            groß das Potenzial Ihrer Kanzlei sein könnte.
-          </p>
-          <p className="text-secondary text-lg leading-relaxed mt-4">
-            Probieren Sie es aus und schieben Sie die Regler auf Ihre
-            individuellen Werte.
-          </p>
         </div>
 
-        <div className="bg-surface-container-low rounded-2xl p-8 md:p-12 border border-gray-400">
-          <div className="space-y-10">
+        <div
+          className="l-grid-half"
+          style={{
+            gap: 0,
+            border: "1px solid var(--line-2)",
+          }}
+        >
+          <div
+            className="l-split-border"
+            style={{
+              padding: 48,
+              borderRight: "1px solid var(--line-2)",
+              background: "var(--bg-2)",
+            }}
+          >
+            <div
+              className="mono"
+              style={{
+                fontSize: 11,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--ink-3)",
+                marginBottom: 32,
+              }}
+            >
+              [ INPUT ]
+            </div>
+            <Slider
+              label="Fälle pro Monat"
+              value={cases}
+              min={10}
+              max={500}
+              step={5}
+              unit="Fälle"
+              onChange={setCases}
+            />
+            <Slider
+              label="Ø Bearbeitung pro Fall"
+              value={mins}
+              min={30}
+              max={360}
+              step={10}
+              unit="min"
+              onChange={setMins}
+            />
+            <Slider
+              label="Interner Stundensatz"
+              value={rate}
+              min={80}
+              max={600}
+              step={10}
+              unit="€/h"
+              onChange={setRate}
+            />
+          </div>
+          <div
+            style={{
+              padding: 48,
+              background:
+                "color-mix(in oklab, var(--accent), var(--bg) 92%)",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
             <div>
-              <div className="flex justify-between items-end mb-3">
-                <label htmlFor="cases-per-month" className="font-headline font-bold text-lg">
-                  Fälle pro Monat
-                </label>
-                <span className="text-2xl font-extrabold font-headline text-surface-tint">
-                  {casesPerMonth}
-                </span>
+              <div
+                className="mono"
+                style={{
+                  fontSize: 11,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: "var(--accent)",
+                  marginBottom: 32,
+                }}
+              >
+                [ OUTPUT / MONAT ]
               </div>
-              <input
-                id="cases-per-month"
-                type="range"
-                min={5}
-                max={500}
-                step={5}
-                value={casesPerMonth}
-                onChange={(e) => setCasesPerMonth(Number(e.target.value))}
-                className="w-full h-2 bg-outline-variant/20 rounded-full appearance-none cursor-pointer accent-surface-tint"
-              />
-              <div className="flex justify-between text-xs text-secondary mt-1">
-                <span>5</span>
-                <span>500</span>
+              <div style={{ marginBottom: 32 }}>
+                <div
+                  className="mono"
+                  style={{
+                    fontSize: 11,
+                    color: "var(--ink-3)",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Zurückgewonnene Stunden
+                </div>
+                <div
+                  className="display"
+                  style={{
+                    fontSize: "clamp(56px, 10vw, 96px)",
+                    fontWeight: 800,
+                    color: "var(--accent)",
+                    letterSpacing: "-0.05em",
+                    lineHeight: 1,
+                  }}
+                >
+                  {fmt(savedHours)}
+                  <span style={{ fontSize: 32, color: "var(--ink-2)" }}>
+                    &nbsp;h
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div
+                  className="mono"
+                  style={{
+                    fontSize: 11,
+                    color: "var(--ink-3)",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Zurückgewonnene Marge
+                </div>
+                <div
+                  className="display"
+                  style={{
+                    fontSize: "clamp(44px, 8vw, 72px)",
+                    fontWeight: 800,
+                    letterSpacing: "-0.05em",
+                    lineHeight: 1,
+                    color: "var(--ink)",
+                  }}
+                >
+                  €&thinsp;{fmt(savedEuro)}
+                </div>
               </div>
             </div>
-
-            <div>
-              <div className="flex justify-between items-end mb-3">
-                <label htmlFor="hours-per-case" className="font-headline font-bold text-lg">
-                  Stunden pro Fall (manuell)
-                </label>
-                <span className="text-2xl font-extrabold font-headline text-surface-tint">
-                  {hoursPerCase}h
-                </span>
-              </div>
-              <input
-                id="hours-per-case"
-                type="range"
-                min={0.5}
-                max={10}
-                step={0.5}
-                value={hoursPerCase}
-                onChange={(e) => setHoursPerCase(Number(e.target.value))}
-                className="w-full h-2 bg-outline-variant/20 rounded-full appearance-none cursor-pointer accent-surface-tint"
-              />
-              <div className="flex justify-between text-xs text-secondary mt-1">
-                <span>0,5h</span>
-                <span>10h</span>
-              </div>
+            <div
+              className="mono"
+              style={{
+                fontSize: 11,
+                color: "var(--ink-3)",
+                letterSpacing: "0.1em",
+                lineHeight: 1.6,
+                marginTop: 24,
+                paddingTop: 20,
+                borderTop: "1px dashed var(--line-2)",
+              }}
+            >
+              Annahme: 90% Zeiteinsparung auf Routineaufgaben gem. clever.legal
+              Benchmark.
+              <br />
+              Pro Jahr:{" "}
+              <span style={{ color: "var(--accent)" }}>
+                + €&thinsp;{fmt(savedEuro * 12)}
+              </span>
             </div>
           </div>
-
-          <div className="mt-12 pt-10 border-t border-outline-variant/15">
-            <p className="text-secondary text-center mb-6">
-              Mit clever.legal gewinnen Sie zurück:
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="bg-surface rounded-xl p-6 text-center border border-outline-variant/10">
-                <span className="text-4xl font-extrabold font-headline text-on-background block mb-1">
-                  {savedHours}h
-                </span>
-                <span className="text-sm text-secondary">pro Monat</span>
-              </div>
-              <div className="bg-on-background rounded-xl p-6 text-center">
-                <span className="text-4xl font-extrabold font-headline text-tertiary-fixed-dim block mb-1">
-                  {savedRevenue.toLocaleString("de-DE")} €
-                </span>
-                <span className="text-sm text-secondary-fixed-dim">
-                  zusätzliche Marge / Monat
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <p className="text-secondary text-xs text-center mt-6 leading-relaxed max-w-xl mx-auto">
-            Hinweis: Es handelt sich um eine Beispielberechnung mit uns bekannten
-            Durchschnittswerten. Individuelle Fälle können abweichen – sprechen
-            Sie uns für eine{" "}
-            <a href="/kontakt" className="text-surface-tint underline hover:brightness-110 transition-all">
-              kostenlose Erstberatung
-            </a>{" "}
-            gerne an.
-          </p>
         </div>
       </div>
     </section>

@@ -4,18 +4,17 @@ import {
   getAllReportMeta,
   getReportMeta,
 } from "@/lib/skynet";
-import Icon from "@/components/ui/Icon";
-import Navbar from "@/components/landing/Navbar";
-import Footer from "@/components/landing/Footer";
+import SubpageShell from "@/components/landing/SubpageShell";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { ArrowSvg } from "@/components/landing/Icons";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Legal Alerts | clever.legal",
   description:
-    "Aktuelle Sammelklagen-Frühwarnungen, Hot Legal Topics und regulatorische Signale – wöchentlich aufbereitet für Anwälte und Kanzleien.",
+    "Aktuelle Sammelklagen-Frühwarnungen, Hot Legal Topics und regulatorische Signale.",
 };
 
 export default async function LegalAlertsPage() {
@@ -25,241 +24,167 @@ export default async function LegalAlertsPage() {
 
   if (!edition) {
     return (
-      <>
-        <Navbar />
-        <main className="pt-28">
-          <section className="py-40 px-8 text-center">
-            <Icon name="hourglass_empty" className="text-5xl text-outline mb-4 block" />
-            <p className="text-secondary text-lg">
-              Noch keine Alerts vorhanden. Die erste Ausgabe wird in Kürze
-              generiert.
-            </p>
-          </section>
-        </main>
-        <Footer />
-      </>
+      <SubpageShell>
+        <section style={{ padding: "160px 32px", textAlign: "center" }}>
+          <div className="mono" style={{ fontSize: 11, letterSpacing: "0.14em", color: "var(--ink-3)" }}>
+            Noch keine Alerts vorhanden. Die erste Ausgabe wird in Kürze generiert.
+          </div>
+        </section>
+      </SubpageShell>
     );
   }
 
   const generatedDate = new Date(edition.generatedAt);
 
   return (
-    <>
-      <Navbar />
-      <main className="pt-28">
-        {/* Hero */}
-        <section className="py-24 px-8 relative overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-surface-tint/8 blur-[120px] rounded-full" />
-          <div className="absolute -bottom-40 -left-40 w-[400px] h-[400px] bg-error/5 blur-[100px] rounded-full" />
-          <div className="max-w-7xl mx-auto relative z-10">
-            <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-error/10 rounded-full mb-8">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-error opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-error" />
-                </span>
-                <span className="text-[0.75rem] font-bold uppercase tracking-widest text-error font-label">
-                  Legal Alerts
-                </span>
-              </div>
-              <h1 className="font-headline text-[3rem] leading-[1.1] font-extrabold tracking-tight mb-6 text-on-background">
-                Immer einen Schritt{" "}
-                <span className="text-surface-tint">voraus.</span>
-              </h1>
-              <p className="text-secondary text-lg leading-relaxed mb-6">
-                Wöchentlich kuratierte Intelligence-Reports zu neuen
-                Sammelklagen, regulatorischen Signalen und Trends – damit Sie
-                reagieren können, bevor der Markt es tut.
-              </p>
-              <div className="flex flex-wrap gap-6 text-sm text-secondary">
-                <div className="flex items-center gap-2">
-                  <Icon name="calendar_today" className="text-lg text-surface-tint" />
-                  <span>
-                    Aktualisiert:{" "}
-                    {generatedDate.toLocaleDateString("de-DE", {
-                      day: "2-digit",
-                      month: "long",
-                      year: "numeric",
-                    })}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Icon name="schedule" className="text-lg text-surface-tint" />
-                  <span>Zeitraum: {edition.period}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Icon name="query_stats" className="text-lg text-surface-tint" />
-                  <span>
-                    {edition.stats.articleCount} Quellen analysiert
-                  </span>
-                </div>
-              </div>
-            </div>
+    <SubpageShell>
+      {/* Hero */}
+      <section style={{ borderBottom: "1px solid var(--line-2)" }}>
+        <div className="l-container" style={{ padding: "96px 32px 64px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
+            <span style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--danger)", boxShadow: "0 0 8px var(--danger)" }} />
+            <span className="mono" style={{ fontSize: 11, letterSpacing: "0.14em", color: "var(--danger)" }}>LEGAL ALERTS</span>
           </div>
-        </section>
+          <h1 className="display" style={{ fontSize: "clamp(48px, 7vw, 120px)", fontWeight: 800, marginBottom: 24 }}>
+            Immer einen Schritt{" "}
+            <span style={{ color: "var(--accent)" }}>voraus.</span>
+          </h1>
+          <p style={{ color: "var(--ink-2)", fontSize: 20, lineHeight: 1.55, maxWidth: 640, marginBottom: 32 }}>
+            Wöchentlich kuratierte Intelligence-Reports zu neuen Sammelklagen, regulatorischen Signalen
+            und Trends — damit Sie reagieren können, bevor der Markt es tut.
+          </p>
+          <div className="mono l-meta-row" style={{ display: "flex", gap: 32, fontSize: 11, letterSpacing: "0.1em", color: "var(--ink-3)" }}>
+            <span>
+              AKTUALISIERT:{" "}
+              {generatedDate.toLocaleDateString("de-DE", {
+                day: "2-digit",
+                month: "long",
+                year: "numeric",
+              }).toUpperCase()}
+            </span>
+            <span>ZEITRAUM: {edition.period.toUpperCase()}</span>
+            <span>{edition.stats.articleCount} QUELLEN</span>
+          </div>
+        </div>
+      </section>
 
-        {/* Report Cards */}
-        <section className="py-16 px-8">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {Object.keys(edition.reports).map((key) => {
-                const meta = getReportMeta(key);
-                if (!meta) return null;
+      {/* Report Cards */}
+      <section style={{ borderBottom: "1px solid var(--line-2)" }}>
+        <div className="l-container" style={{ padding: "64px 32px" }}>
+          <div className="l-grid-half l-modules" style={{ gap: 0, border: "1px solid var(--line-2)" }}>
+            {Object.keys(edition.reports).map((key, i) => {
+              const meta = getReportMeta(key);
+              if (!meta) return null;
+              return (
+                <Link
+                  key={key}
+                  href={`/legal-alerts/${meta.slug}`}
+                  style={{
+                    display: "block",
+                    padding: 36,
+                    borderRight: i % 2 === 0 ? "1px solid var(--line-2)" : "none",
+                    borderBottom: i < Object.keys(edition.reports).length - 2 ? "1px solid var(--line-2)" : "none",
+                    transition: "background 0.15s",
+                    background: "transparent",
+                  }}
+                >
+                  <div className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", color: "var(--accent)", marginBottom: 16 }}>
+                    #{meta.slug.toUpperCase()}
+                  </div>
+                  <h2 className="display" style={{ fontSize: 24, fontWeight: 700, marginBottom: 12 }}>
+                    {meta.title}
+                  </h2>
+                  <p style={{ color: "var(--ink-2)", fontSize: 14, lineHeight: 1.55, marginBottom: 20 }}>
+                    {meta.subtitle}
+                  </p>
+                  <span className="mono" style={{ fontSize: 11, letterSpacing: "0.14em", color: "var(--accent)" }}>
+                    REPORT LESEN →
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section style={{ borderBottom: "1px solid var(--line-2)", background: "var(--bg-2)" }}>
+        <div className="l-container" style={{ padding: "64px 32px" }}>
+          <div className="l-grid-stats" style={{ gap: 0, border: "1px solid var(--line-2)" }}>
+            {[
+              { value: String(edition.stats.feedsProcessed), label: "Quellen überwacht" },
+              { value: String(edition.stats.articleCount), label: "Artikel analysiert" },
+              { value: String(Object.keys(edition.reports).length), label: "Reports erstellt" },
+              { value: `Jeden ${edition.runDay}`, label: "Neues Update" },
+            ].map((s, i) => (
+              <div key={s.label} style={{ padding: 32, textAlign: "center", borderRight: i < 3 ? "1px solid var(--line-2)" : "none" }}>
+                <div className="display" style={{ fontSize: 36, fontWeight: 800, color: i === 3 ? "var(--accent)" : "var(--ink)", marginBottom: 8 }}>{s.value}</div>
+                <div className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", color: "var(--ink-3)" }}>{s.label.toUpperCase()}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Archiv */}
+      {archived.length > 0 && (
+        <section style={{ borderBottom: "1px solid var(--line-2)" }}>
+          <div className="l-container" style={{ padding: "64px 32px" }}>
+            <div className="l-archiv-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32 }}>
+              <div>
+                <div className="l-label" style={{ marginBottom: 8 }}>Archiv</div>
+                <h2 className="display" style={{ fontSize: 28, fontWeight: 700 }}>Vergangene Ausgaben</h2>
+              </div>
+              <Link href="/legal-alerts/archiv" className="mono" style={{ fontSize: 11, letterSpacing: "0.14em", color: "var(--accent)" }}>
+                ALLE ANZEIGEN →
+              </Link>
+            </div>
+            <div className="l-grid-3 l-sat-cards" style={{ gap: 0, border: "1px solid var(--line-2)" }}>
+              {archived.slice(0, 3).map((arch, i) => {
+                const archDate = new Date(arch.generatedAt);
                 return (
-                  <Link
-                    key={key}
-                    href={`/legal-alerts/${meta.slug}`}
-                    className="group relative bg-surface p-10 rounded-2xl border border-outline-variant/10 hover:border-surface-tint/30 transition-all duration-300 hover:shadow-lg hover:shadow-surface-tint/5 overflow-hidden"
-                  >
-                    <div className="absolute -top-10 -right-10 w-40 h-40 bg-surface-tint/5 blur-[60px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="relative z-10">
-                      <Icon
-                        name={meta.icon}
-                        className={`text-5xl ${meta.accent} mb-6 block`}
-                      />
-                      <h2 className="font-headline text-2xl font-bold mb-3 group-hover:text-surface-tint transition-colors">
-                        {meta.title}
-                      </h2>
-                      <p className="text-secondary leading-relaxed mb-6">
-                        {meta.subtitle}
-                      </p>
-                      <div className="flex items-center gap-2 text-surface-tint font-semibold text-sm">
-                        Report lesen
-                        <Icon name="arrow_forward" className="text-lg group-hover:translate-x-1 transition-transform" />
-                      </div>
+                  <div key={arch.id} style={{ padding: 24, borderRight: i < 2 ? "1px solid var(--line-2)" : "none" }}>
+                    <div className="mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "var(--ink-3)", marginBottom: 12 }}>
+                      {archDate.toLocaleDateString("de-DE", { day: "2-digit", month: "long", year: "numeric" }).toUpperCase()}
                     </div>
-                  </Link>
+                    <div className="mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "var(--ink-3)", marginBottom: 16 }}>
+                      {arch.period} · {arch.stats.articleCount} Quellen
+                    </div>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                      {Object.keys(arch.reports).map((key) => {
+                        const meta = getReportMeta(key);
+                        if (!meta) return null;
+                        return (
+                          <Link key={key} href={`/legal-alerts/archiv/${arch.id}/${meta.slug}`} className="l-chip" style={{ fontSize: 10 }}>
+                            {meta.title}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
                 );
               })}
             </div>
           </div>
         </section>
+      )}
 
-        {/* Stats Bar */}
-        <section className="py-16 px-8 bg-surface-container-low">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="text-center">
-                <div className="text-4xl font-headline font-extrabold text-on-background mb-2">
-                  {edition.stats.feedsProcessed}
-                </div>
-                <div className="text-secondary text-sm">Quellen überwacht</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-headline font-extrabold text-on-background mb-2">
-                  {edition.stats.articleCount}
-                </div>
-                <div className="text-secondary text-sm">Artikel analysiert</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-headline font-extrabold text-on-background mb-2">
-                  {Object.keys(edition.reports).length}
-                </div>
-                <div className="text-secondary text-sm">Reports erstellt</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-headline font-extrabold text-surface-tint mb-2">
-                  Jeden {edition.runDay}
-                </div>
-                <div className="text-secondary text-sm">Neues Update</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Archiv */}
-        {archived.length > 0 && (
-          <section className="py-16 px-8">
-            <div className="max-w-7xl mx-auto">
-              <div className="flex items-center justify-between mb-8">
-                <div>
-                  <span className="text-surface-tint font-bold font-label uppercase tracking-widest block mb-2">
-                    Archiv
-                  </span>
-                  <h2 className="font-headline text-2xl font-extrabold">
-                    Vergangene Ausgaben
-                  </h2>
-                </div>
-                <Link
-                  href="/legal-alerts/archiv"
-                  className="inline-flex items-center gap-1.5 text-surface-tint font-semibold text-sm hover:gap-2.5 transition-all"
-                >
-                  Alle anzeigen
-                  <Icon name="arrow_forward" className="text-lg" />
-                </Link>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {archived.slice(0, 3).map((arch) => {
-                  const archDate = new Date(arch.generatedAt);
-                  return (
-                    <div
-                      key={arch.id}
-                      className="bg-surface rounded-xl border border-outline-variant/10 p-6"
-                    >
-                      <div className="flex items-center gap-2 text-sm text-secondary mb-3">
-                        <Icon name="calendar_today" className="text-base" />
-                        {archDate.toLocaleDateString("de-DE", {
-                          day: "2-digit",
-                          month: "long",
-                          year: "numeric",
-                        })}
-                      </div>
-                      <div className="text-xs text-secondary mb-4">
-                        {arch.period} · {arch.stats.articleCount} Quellen
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {Object.keys(arch.reports).map((key) => {
-                          const meta = getReportMeta(key);
-                          if (!meta) return null;
-                          return (
-                            <Link
-                              key={key}
-                              href={`/legal-alerts/archiv/${arch.id}/${meta.slug}`}
-                              className="inline-flex items-center gap-1.5 text-xs font-semibold text-surface-tint bg-surface-tint/5 px-3 py-1.5 rounded-lg hover:bg-surface-tint/10 transition-colors"
-                            >
-                              <Icon name={meta.icon} className="text-sm" />
-                              {meta.title}
-                            </Link>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* CTA */}
-        <section className="py-24 px-8">
-          <div className="max-w-7xl mx-auto">
-            <div className="relative bg-on-background rounded-2xl p-12 md:p-20 overflow-hidden text-center">
-              <div className="absolute -top-20 -left-20 w-60 h-60 bg-surface-tint/15 blur-[100px] rounded-full" />
-              <div className="absolute -bottom-20 -right-20 w-60 h-60 bg-error/10 blur-[100px] rounded-full" />
-              <div className="relative z-10 max-w-2xl mx-auto">
-                <Icon name="notifications_active" className="text-5xl text-tertiary-fixed-dim mb-6 block" />
-                <h2 className="font-headline text-3xl md:text-4xl font-extrabold text-white mb-6">
-                  Nie wieder kalte Mandate.
-                </h2>
-                <p className="text-secondary-fixed-dim text-lg leading-relaxed mb-10">
-                  Nutzen Sie unsere wöchentlichen Legal Alerts, um als Erster auf
-                  neue Sammelklagen und Massenverfahren zu reagieren. Werden Sie
-                  Teil des clever.legal Netzwerks.
-                </p>
-                <Link
-                  href="/kontakt"
-                  className="inline-flex items-center gap-2 bg-surface-tint text-white px-8 py-4 rounded-xl font-bold hover:brightness-110 transition-all"
-                >
-                  Jetzt Zugang sichern
-                  <Icon name="arrow_forward" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </>
+      {/* CTA */}
+      <section style={{ borderBottom: "1px solid var(--line-2)" }}>
+        <div className="l-container" style={{ padding: "96px 32px", textAlign: "center" }}>
+          <h2 className="display" style={{ fontSize: "clamp(32px, 5vw, 64px)", fontWeight: 700, marginBottom: 16 }}>
+            Nie wieder kalte Mandate.
+          </h2>
+          <p style={{ color: "var(--ink-2)", fontSize: 18, maxWidth: 600, margin: "0 auto 36px" }}>
+            Nutzen Sie unsere wöchentlichen Legal Alerts, um als Erster auf neue
+            Sammelklagen und Massenverfahren zu reagieren.
+          </p>
+          <Link href="/kontakt" className="l-btn l-btn-primary">
+            Jetzt Zugang sichern
+            <ArrowSvg />
+          </Link>
+        </div>
+      </section>
+    </SubpageShell>
   );
 }

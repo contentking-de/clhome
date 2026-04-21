@@ -1,127 +1,340 @@
-import Icon from "../ui/Icon";
+"use client";
+
+import { useState, useEffect } from "react";
+import { ArrowSvg } from "./Icons";
+
+function LiveCounter() {
+  const [n, setN] = useState(52882);
+  useEffect(() => {
+    const t = setInterval(
+      () => setN((v) => v + Math.floor(Math.random() * 3 + 1)),
+      1200
+    );
+    return () => clearInterval(t);
+  }, []);
+  return <span>{n.toLocaleString("de-DE")}</span>;
+}
+
+function HeroStat({
+  label,
+  value,
+  sub,
+}: {
+  label: string;
+  value: React.ReactNode;
+  sub?: string;
+}) {
+  return (
+    <div style={{ padding: "20px 0", borderTop: "1px solid var(--line-2)" }}>
+      <div
+        className="mono"
+        style={{
+          fontSize: 10,
+          letterSpacing: "0.14em",
+          textTransform: "uppercase",
+          color: "var(--ink-3)",
+          marginBottom: 8,
+        }}
+      >
+        {label}
+      </div>
+      <div
+        className="display"
+        style={{ fontSize: 34, fontWeight: 700, color: "var(--ink)" }}
+      >
+        {value}
+      </div>
+      {sub && (
+        <div
+          className="mono"
+          style={{ fontSize: 11, color: "var(--ink-3)", marginTop: 6 }}
+        >
+          {sub}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Hero() {
+  const [blink, setBlink] = useState(true);
+  useEffect(() => {
+    const t = setInterval(() => setBlink((b) => !b), 600);
+    return () => clearInterval(t);
+  }, []);
+
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el)
+      window.scrollTo({
+        top: el.getBoundingClientRect().top + window.scrollY - 80,
+        behavior: "smooth",
+      });
+  };
+
   return (
-    <section className="relative min-h-[620px] flex items-center px-8 overflow-hidden">
-      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        <div className="lg:col-span-7 z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-highest rounded-full mb-8">
-            <span className="w-2 h-2 rounded-full bg-surface-tint" />
-            <span className="text-[0.75rem] font-bold uppercase tracking-widest text-on-surface-variant font-label">
-              Digitalisierung &amp; KI-Beratung für Kanzleien
+    <section
+      id="hero"
+      style={{ position: "relative", borderBottom: "1px solid var(--line-2)" }}
+    >
+      {/* subtle grid */}
+      <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
+        <div
+          className="grid-bg"
+          style={{
+            position: "absolute",
+            inset: 0,
+            maskImage:
+              "radial-gradient(ellipse at 70% 40%, black, transparent 70%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse at 70% 40%, black, transparent 70%)",
+          }}
+        />
+      </div>
+
+      <div
+        className="l-container l-grid-hero"
+        style={{
+          position: "relative",
+          padding: "72px 32px 56px",
+        }}
+      >
+        <div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              marginBottom: 28,
+              flexWrap: "wrap",
+            }}
+          >
+            <span className="l-chip">
+              <span className="dot" />
+              Authority Disruptor // Edition 2026
+            </span>
+            <span
+              className="mono"
+              style={{
+                fontSize: 11,
+                color: "var(--ink-3)",
+                letterSpacing: "0.1em",
+              }}
+            >
+              N = 4 Gründer · 50+ Jahre Erfahrung
             </span>
           </div>
-          <h1 className="font-headline text-[3.5rem] leading-[1.1] font-extrabold tracking-tight mb-8 text-on-background">
+
+          <h1
+            className="display"
+            style={{
+              fontSize: "clamp(56px, 9vw, 148px)",
+              fontWeight: 800,
+            }}
+          >
             Recht haben
             <br />
             dauert Sekunden.
             <br />
-            <span className="text-surface-tint">Recht bekommen</span>
+            <span style={{ color: "var(--accent)" }}>
+              Recht bekommen
+              {blink ? (
+                <span style={{ color: "var(--accent)" }}>_</span>
+              ) : (
+                <span style={{ opacity: 0 }}>_</span>
+              )}
+            </span>
             <br />
-            ab jetzt auch.
+            <span style={{ color: "var(--ink-2)" }}>ab jetzt auch.</span>
           </h1>
-          <p className="text-secondary text-lg max-w-xl mb-10 leading-relaxed">
-            Keine Beratung. Keine Experimente. Wir installieren die
-            KI-Infrastruktur, mit der Sie Massenverfahren skalieren, während
-            Ihre Konkurrenz noch Akten sortiert.
+
+          <p
+            style={{
+              maxWidth: 560,
+              fontSize: 18,
+              lineHeight: 1.55,
+              color: "var(--ink-2)",
+              marginTop: 36,
+            }}
+          >
+            Wir verkaufen keine Software, sondern{" "}
+            <span style={{ color: "var(--ink)", fontWeight: 600 }}>
+              Kapazität
+            </span>
+            . clever.legal installiert die KI-Infrastruktur, mit der Sie
+            Massenverfahren skalieren — während Ihre Konkurrenz noch PDFs
+            sortiert.
           </p>
-          <div className="flex flex-wrap gap-4">
+
+          <div
+            style={{
+              display: "flex",
+              gap: 12,
+              marginTop: 36,
+              flexWrap: "wrap",
+            }}
+          >
             <a
-              href="#calculator"
-              className="bg-on-primary-container text-on-primary px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:brightness-110 transition-all"
+              href="#kontakt"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollTo("kontakt");
+              }}
+              className="l-btn l-btn-primary"
             >
-              Zeitvorteil & Gewinn berechnen
-              <Icon name="calculate" />
+              Strategie-Gespräch anfordern
+              <ArrowSvg />
             </a>
             <a
               href="#engine"
-              className="px-8 py-4 rounded-xl border border-outline-variant/30 font-bold hover:bg-surface-container-low transition-all"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollTo("engine");
+              }}
+              className="l-btn"
             >
-              Unsere Engine
+              Engine ansehen
             </a>
           </div>
         </div>
-        <div className="lg:col-span-5 relative">
-          <div className="relative w-full aspect-square rounded-full overflow-hidden border-[16px] border-surface-container-low">
-            <img
-              alt="Modernes Gebäude aus Glas und Stahl"
-              className="w-full h-full object-cover grayscale"
-              fetchPriority="high"
-              loading="eager"
-              decoding="async"
-              src="https://suudphdtlchxrc5q.public.blob.vercel-storage.com/landing/hero-building.webp"
-            />
-            <div className="absolute inset-0 bg-gradient-to-tr from-surface-tint/20 to-transparent" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="grid grid-cols-3 gap-4">
-                <div className="w-14 h-14 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg flex items-center justify-center animate-float-1" title="ChatGPT">
-                  <img src="/chatgpt-icon.svg" alt="ChatGPT" className="w-8 h-8" />
-                </div>
-                <div className="w-14 h-14 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg flex items-center justify-center animate-float-3" title="Claude">
-                  <img src="/claude-ai-icon.svg" alt="Claude" className="w-8 h-8" />
-                </div>
-                <div className="w-14 h-14 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg flex items-center justify-center animate-float-4" title="Google Gemini">
-                  <img src="/google-gemini-icon.svg" alt="Gemini" className="w-8 h-8" />
-                </div>
-                <div className="w-14 h-14 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg flex items-center justify-center animate-float-2" title="Perplexity">
-                  <img src="/perplexity-ai-icon.svg" alt="Perplexity" className="w-8 h-8" />
-                </div>
-                <div className="w-14 h-14 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg flex items-center justify-center animate-float-1" title="DeepSeek">
-                  <img src="/deepseek-logo-icon.svg" alt="DeepSeek" className="w-8 h-8" />
-                </div>
-                <div className="w-14 h-14 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg flex items-center justify-center animate-float-3" title="Grok">
-                  <img src="/grok-icon.svg" alt="Grok" className="w-8 h-8" />
-                </div>
-              </div>
+
+        {/* Terminal mock */}
+        <div
+          style={{
+            border: "1px solid var(--line)",
+            background: "var(--bg-2)",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "10px 14px",
+              borderBottom: "1px solid var(--line-2)",
+              background: "var(--bg-3)",
+            }}
+          >
+            <div
+              className="mono"
+              style={{
+                fontSize: 11,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--ink-2)",
+              }}
+            >
+              /intake/run — live
+            </div>
+            <div style={{ display: "flex", gap: 6 }}>
+              <span
+                style={{
+                  width: 8,
+                  height: 8,
+                  background: "var(--line)",
+                }}
+              />
+              <span
+                style={{
+                  width: 8,
+                  height: 8,
+                  background: "var(--line)",
+                }}
+              />
+              <span
+                style={{
+                  width: 8,
+                  height: 8,
+                  background: "var(--accent)",
+                }}
+              />
             </div>
           </div>
-          <div className="absolute top-12 -left-8 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px] animate-float-1">
-            <div className="flex items-center gap-2 mb-1">
-              <Icon name="schedule" className="text-gray-700" />
-              <div className="text-sm font-bold font-headline">
-                Zeitersparnis
-              </div>
+          <div
+            className="mono"
+            style={{
+              padding: 22,
+              fontSize: 12.5,
+              lineHeight: 1.8,
+              color: "var(--ink-2)",
+            }}
+          >
+            <div>
+              <span style={{ color: "var(--ink-3)" }}>$</span> clever{" "}
+              <span style={{ color: "var(--accent)" }}>intake</span> --file
+              mandate_0812.pdf
             </div>
-            <div className="text-xs text-secondary leading-snug">
-              Automatisierte Fallprüfung in unter 30 Sekunden.
+            <div style={{ color: "var(--ink-3)" }}>
+              [OCR] extracting 14 pages ........{" "}
+              <span style={{ color: "var(--accent)" }}>OK</span>
             </div>
-          </div>
-          <div className="absolute bottom-12 -left-8 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px] animate-float-2">
-            <div className="flex items-center gap-2 mb-1">
-              <Icon name="trending_up" className="text-gray-700" />
-              <div className="text-sm font-bold font-headline">
-                Effizienzsteigerung
-              </div>
+            <div style={{ color: "var(--ink-3)" }}>
+              [PARSE] claim vectors 31 / 31 ...{" "}
+              <span style={{ color: "var(--accent)" }}>OK</span>
             </div>
-            <div className="text-xs text-secondary leading-snug">
-              Mehr Mandate in kürzerer Zeit.
+            <div style={{ color: "var(--ink-3)" }}>
+              [MATCH] § 826 BGB · § 280 BGB · DSGVO 82
             </div>
-          </div>
-          <div className="absolute top-4 -right-6 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px] animate-float-3">
-            <div className="flex items-center gap-2 mb-1">
-              <Icon name="crisis_alert" className="text-gray-700" />
-              <div className="text-sm font-bold font-headline">
-                Strategiefokus
-              </div>
+            <div style={{ color: "var(--ink-3)" }}>
+              [DRAFT] Schriftsatz v.1.2 →{" "}
+              <span style={{ color: "var(--ink)" }}>Ready-to-File</span>
             </div>
-            <div className="text-xs text-secondary leading-snug">
-              Zeitgewinn auf der Strategieebene einsetzen.
+            <div
+              style={{
+                marginTop: 12,
+                paddingTop: 12,
+                borderTop: "1px dashed var(--line-2)",
+              }}
+            >
+              <span style={{ color: "var(--ink-3)" }}>elapsed</span>&nbsp;{" "}
+              <span style={{ color: "var(--accent)" }}>00:04:12</span>
+              &nbsp;&nbsp;
+              <span style={{ color: "var(--ink-3)" }}>vs. manual</span>&nbsp;{" "}
+              <span
+                style={{
+                  color: "var(--ink-2)",
+                  textDecoration: "line-through",
+                }}
+              >
+                02:40:00
+              </span>
             </div>
-          </div>
-          <div className="absolute bottom-4 -right-6 bg-white backdrop-blur-md p-6 rounded-xl shadow-2xl border border-gray-400 max-w-[200px] animate-float-4">
-            <div className="flex items-center gap-2 mb-1">
-              <Icon name="psychology" className="text-gray-700" />
-              <div className="text-sm font-bold font-headline">
-                Motivation
-              </div>
-            </div>
-            <div className="text-xs text-secondary leading-snug">
-              Digitale Lösungen gegen BoreOut-Syndrom.
+            <div style={{ marginTop: 8 }}>
+              <span style={{ color: "var(--ink-3)" }}>$</span>{" "}
+              <span className="l-blink">▌</span>
             </div>
           </div>
         </div>
       </div>
-      <div className="absolute -right-24 top-1/4 w-96 h-96 bg-tertiary-fixed-dim/10 blur-[120px] rounded-full" />
+
+      {/* Stats row */}
+      <div
+        className="l-container"
+        style={{ position: "relative", padding: "0 32px 48px" }}
+      >
+        <div className="l-grid-stats">
+          <HeroStat
+            label="Prüfzeit reduziert um"
+            value="−90%"
+            sub="Ø Mandanten-Dokument"
+          />
+          <HeroStat
+            label="Intake → Ready-to-File"
+            value="< 5 min"
+            sub="war: 2h 40m"
+          />
+          <HeroStat
+            label="Fälle automatisiert"
+            value={<LiveCounter />}
+            sub="Netzwerk gesamt · live"
+          />
+          <HeroStat
+            label="Lizenz pro Gebiet"
+            value="1"
+            sub="Scharfschützen-Policy"
+          />
+        </div>
+      </div>
     </section>
   );
 }
