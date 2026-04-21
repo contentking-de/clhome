@@ -6,6 +6,7 @@ const FOUNDERS = [
     tag: "LEGAL",
     bio: "Juristisches Gewissen. Bewies mit zockerhelden.de wie man Massenverfahren skaliert.",
     brands: ["Zockerhelden", "Meta-Klage", "Coachinganwalt", "BEMK"],
+    image: "/team/marc-ellerbrock.jpeg",
   },
   {
     name: "Nico Sacotte",
@@ -14,6 +15,7 @@ const FOUNDERS = [
     tag: "CONTENT",
     bio: "25+ Jahre Online Marketing. Baut organische Autorität — gegen verkrustete Strukturen.",
     brands: ["Commerzbank", "Burda", "O2", "Immoscout", "Fleurop"],
+    image: "/team/nico-sacotte.png",
   },
   {
     name: "Thorsten Loth",
@@ -22,6 +24,7 @@ const FOUNDERS = [
     tag: "GROWTH",
     bio: "Jagt Traffic auf Satelliten und B2B-Landingpages. Zwei Jahrzehnte Paid-Excellence.",
     brands: ["Apollo", "Fressnapf", "C&A", "Deichmann", "BK"],
+    image: "/team/thorsten-loth.webp",
   },
   {
     name: "Christoph Ehrke",
@@ -30,6 +33,7 @@ const FOUNDERS = [
     tag: "TECH",
     bio: "Denkt in hochperformanter Logik, nicht Paragraphen. Die Black Box, die alles möglich macht.",
     brands: ["OMlocal", "OMfire", "30+ Team"],
+    image: "/team/christoph-ehrke.jpeg",
   },
 ];
 
@@ -115,7 +119,6 @@ export default function TeamSection() {
                   {f.code}
                 </span>
               </div>
-              {/* Portrait placeholder */}
               <div
                 style={{
                   aspectRatio: "3 / 4",
@@ -126,51 +129,16 @@ export default function TeamSection() {
                   border: "1px solid var(--line-2)",
                 }}
               >
-                <div
+                <img
+                  src={f.image}
+                  alt={f.name}
                   style={{
-                    position: "absolute",
-                    inset: 0,
-                    background:
-                      "repeating-linear-gradient(135deg, transparent 0 8px, color-mix(in oklab, var(--accent), transparent 88%) 8px 9px)",
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    filter: "grayscale(100%)",
                   }}
                 />
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <span
-                    className="display"
-                    style={{
-                      fontSize: 72,
-                      fontWeight: 800,
-                      color: "var(--ink-2)",
-                      opacity: 0.3,
-                    }}
-                  >
-                    {f.name
-                      .split(" ")
-                      .map((w) => w[0])
-                      .join("")}
-                  </span>
-                </div>
-                <div
-                  className="mono"
-                  style={{
-                    position: "absolute",
-                    bottom: 8,
-                    left: 8,
-                    fontSize: 10,
-                    color: "var(--ink-3)",
-                    letterSpacing: "0.1em",
-                  }}
-                >
-                  [ portrait · b&w ]
-                </div>
               </div>
               <div
                 className="display"
