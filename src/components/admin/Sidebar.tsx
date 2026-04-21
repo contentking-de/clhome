@@ -9,6 +9,12 @@ const links = [
   { id: "dashboard", label: "Dashboard", href: "/admin", icon: "dashboard" },
   { id: "posts", label: "Beiträge", href: "/admin/posts", icon: "article" },
   {
+    id: "legal-alerts",
+    label: "Legal Alerts",
+    href: "/admin/legal-alerts",
+    icon: "campaign",
+  },
+  {
     id: "users",
     label: "Nutzer",
     href: "/admin/users",
@@ -18,6 +24,7 @@ const links = [
 
 function getActiveId(pathname: string): string {
   if (pathname.startsWith("/admin/posts")) return "posts";
+  if (pathname.startsWith("/admin/legal-alerts")) return "legal-alerts";
   if (pathname.startsWith("/admin/users")) return "users";
   return "dashboard";
 }

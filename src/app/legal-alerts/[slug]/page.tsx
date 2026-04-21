@@ -1,5 +1,6 @@
 import {
   getCurrentEdition,
+  getArchivedEditions,
   getReportKeyBySlug,
   getReportMeta,
   getAllReportMeta,
@@ -34,7 +35,10 @@ export default async function LegalAlertDetailPage({ params }: Props) {
   if (!key) notFound();
 
   const meta = getReportMeta(key)!;
-  const edition = await getCurrentEdition();
+  const [edition, archived] = await Promise.all([
+    getCurrentEdition(),
+    getArchivedEditions(),
+  ]);
   if (!edition) notFound();
 
   const markdown = edition.reports[key];
@@ -45,6 +49,8 @@ export default async function LegalAlertDetailPage({ params }: Props) {
   const otherReports = Object.entries(allMeta).filter(
     ([k]) => k !== key && edition.reports[k]
   );
+
+  const archivedWithReport = archived.filter((e) => e.reports[key]);
 
   return (
     <SubpageShell>
@@ -139,6 +145,76 @@ export default async function LegalAlertDetailPage({ params }: Props) {
           </div>
         </div>
       </article>
+
+      {archivedWithReport.length > 0 && (
+        <section style={{ borderBottom: "1px solid var(--line-2)" }}>
+          <div className="l-container" style={{ padding: "64px 32px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32 }}>
+              <div>
+                <div className="l-label" style={{ marginBottom: 8 }}>Archiv</div>
+                <h2 className="display" style={{ fontSize: 28, fontWeight: 700 }}>
+                  Frühere Ausgaben
+                </h2>
+              </div>
+              <span className="mono" style={{ fontSize: 11, letterSpacing: "0.1em", color: "var(--ink-3)" }}>
+                {archivedWithReport.length} AUSGABE{archivedWithReport.length !== 1 ? "N" : ""}
+              </span>
+            </div>
+
+            <div style={{ border: "1px solid var(--line-2)" }}>
+              <div
+                className="mono"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr auto",
+                  padding: "14px 24px",
+                  background: "var(--bg-2)",
+                  borderBottom: "1px solid var(--line-2)",
+                  fontSize: 11,
+                  letterSpacing: "0.14em",
+                  color: "var(--ink-3)",
+                }}
+              >
+                <span>DATUM</span>
+                <span>ZEITRAUM</span>
+                <span />
+              </div>
+
+              {archivedWithReport.map((arch, i) => {
+                const archDate = new Date(arch.generatedAt);
+                return (
+                  <Link
+                    key={arch.id}
+                    href={`/legal-alerts/archiv/${arch.id}/${meta.slug}`}
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr auto",
+                      padding: "20px 24px",
+                      borderBottom: i < archivedWithReport.length - 1 ? "1px solid var(--line-2)" : "none",
+                      alignItems: "center",
+                      transition: "background 0.15s",
+                    }}
+                  >
+                    <span style={{ fontSize: 15, fontWeight: 500 }}>
+                      {archDate.toLocaleDateString("de-DE", {
+                        day: "2-digit",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </span>
+                    <span style={{ fontSize: 14, color: "var(--ink-2)" }}>
+                      {arch.period}
+                    </span>
+                    <span className="mono" style={{ fontSize: 11, letterSpacing: "0.14em", color: "var(--accent)" }}>
+                      LESEN →
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
     </SubpageShell>
   );
 }

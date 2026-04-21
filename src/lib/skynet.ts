@@ -41,7 +41,7 @@ export async function fetchReportFromSkynet(filename: string): Promise<string> {
   return res.text();
 }
 
-async function seedInitialEdition(): Promise<LegalAlertEdition> {
+export async function refreshEdition(): Promise<LegalAlertEdition> {
   const feed = await fetchFeedFromSkynet();
   const reportContents: Record<string, string> = {};
   for (const [key, filename] of Object.entries(feed.reports)) {
@@ -99,7 +99,7 @@ export async function getCurrentEdition(): Promise<EditionView | null> {
 
   if (!edition) {
     try {
-      edition = await seedInitialEdition();
+      edition = await refreshEdition();
     } catch {
       return null;
     }
