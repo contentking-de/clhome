@@ -9,6 +9,20 @@ const baseAdapter = PrismaAdapter(prisma);
 
 const adapter = {
   ...baseAdapter,
+  async deleteSession(sessionToken: string) {
+    try {
+      return await prisma.session.delete({ where: { sessionToken } });
+    } catch (error) {
+      if (
+        error &&
+        typeof error === "object" &&
+        "code" in error &&
+        error.code === "P2025"
+      )
+        return null;
+      throw error;
+    }
+  },
   async useVerificationToken(identifier_token: {
     identifier: string;
     token: string;
