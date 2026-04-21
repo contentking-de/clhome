@@ -1,4 +1,5 @@
 import SubpageShell from "@/components/landing/SubpageShell";
+import ContactForm from "@/components/landing/ContactForm";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -22,19 +23,7 @@ export default function KontaktPage() {
 
           <div className="l-grid-contact" style={{ gap: 0, border: "1px solid var(--line-2)", background: "var(--bg)" }}>
             <div className="l-split-border" style={{ padding: 48, borderRight: "1px solid var(--line-2)" }}>
-              <form style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-                <FormField label="Name" type="text" />
-                <FormField label="Kanzlei" type="text" />
-                <div className="l-grid-half" style={{ gap: 24 }}>
-                  <FormField label="E-Mail" type="email" />
-                  <FormField label="Rechtsgebiet / Region" type="text" placeholder="z.B. Datenschutz / NRW" />
-                </div>
-                <FormField label="Nachricht" type="textarea" />
-                <button type="submit" className="l-btn l-btn-primary" style={{ alignSelf: "flex-start", marginTop: 8 }}>
-                  Strategie-Gespräch anfordern
-                  <svg className="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-                </button>
-              </form>
+              <ContactForm />
             </div>
             <div style={{ padding: 48, display: "flex", flexDirection: "column", gap: 32, background: "color-mix(in oklab, var(--accent), var(--bg) 96%)" }}>
               <div>
@@ -64,29 +53,5 @@ export default function KontaktPage() {
         </div>
       </section>
     </SubpageShell>
-  );
-}
-
-function FormField({ label, type, placeholder }: { label: string; type: string; placeholder?: string }) {
-  const style: React.CSSProperties = {
-    width: "100%",
-    background: "transparent",
-    border: "none",
-    borderBottom: "1px solid var(--line)",
-    padding: "10px 0 8px",
-    fontSize: 16,
-    color: "var(--ink)",
-    outline: "none",
-    fontFamily: "inherit",
-  };
-  return (
-    <label style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-      <span className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--ink-3)" }}>{label}</span>
-      {type === "textarea" ? (
-        <textarea rows={4} required placeholder={placeholder} style={{ ...style, resize: "none" }} />
-      ) : (
-        <input type={type} required placeholder={placeholder} style={style} />
-      )}
-    </label>
   );
 }

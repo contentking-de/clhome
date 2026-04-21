@@ -7,11 +7,12 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminDashboard() {
   const session = await auth();
-  const [postCount, publishedCount, draftCount, userCount] = await Promise.all([
+  const [postCount, publishedCount, draftCount, userCount, leadCount] = await Promise.all([
     prisma.post.count(),
     prisma.post.count({ where: { published: true } }),
     prisma.post.count({ where: { published: false } }),
     prisma.user.count(),
+    prisma.lead.count(),
   ]);
 
   return (
@@ -23,7 +24,7 @@ export default async function AdminDashboard() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-5 gap-6 mb-10">
         <div className="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10">
           <div className="text-3xl font-extrabold font-headline text-on-background mb-1">
             {postCount}
@@ -41,6 +42,12 @@ export default async function AdminDashboard() {
             {draftCount}
           </div>
           <div className="text-sm text-secondary">Entwürfe</div>
+        </div>
+        <div className="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10">
+          <div className="text-3xl font-extrabold font-headline text-on-background mb-1">
+            {leadCount}
+          </div>
+          <div className="text-sm text-secondary">Leads</div>
         </div>
         <div className="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10">
           <div className="text-3xl font-extrabold font-headline text-on-background mb-1">
@@ -70,6 +77,13 @@ export default async function AdminDashboard() {
         >
           <Icon name="group" className="text-xl" />
           Nutzer verwalten
+        </Link>
+        <Link
+          href="/admin/leads"
+          className="px-6 py-3 rounded-lg border border-outline-variant/30 font-semibold hover:bg-surface-container-low transition-all inline-flex items-center gap-2"
+        >
+          <Icon name="mail" className="text-xl" />
+          Leads
         </Link>
       </div>
     </div>

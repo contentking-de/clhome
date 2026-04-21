@@ -88,3 +88,14 @@ model LegalAlertEdition {
   isCurrent   Boolean  @default(true)
   createdAt   DateTime @default(now())
 }
+
+model Lead {
+  id        String   @id @default(cuid())
+  name      String
+  kanzlei   String?
+  email     String
+  gebiet    String?
+  message   String
+  source    String   @default("kontaktformular")
+  createdAt DateTime @default(now())
+}
