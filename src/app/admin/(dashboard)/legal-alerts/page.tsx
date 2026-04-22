@@ -1,4 +1,5 @@
 import { getCurrentEdition, getArchivedEditions, getAllReportMeta } from "@/lib/skynet";
+import { prisma } from "@/lib/prisma";
 import Icon from "@/components/ui/Icon";
 import RefreshButton from "@/components/admin/RefreshLegalAlerts";
 import ReportPreview from "@/components/admin/ReportPreview";
@@ -7,11 +8,14 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 export default async function AdminLegalAlerts() {
-  const [current, archived] = await Promise.all([
+  const [current, archived, subscribers] = await Promise.all([
     getCurrentEdition(),
     getArchivedEditions(),
+    prisma.alertSubscriber.findMany({ orderBy: { createdAt: "desc" } }),
   ]);
   const reportMeta = getAllReportMeta();
+  const confirmed = subscribers.filter((s) => s.confirmedAt);
+  const pending = subscribers.filter((s) => !s.confirmedAt);
 
   return (
     <div className="max-w-4xl">
@@ -132,6 +136,61 @@ export default async function AdminLegalAlerts() {
       )}
 
       <RefreshButton />
+
+      {/* Subscriber */}
+      <div className="mt-10">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <Icon name="mail" className="text-xl text-surface-tint" />
+            <h2 className="font-headline text-lg font-bold">Alert-Abonnenten</h2>
+          </div>
+          <span className="text-sm text-secondary">
+            {confirmed.length} bestätigt · {pending.length} ausstehend
+          </span>
+        </div>
+
+        {subscribers.length > 0 ? (
+          <div className="bg-surface-container-low rounded-xl border border-outline-variant/10 overflow-hidden">
+            <div className="grid grid-cols-[1fr_1fr_auto_auto] gap-4 px-4 py-2.5 text-xs text-secondary uppercase tracking-wide border-b border-outline-variant/10 bg-surface-container/50">
+              <span>Name</span>
+              <span>E-Mail</span>
+              <span>Status</span>
+              <span>Datum</span>
+            </div>
+            {subscribers.map((sub) => (
+              <div
+                key={sub.id}
+                className="grid grid-cols-[1fr_1fr_auto_auto] gap-4 px-4 py-3 text-sm border-b border-outline-variant/5 last:border-b-0 items-center"
+              >
+                <span className="font-medium truncate">{sub.name}</span>
+                <span className="text-secondary truncate">{sub.email}</span>
+                <span>
+                  {sub.confirmedAt ? (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-100 text-green-800 text-xs font-medium">
+                      ✓ Bestätigt
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800 text-xs font-medium">
+                      ⏳ Ausstehend
+                    </span>
+                  )}
+                </span>
+                <span className="text-xs text-secondary whitespace-nowrap">
+                  {new Date(sub.confirmedAt ?? sub.createdAt).toLocaleDateString("de-DE", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                  })}
+                </span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10">
+            <p className="text-sm text-secondary">Noch keine Abonnenten.</p>
+          </div>
+        )}
+      </div>
 
       <div className="mt-10">
         <div className="flex items-center justify-between mb-4">
