@@ -1,4 +1,5 @@
 import SubpageShell from "@/components/landing/SubpageShell";
+import { CookieSettingsButton } from "@/components/landing/CookieConsent";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -46,6 +47,9 @@ export default function DatenschutzPage() {
               <Sub title="Cookies">
                 <p>
                   Diese Website verwendet technisch notwendige Cookies. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.
+                  Weitere Cookies (z.&nbsp;B. für Analyse oder Marketing) werden nur mit Ihrer ausdrücklichen
+                  Einwilligung gesetzt (Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;a DSGVO). Sie können Ihre Einstellungen
+                  jederzeit anpassen: <CookieSettingsButton />
                 </p>
               </Sub>
               <Sub title="Kontaktformular">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./Header";
+import { CookieSettingsButton } from "./CookieConsent";
 
 const COLS = [
   {
@@ -107,7 +108,7 @@ export default function Footer() {
             </div>
           </div>
           {COLS.map((c) => (
-            <div key={c.t}>
+            <nav key={c.t} aria-label={c.t}>
               <div
                 className="mono"
                 style={{
@@ -145,7 +146,7 @@ export default function Footer() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
           ))}
         </div>
         <div
@@ -182,6 +183,7 @@ export default function Footer() {
             <span>beA:ONLINE</span>
             <span>v.26.04 / BUILD 0421</span>
           </div>
+          <CookieSettingsButton />
         </div>
       </div>
     </footer>

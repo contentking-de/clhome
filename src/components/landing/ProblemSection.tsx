@@ -9,12 +9,14 @@ function Row({
 }) {
   return (
     <div
+      role="row"
       className="l-grid-half"
       style={{
         borderTop: "1px solid var(--line-2)",
       }}
     >
       <div
+        role="cell"
         style={{
           padding: "22px 28px",
           color: "var(--ink-3)",
@@ -38,6 +40,7 @@ function Row({
         <span style={{ fontSize: 16, lineHeight: 1.5 }}>{left}</span>
       </div>
       <div
+        role="cell"
         className="l-split-border l-compare-cell"
         style={{
           padding: "22px 28px",
@@ -154,18 +157,21 @@ export default function ProblemSection() {
 
       <div className="l-container" style={{ padding: "0 32px" }}>
         <div
+          role="table"
+          aria-label="Vergleich: Status Quo vs. clever.legal"
           style={{
             border: "1px solid var(--line-2)",
             borderBottom: "none",
           }}
         >
           <div
+            role="row"
             className="l-grid-half"
             style={{
               background: "var(--bg-2)",
             }}
           >
-            <div style={{ padding: "14px 28px" }} className="mono">
+            <div role="columnheader" style={{ padding: "14px 28px" }} className="mono">
               <span
                 style={{
                   fontSize: 11,
@@ -178,6 +184,7 @@ export default function ProblemSection() {
               </span>
             </div>
             <div
+              role="columnheader"
               style={{
                 padding: "14px 28px",
                 borderLeft: "1px solid var(--line-2)",

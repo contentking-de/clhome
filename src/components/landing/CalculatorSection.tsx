@@ -51,6 +51,7 @@ function Slider({
         step={step}
         value={value}
         onChange={(e) => onChange(+e.target.value)}
+        aria-valuetext={`${value.toLocaleString("de-DE")} ${unit}`}
         style={{
           width: "100%",
           accentColor: "oklch(0.88 0.22 125)",

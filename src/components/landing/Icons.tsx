@@ -17,6 +17,7 @@ function Ico({
       strokeWidth="1.6"
       strokeLinecap="square"
       strokeLinejoin="miter"
+      aria-hidden="true"
       {...p}
     >
       {children}
@@ -244,7 +245,7 @@ export const Icons: Record<string, (p: IconProps) => React.ReactElement> = {
 
 export function ArrowSvg() {
   return (
-    <svg className="arrow" viewBox="0 0 24 24">
+    <svg className="arrow" viewBox="0 0 24 24" aria-hidden="true">
       <path d="M5 12h14M13 6l6 6-6 6" />
     </svg>
   );

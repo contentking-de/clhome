@@ -56,7 +56,7 @@ function EngineModule({
           MOD.{num}
         </span>
       </div>
-      <div
+      <h3
         className="display"
         style={{
           fontSize: 30,
@@ -66,7 +66,7 @@ function EngineModule({
         }}
       >
         {title}
-      </div>
+      </h3>
       <p style={{ fontSize: 14.5, lineHeight: 1.55, color: "var(--ink-2)" }}>
         {desc}
       </p>

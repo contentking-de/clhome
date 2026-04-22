@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Inter_Tight } from "next/font/google";
 import { JetBrains_Mono } from "next/font/google";
+import CookieConsent from "@/components/landing/CookieConsent";
 import "./globals.css";
 
 const inter = Inter({
@@ -46,7 +47,11 @@ export default function RootLayout({
       className={`${inter.variable} ${interTight.variable} ${jetbrainsMono.variable}`}
     >
       <body>
+        <a href="#main-content" className="skip-link">
+          Zum Inhalt springen
+        </a>
         {children}
+        <CookieConsent />
       </body>
     </html>
   );

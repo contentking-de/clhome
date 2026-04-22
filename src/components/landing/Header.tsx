@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { ArrowSvg, IconBell } from "./Icons";
 
@@ -19,6 +19,8 @@ function Ticker() {
   return (
     <div
       className="hair-b"
+      role="marquee"
+      aria-label="Live-Ticker mit aktuellen Rechtsnachrichten"
       style={{
         background: "var(--bg-2)",
         overflow: "hidden",
@@ -39,6 +41,7 @@ function Ticker() {
         >
           <span
             className="l-blink"
+            aria-hidden="true"
             style={{
               width: 8,
               height: 8,
@@ -61,6 +64,7 @@ function Ticker() {
         <div style={{ flex: 1, overflow: "hidden", padding: "9px 0" }}>
           <div
             className="ticker-track mono"
+            aria-hidden="true"
             style={{
               fontSize: 11,
               letterSpacing: "0.08em",
@@ -78,7 +82,7 @@ function Ticker() {
               >
                 <span style={{ color: "var(--accent)" }}>{it.k}</span>
                 <span style={{ color: "var(--ink-2)" }}>{it.v}</span>
-                <span style={{ color: "var(--line)" }}>◆</span>
+                <span style={{ color: "var(--line)" }} aria-hidden="true">◆</span>
               </span>
             ))}
           </div>
@@ -107,6 +111,7 @@ function Logo() {
   return (
     <Link
       href="/"
+      aria-label="clever.legal – Startseite"
       style={{ display: "inline-flex", alignItems: "baseline", gap: 0 }}
     >
       <span
@@ -144,6 +149,7 @@ export { Logo };
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const mobileNavRef = useRef<HTMLDivElement>(null);
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -154,6 +160,24 @@ export default function Header() {
       });
     setMobileOpen(false);
   };
+
+  const handleEscape = useCallback((e: KeyboardEvent) => {
+    if (e.key === "Escape" && mobileOpen) {
+      setMobileOpen(false);
+    }
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [handleEscape]);
+
+  useEffect(() => {
+    if (mobileOpen && mobileNavRef.current) {
+      const firstLink = mobileNavRef.current.querySelector("a, button");
+      if (firstLink instanceof HTMLElement) firstLink.focus();
+    }
+  }, [mobileOpen]);
 
   return (
     <header
@@ -180,6 +204,7 @@ export default function Header() {
           <Logo />
           <nav
             className="hidden md:flex"
+            aria-label="Hauptnavigation"
             style={{ gap: 24 }}
           >
             {NAV_LINKS.map((l) => (
@@ -203,7 +228,7 @@ export default function Header() {
                   cursor: "pointer",
                 }}
               >
-                {l.bell && <IconBell size={14} style={{ color: "var(--accent)" }} />}
+                {l.bell && <IconBell size={14} aria-hidden="true" style={{ color: "var(--accent)" }} />}
                 {l.label}
               </a>
             ))}
@@ -242,6 +267,8 @@ export default function Header() {
           onClick={() => setMobileOpen(!mobileOpen)}
           className="md:hidden"
           aria-label="Menü"
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-nav"
           style={{ padding: 8 }}
         >
           <svg
@@ -251,6 +278,7 @@ export default function Header() {
             fill="none"
             stroke="var(--ink)"
             strokeWidth={1.6}
+            aria-hidden="true"
           >
             {mobileOpen ? (
               <path d="M6 6l12 12M18 6L6 18" />
@@ -264,13 +292,15 @@ export default function Header() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div
+          id="mobile-nav"
+          ref={mobileNavRef}
           style={{
             borderTop: "1px solid var(--line-2)",
             background: "var(--bg-2)",
             padding: "16px 32px",
           }}
         >
-          <nav style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <nav aria-label="Mobile Navigation" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {NAV_LINKS.map((l) => (
               <a
                 key={l.id}
@@ -291,7 +321,7 @@ export default function Header() {
                   cursor: "pointer",
                 }}
               >
-                {l.bell && <IconBell size={14} style={{ color: "var(--accent)" }} />}
+                {l.bell && <IconBell size={14} aria-hidden="true" style={{ color: "var(--accent)" }} />}
                 {l.label}
               </a>
             ))}

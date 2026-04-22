@@ -89,6 +89,8 @@ export default function ClusterSection() {
       <div className="l-container" style={{ padding: "0 32px 96px" }}>
         <div
           className="l-cluster-tabs"
+          role="tablist"
+          aria-label="Zielgruppen-Auswahl"
           style={{
             display: "flex",
             border: "1px solid var(--line-2)",
@@ -98,6 +100,10 @@ export default function ClusterSection() {
           {CLUSTERS.map((cl, i) => (
             <button
               key={cl.id}
+              role="tab"
+              aria-selected={active === i}
+              aria-controls={`tabpanel-${cl.id}`}
+              id={`tab-${cl.id}`}
               onClick={() => setActive(i)}
               style={{
                 flex: 1,
@@ -143,6 +149,9 @@ export default function ClusterSection() {
 
         <div
           className="l-grid-cluster"
+          role="tabpanel"
+          id={`tabpanel-${c.id}`}
+          aria-labelledby={`tab-${c.id}`}
           style={{
             border: "1px solid var(--line-2)",
             background: "var(--bg-2)",

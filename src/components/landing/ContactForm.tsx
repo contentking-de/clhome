@@ -192,7 +192,7 @@ export default function ContactForm() {
         {!sending && <ArrowSvg />}
       </button>
       {error && (
-        <p style={{ color: "var(--danger)", fontSize: 14, marginTop: 4 }}>{error}</p>
+        <p role="alert" style={{ color: "var(--danger)", fontSize: 14, marginTop: 4 }}>{error}</p>
       )}
     </form>
   );

@@ -93,6 +93,7 @@ export default function BlogSection({ posts }: { posts: BlogPost[] }) {
                 <Link
                   key={p.slug}
                   href={`/blog/${p.slug}`}
+                  aria-label={`Artikel lesen: ${p.title}`}
                   style={{
                     padding: 32,
                     borderRight:

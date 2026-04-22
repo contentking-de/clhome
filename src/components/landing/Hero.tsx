@@ -63,6 +63,12 @@ export default function Hero() {
   const [cursorVisible, setCursorVisible] = useState(true);
 
   useEffect(() => {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) {
+      setTyped(fullText);
+      setShowReveal(true);
+      return;
+    }
     let i = 0;
     const typeInterval = setInterval(() => {
       if (i < fullText.length) {

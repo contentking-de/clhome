@@ -72,8 +72,9 @@ export default function AlertsSection() {
         <div
           className="l-grid-alerts"
         >
-          <div style={{ border: "1px solid var(--line-2)" }}>
+          <div role="table" aria-label="Aktuelle Legal Alerts" style={{ border: "1px solid var(--line-2)" }}>
             <div
+              role="row"
               className="mono l-grid-alerts-row"
               style={{
                 padding: "14px 24px",
@@ -82,6 +83,7 @@ export default function AlertsSection() {
               }}
             >
               <span
+                role="columnheader"
                 style={{
                   fontSize: 11,
                   letterSpacing: "0.14em",
@@ -91,6 +93,7 @@ export default function AlertsSection() {
                 SEV
               </span>
               <span
+                role="columnheader"
                 style={{
                   fontSize: 11,
                   letterSpacing: "0.14em",
@@ -100,6 +103,7 @@ export default function AlertsSection() {
                 CLUSTER
               </span>
               <span
+                role="columnheader"
                 style={{
                   fontSize: 11,
                   letterSpacing: "0.14em",
@@ -109,6 +113,7 @@ export default function AlertsSection() {
                 SIGNAL
               </span>
               <span
+                role="columnheader"
                 style={{
                   fontSize: 11,
                   letterSpacing: "0.14em",
@@ -122,6 +127,7 @@ export default function AlertsSection() {
             {ALERTS.map((a, i) => (
               <div
                 key={i}
+                role="row"
                 className="l-grid-alerts-row"
                 style={{
                   padding: "22px 24px",
@@ -134,6 +140,7 @@ export default function AlertsSection() {
                 }}
               >
                 <span
+                  role="cell"
                   className="mono"
                   style={{
                     fontSize: 11,
@@ -142,9 +149,10 @@ export default function AlertsSection() {
                     letterSpacing: "0.14em",
                   }}
                 >
-                  ■ {a.sev}
+                  <span aria-hidden="true">■</span> {a.sev}
                 </span>
                 <span
+                  role="cell"
                   className="mono"
                   style={{
                     fontSize: 11,
@@ -154,7 +162,7 @@ export default function AlertsSection() {
                 >
                   {a.tag}
                 </span>
-                <div>
+                <div role="cell">
                   <div
                     style={{
                       fontSize: 15,
@@ -171,6 +179,8 @@ export default function AlertsSection() {
                 </div>
                 <Link
                   href="/legal-alerts"
+                  role="cell"
+                  aria-label={`Öffnen: ${a.t}`}
                   className="mono"
                   style={{
                     fontSize: 11,

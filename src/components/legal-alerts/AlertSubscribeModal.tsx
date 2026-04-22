@@ -62,6 +62,7 @@ export default function AlertSubscribeModal({ open, onClose }: Props) {
     <dialog
       ref={dialogRef}
       className="alert-modal"
+      aria-labelledby="alert-dialog-title"
       onClick={(e) => {
         if (e.target === dialogRef.current) onClose();
       }}
@@ -101,7 +102,7 @@ export default function AlertSubscribeModal({ open, onClose }: Props) {
             <div className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", color: "var(--accent)", marginBottom: 12 }}>
               LEGAL ALERTS
             </div>
-            <h2 className="display" style={{ fontSize: 22, fontWeight: 700, marginBottom: 8 }}>
+            <h2 id="alert-dialog-title" className="display" style={{ fontSize: 22, fontWeight: 700, marginBottom: 8 }}>
               Alert einrichten
             </h2>
             <p style={{ color: "var(--ink-2)", fontSize: 13, lineHeight: 1.5, marginBottom: 24 }}>
@@ -110,25 +111,40 @@ export default function AlertSubscribeModal({ open, onClose }: Props) {
             </p>
 
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Ihr Name"
-                required
-                className="alert-modal-input"
-              />
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Ihre E-Mail-Adresse"
-                required
-                className="alert-modal-input"
-              />
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                <label htmlFor="alert-name" className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--ink-3)" }}>
+                  Name
+                </label>
+                <input
+                  id="alert-name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Ihr Name"
+                  required
+                  className="alert-modal-input"
+                  aria-required="true"
+                />
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                <label htmlFor="alert-email" className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--ink-3)" }}>
+                  E-Mail
+                </label>
+                <input
+                  id="alert-email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Ihre E-Mail-Adresse"
+                  required
+                  className="alert-modal-input"
+                  aria-required="true"
+                  aria-describedby={status === "error" ? "alert-error" : undefined}
+                />
+              </div>
 
               {status === "error" && (
-                <div style={{ fontSize: 12, color: "var(--danger)" }}>
+                <div id="alert-error" role="alert" style={{ fontSize: 12, color: "var(--danger)" }}>
                   Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.
                 </div>
               )}
