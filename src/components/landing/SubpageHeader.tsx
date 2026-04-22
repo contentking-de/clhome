@@ -165,7 +165,7 @@ export default function SubpageHeader() {
       >
         <div style={{ display: "flex", alignItems: "center", gap: 32 }}>
           <Logo />
-          <nav className="hidden md:flex" style={{ gap: 24 }}>
+          <nav className="hidden xl:flex" style={{ gap: 24 }}>
             {NAV_LINKS.map((l) => (
               <Link
                 key={l.href}
@@ -189,7 +189,7 @@ export default function SubpageHeader() {
           </nav>
         </div>
         <div
-          className="hidden md:flex"
+          className="hidden xl:flex"
           style={{ alignItems: "center", gap: 12 }}
         >
           <span
@@ -215,7 +215,7 @@ export default function SubpageHeader() {
         {/* Mobile burger */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden"
+          className="xl:hidden"
           aria-label="Menü"
           style={{ padding: 8 }}
         >

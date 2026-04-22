@@ -203,7 +203,7 @@ export default function Header() {
         <div style={{ display: "flex", alignItems: "center", gap: 32 }}>
           <Logo />
           <nav
-            className="hidden md:flex"
+            className="hidden xl:flex"
             aria-label="Hauptnavigation"
             style={{ gap: 24 }}
           >
@@ -235,7 +235,7 @@ export default function Header() {
           </nav>
         </div>
         <div
-          className="hidden md:flex"
+          className="hidden xl:flex"
           style={{ alignItems: "center", gap: 12 }}
         >
           <span
@@ -265,7 +265,7 @@ export default function Header() {
         {/* Mobile burger */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden"
+          className="xl:hidden"
           aria-label="Menü"
           aria-expanded={mobileOpen}
           aria-controls="mobile-nav"
