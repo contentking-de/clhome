@@ -685,7 +685,7 @@ export default function DatenschutzPage() {
 function Block({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div style={{ borderLeft: "1px solid var(--line)", paddingLeft: 24 }}>
-      <div className="mono" style={{ fontSize: 11, letterSpacing: "0.14em", color: "var(--accent)", marginBottom: 12, textTransform: "uppercase" }}>
+      <div className="display" style={{ fontSize: 22, fontWeight: 700, color: "var(--accent)", marginBottom: 14, letterSpacing: "-0.02em" }}>
         {title}
       </div>
       <div style={{ color: "var(--ink-2)", fontSize: 15, lineHeight: 1.65 }}>
@@ -698,7 +698,7 @@ function Block({ title, children }: { title: string; children: React.ReactNode }
 function Sub({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div style={{ marginTop: 20 }}>
-      <div className="display" style={{ fontSize: 16, fontWeight: 600, marginBottom: 8, color: "var(--ink)" }}>
+      <div className="display" style={{ fontSize: 18, fontWeight: 600, marginBottom: 10, color: "var(--ink)" }}>
         {title}
       </div>
       {children}
