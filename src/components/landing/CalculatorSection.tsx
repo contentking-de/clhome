@@ -19,6 +19,7 @@ function Slider({
   unit: string;
   onChange: (v: number) => void;
 }) {
+  const id = label.toLowerCase().replace(/\s+/g, "-");
   return (
     <div style={{ marginBottom: 28 }}>
       <div
@@ -29,7 +30,7 @@ function Slider({
           marginBottom: 10,
         }}
       >
-        <span style={{ fontSize: 14, color: "var(--ink-2)" }}>{label}</span>
+        <label htmlFor={id} style={{ fontSize: 14, color: "var(--ink-2)" }}>{label}</label>
         <span
           className="mono display"
           style={{ fontSize: 22, fontWeight: 700, color: "var(--ink)" }}
@@ -43,6 +44,7 @@ function Slider({
         </span>
       </div>
       <input
+        id={id}
         type="range"
         min={min}
         max={max}
