@@ -88,8 +88,8 @@ export default function BarrierefreiheitPage() {
               title="Sprache & Grundstruktur"
               items={[
                 "Das HTML-Dokument ist mit lang=\"de\" ausgezeichnet, sodass Screenreader die korrekte Sprachausgabe verwenden.",
-                "Die Seite nutzt semantische HTML5-Landmarks: <header>, <main>, <nav> und <footer>. Screenreader können damit direkt zwischen Seitenbereichen navigieren.",
-                "Ein Skip-Link („Zum Inhalt springen") ist als erstes interaktives Element implementiert. Bei Fokus wird er sichtbar und überspringt die Navigation.",
+                "Die Seite nutzt semantische HTML5-Landmarks: header, main, nav und footer. Screenreader können damit direkt zwischen Seitenbereichen navigieren.",
+                "Ein Skip-Link (\u201EZum Inhalt springen\u201C) ist als erstes interaktives Element implementiert. Bei Fokus wird er sichtbar und überspringt die Navigation.",
               ]}
             />
 
@@ -128,10 +128,10 @@ export default function BarrierefreiheitPage() {
               num="05"
               title="Formulare & Fehlermeldungen"
               items={[
-                "Alle Formularfelder im Kontaktformular sind mit sichtbaren <label>-Elementen verknüpft.",
+                "Alle Formularfelder im Kontaktformular sind mit sichtbaren label-Elementen verknüpft.",
                 "Das Alert-Abonnement-Modal nutzt sichtbare Labels, aria-required und aria-describedby zur Verknüpfung von Feldern und Fehlermeldungen.",
                 "Fehlermeldungen werden mit role=\"alert\" ausgezeichnet, sodass Screenreader sie sofort vorlesen.",
-                "Das Abonnement-Modal nutzt das native <dialog>-Element mit eingebautem Focus-Trap und ist per aria-labelledby mit seinem Titel verknüpft.",
+                "Das Abonnement-Modal nutzt das native dialog-Element mit eingebautem Focus-Trap und ist per aria-labelledby mit seinem Titel verknüpft.",
               ]}
             />
 
@@ -160,9 +160,9 @@ export default function BarrierefreiheitPage() {
               num="08"
               title="Links & interaktive Elemente"
               items={[
-                "Wiederholt vorkommende Links (z.B. „Öffnen" in der Alerts-Tabelle) sind mit individuellen aria-label-Attributen versehen, die den jeweiligen Kontext enthalten.",
+                "Wiederholt vorkommende Links (z.B. \u201E\u00D6ffnen\u201C in der Alerts-Tabelle) sind mit individuellen aria-label-Attributen versehen, die den jeweiligen Kontext enthalten.",
                 "Blog-Artikel-Links tragen aria-label mit dem Artikeltitel.",
-                "Range-Slider im Kostenrechner nutzen aria-valuetext, um den aktuellen Wert mit Einheit vorzulesen (z.B. „80 Fälle").",
+                "Range-Slider im Kostenrechner nutzen aria-valuetext, um den aktuellen Wert mit Einheit vorzulesen (z.B. \u201E80 F\u00E4lle\u201C).",
               ]}
             />
 
