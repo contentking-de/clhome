@@ -5,6 +5,7 @@ import {
   getReportMeta,
 } from "@/lib/skynet";
 import SubpageShell from "@/components/landing/SubpageShell";
+import AlertSubscribeButton from "@/components/legal-alerts/AlertSubscribeButton";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowSvg } from "@/components/landing/Icons";
@@ -179,10 +180,7 @@ export default async function LegalAlertsPage() {
             Nutzen Sie unsere wöchentlichen Legal Alerts, um als Erster auf neue
             Sammelklagen und Massenverfahren zu reagieren.
           </p>
-          <Link href="/kontakt" className="l-btn l-btn-primary">
-            Jetzt Zugang sichern
-            <ArrowSvg />
-          </Link>
+          <AlertSubscribeButton className="l-btn l-btn-primary" />
         </div>
       </section>
     </SubpageShell>

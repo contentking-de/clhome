@@ -130,3 +130,12 @@ model Lead {
   source    String   @default("kontaktformular")
   createdAt DateTime @default(now())
 }
+
+model AlertSubscriber {
+  id          String    @id @default(cuid())
+  name        String
+  email       String    @unique
+  token       String    @unique @default(cuid())
+  confirmedAt DateTime?
+  createdAt   DateTime  @default(now())
+}

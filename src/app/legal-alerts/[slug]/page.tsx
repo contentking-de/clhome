@@ -12,6 +12,7 @@ import { notFound } from "next/navigation";
 import SubpageShell from "@/components/landing/SubpageShell";
 import MarkdownRenderer from "@/components/legal-alerts/MarkdownRenderer";
 import AlertItemsView from "@/components/legal-alerts/AlertItemsView";
+import AlertSubscribeButton from "@/components/legal-alerts/AlertSubscribeButton";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -144,9 +145,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                   <p style={{ fontSize: 13, color: "var(--ink-2)", lineHeight: 1.55, marginBottom: 16 }}>
                     Verpassen Sie keine Klagewelle.
                   </p>
-                  <Link href="/kontakt" className="l-btn l-btn-primary" style={{ fontSize: 12, padding: "8px 14px", width: "100%", justifyContent: "center" }}>
-                    Zugang sichern
-                  </Link>
+                  <AlertSubscribeButton className="l-btn l-btn-primary" style={{ fontSize: 12, padding: "8px 14px", width: "100%", justifyContent: "center" }} />
                 </div>
 
                 <div className="mono" style={{ paddingTop: 12, borderTop: "1px dashed var(--line-2)", fontSize: 10, letterSpacing: "0.1em", color: "var(--ink-3)", lineHeight: 1.8 }}>
@@ -199,9 +198,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                   <p style={{ fontSize: 13, color: "var(--ink-2)", lineHeight: 1.55, marginBottom: 16 }}>
                     Verpassen Sie keine Klagewelle.
                   </p>
-                  <Link href="/kontakt" className="l-btn l-btn-primary" style={{ fontSize: 12, padding: "8px 14px", width: "100%", justifyContent: "center" }}>
-                    Zugang sichern
-                  </Link>
+                  <AlertSubscribeButton className="l-btn l-btn-primary" style={{ fontSize: 12, padding: "8px 14px", width: "100%", justifyContent: "center" }} />
                 </div>
 
                 <div className="mono" style={{ paddingTop: 12, borderTop: "1px dashed var(--line-2)", fontSize: 10, letterSpacing: "0.1em", color: "var(--ink-3)", lineHeight: 1.8 }}>
