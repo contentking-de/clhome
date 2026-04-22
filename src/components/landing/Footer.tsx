@@ -35,6 +35,7 @@ const COLS = [
     l: [
       { label: "Impressum", href: "/impressum" },
       { label: "Datenschutz", href: "/datenschutz" },
+      { label: "Barrierefreiheit", href: "/barrierefreiheit" },
       { label: "AGB", href: "#" },
     ],
   },
