@@ -79,7 +79,9 @@ export default function AlertItemsView({ items, availableTypes }: Props) {
 
         <div className="alert-filter-controls">
           <div className="alert-filter-select-wrap">
+            <label htmlFor="alert-filter-region" className="sr-only">Region filtern</label>
             <select
+              id="alert-filter-region"
               value={region}
               onChange={(e) => setRegion(e.target.value)}
               className="alert-filter-select"
@@ -92,7 +94,9 @@ export default function AlertItemsView({ items, availableTypes }: Props) {
           </div>
 
           <div className="alert-filter-select-wrap">
+            <label htmlFor="alert-filter-branche" className="sr-only">Branche filtern</label>
             <select
+              id="alert-filter-branche"
               value={branche}
               onChange={(e) => setBranche(e.target.value)}
               className="alert-filter-select"
