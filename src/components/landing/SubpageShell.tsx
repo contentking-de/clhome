@@ -9,7 +9,7 @@ export default function SubpageShell({
   return (
     <>
       <SubpageHeader />
-      <main style={{ paddingTop: 0 }}>{children}</main>
+      <main id="main-content" tabIndex={-1} style={{ paddingTop: 0, outline: "none" }}>{children}</main>
       <Footer />
     </>
   );
