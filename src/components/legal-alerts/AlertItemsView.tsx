@@ -182,9 +182,9 @@ function AlertCard({ item }: { item: AlertItemView }) {
             ))}
           </div>
         )}
-        {item.beklagter.length > 0 && (
+        {item.beklagter.filter((b) => !item.brand.includes(b)).length > 0 && (
           <div className="alert-card-tags">
-            {item.beklagter.map((b) => (
+            {item.beklagter.filter((b) => !item.brand.includes(b)).map((b) => (
               <span key={b} className="alert-card-tag alert-card-tag-beklagter">{b}</span>
             ))}
           </div>
