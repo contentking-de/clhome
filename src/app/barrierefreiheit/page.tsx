@@ -29,7 +29,6 @@ export default function BarrierefreiheitPage() {
 
           <div
             style={{
-              maxWidth: 720,
               display: "flex",
               flexDirection: "column",
               gap: 40,
