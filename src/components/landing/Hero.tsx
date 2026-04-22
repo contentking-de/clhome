@@ -57,9 +57,27 @@ function HeroStat({
 }
 
 export default function Hero() {
-  const [blink, setBlink] = useState(true);
+  const fullText = "Recht haben\ndauert Sekunden.\nRecht bekommen";
+  const [typed, setTyped] = useState("");
+  const [showReveal, setShowReveal] = useState(false);
+  const [cursorVisible, setCursorVisible] = useState(true);
+
   useEffect(() => {
-    const t = setInterval(() => setBlink((b) => !b), 600);
+    let i = 0;
+    const typeInterval = setInterval(() => {
+      if (i < fullText.length) {
+        setTyped(fullText.slice(0, i + 1));
+        i++;
+      } else {
+        clearInterval(typeInterval);
+        setTimeout(() => setShowReveal(true), 2000);
+      }
+    }, 45);
+    return () => clearInterval(typeInterval);
+  }, []);
+
+  useEffect(() => {
+    const t = setInterval(() => setCursorVisible((b) => !b), 530);
     return () => clearInterval(t);
   }, []);
 
@@ -133,22 +151,42 @@ export default function Hero() {
             lineHeight: 0.95,
             letterSpacing: "-0.04em",
             textAlign: "center",
+            minHeight: "4.2em",
           }}
         >
-          Recht haben
-          <br />
-          dauert Sekunden.
-          <br />
-          <span style={{ color: "var(--accent)" }}>
-            Recht bekommen
-            {blink ? (
-              <span style={{ color: "var(--accent)" }}>_</span>
-            ) : (
-              <span style={{ opacity: 0 }}>_</span>
-            )}
+          {typed.split("\n").map((line, i) => {
+            const isLastTypedLine = i === typed.split("\n").length - 1 && !showReveal;
+            const isRechtBekommen = i === 2;
+            return (
+              <span key={i}>
+                {isRechtBekommen ? (
+                  <span style={{ color: "var(--accent)" }}>
+                    {line}
+                    {isLastTypedLine && (
+                      <span style={{ opacity: cursorVisible ? 1 : 0 }}>_</span>
+                    )}
+                  </span>
+                ) : (
+                  <>
+                    {line}
+                    {isLastTypedLine && (
+                      <span style={{ opacity: cursorVisible ? 1 : 0 }}>_</span>
+                    )}
+                  </>
+                )}
+                <br />
+              </span>
+            );
+          })}
+          <span
+            style={{
+              color: "var(--ink-2)",
+              opacity: showReveal ? 1 : 0,
+              transition: "opacity 0.6s ease",
+            }}
+          >
+            ab jetzt auch.
           </span>
-          <br />
-          <span style={{ color: "var(--ink-2)" }}>ab jetzt auch.</span>
         </h1>
       </div>
 
