@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Resend } from "resend";
 import type { EditionView } from "@/lib/skynet";
+import { escapeHtml } from "@/lib/validation";
 
 const resend = new Resend(process.env.AUTH_RESEND_KEY);
 
@@ -28,7 +29,7 @@ export async function notifySubscribers(edition: EditionView) {
         subject: `Neue Legal Alerts vom ${date}`,
         html: `
           <div style="font-family: system-ui, sans-serif; max-width: 520px; margin: 0 auto; color: #1a1a1a;">
-            <p>Hallo ${sub.name},</p>
+            <p>Hallo ${escapeHtml(sub.name)},</p>
             <p>es gibt neue <strong>Legal Alerts</strong> — Zeitraum: ${edition.period}.</p>
             <p style="margin: 24px 0;">
               <a href="${baseUrl}/legal-alerts/fruehwarnung"

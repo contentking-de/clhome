@@ -1,24 +1,42 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { prisma } from "@/lib/prisma";
+import {
+  subscribeSchema,
+  escapeHtml,
+  isBot,
+  rateLimit,
+  getClientIp,
+} from "@/lib/validation";
 
 const resend = new Resend(process.env.AUTH_RESEND_KEY);
 
 export async function POST(request: Request) {
   try {
-    const { name, email } = await request.json();
+    const raw = await request.json();
 
-    if (!name?.trim() || !email?.trim()) {
+    const parsed = subscribeSchema.safeParse(raw);
+    if (!parsed.success) {
+      const first = parsed.error.issues[0]?.message ?? "Ungültige Eingabe.";
+      return NextResponse.json({ error: first }, { status: 400 });
+    }
+
+    const { name, email, _hp } = parsed.data;
+
+    if (isBot(_hp)) {
+      return NextResponse.json({ success: true });
+    }
+
+    const ip = getClientIp(request);
+    if (!rateLimit(`subscribe:${ip}`, { maxRequests: 3, windowMs: 60_000 })) {
       return NextResponse.json(
-        { error: "Name und E-Mail sind Pflichtfelder." },
-        { status: 400 },
+        { error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut." },
+        { status: 429 },
       );
     }
 
-    const emailNorm = email.trim().toLowerCase();
-
     const existing = await prisma.alertSubscriber.findUnique({
-      where: { email: emailNorm },
+      where: { email },
     });
 
     if (existing?.confirmedAt) {
@@ -27,27 +45,24 @@ export async function POST(request: Request) {
 
     const subscriber = existing
       ? await prisma.alertSubscriber.update({
-          where: { email: emailNorm },
-          data: { name: name.trim(), token: crypto.randomUUID() },
+          where: { email },
+          data: { name, token: crypto.randomUUID() },
         })
       : await prisma.alertSubscriber.create({
-          data: {
-            name: name.trim(),
-            email: emailNorm,
-            token: crypto.randomUUID(),
-          },
+          data: { name, email, token: crypto.randomUUID() },
         });
 
     const baseUrl = process.env.NEXTAUTH_URL || "https://clever.legal";
     const confirmUrl = `${baseUrl}/api/alerts/confirm?token=${subscriber.token}`;
+    const safeName = escapeHtml(subscriber.name);
 
     await resend.emails.send({
       from: process.env.EMAIL_FROM || "clever.legal <noreply@clever.legal>",
-      to: emailNorm,
+      to: email,
       subject: "Legal Alert bestätigen — clever.legal",
       html: `
         <div style="font-family: system-ui, sans-serif; max-width: 520px; margin: 0 auto; color: #1a1a1a;">
-          <p>Hallo ${subscriber.name},</p>
+          <p>Hallo ${safeName},</p>
           <p>Sie haben sich für die <strong>Legal Alerts</strong> von clever.legal angemeldet.
              Bitte bestätigen Sie Ihre E-Mail-Adresse:</p>
           <p style="margin: 32px 0;">

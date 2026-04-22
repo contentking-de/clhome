@@ -3,9 +3,20 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 export async function GET() {
+  const session = await auth();
+
+  if (session?.user?.id) {
+    const posts = await prisma.post.findMany({
+      orderBy: { createdAt: "desc" },
+      include: { author: { select: { name: true, email: true } } },
+    });
+    return NextResponse.json(posts);
+  }
+
   const posts = await prisma.post.findMany({
+    where: { published: true },
     orderBy: { createdAt: "desc" },
-    include: { author: { select: { name: true, email: true } } },
+    include: { author: { select: { name: true } } },
   });
   return NextResponse.json(posts);
 }
@@ -22,7 +33,7 @@ export async function POST(req: NextRequest) {
   if (!title || !slug || !content) {
     return NextResponse.json(
       { error: "Titel, Slug und Inhalt sind Pflichtfelder." },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -30,7 +41,7 @@ export async function POST(req: NextRequest) {
   if (existing) {
     return NextResponse.json(
       { error: "Ein Beitrag mit diesem Slug existiert bereits." },
-      { status: 409 }
+      { status: 409 },
     );
   }
 

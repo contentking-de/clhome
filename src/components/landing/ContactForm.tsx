@@ -88,6 +88,7 @@ export default function ContactForm() {
     email: "",
     gebiet: "",
     msg: "",
+    _hp: "",
   });
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
@@ -182,6 +183,16 @@ export default function ContactForm() {
         onChange={(v) => setForm({ ...form, msg: v })}
         multi
       />
+      <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", height: 0, overflow: "hidden", tabIndex: -1 } as React.CSSProperties}>
+        <input
+          type="text"
+          name="_hp"
+          autoComplete="off"
+          tabIndex={-1}
+          value={form._hp}
+          onChange={(e) => setForm({ ...form, _hp: e.target.value })}
+        />
+      </div>
       <button
         type="submit"
         disabled={sending}

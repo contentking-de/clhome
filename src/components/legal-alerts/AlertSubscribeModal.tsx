@@ -10,6 +10,7 @@ interface Props {
 export default function AlertSubscribeModal({ open, onClose }: Props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [hp, setHp] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "already" | "error">("idle");
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -37,7 +38,7 @@ export default function AlertSubscribeModal({ open, onClose }: Props) {
       const res = await fetch("/api/alerts/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name.trim(), email: email.trim() }),
+        body: JSON.stringify({ name: name.trim(), email: email.trim(), _hp: hp }),
       });
       const data = await res.json();
 
@@ -54,6 +55,7 @@ export default function AlertSubscribeModal({ open, onClose }: Props) {
   const handleReset = () => {
     setName("");
     setEmail("");
+    setHp("");
     setStatus("idle");
     onClose();
   };
@@ -148,6 +150,17 @@ export default function AlertSubscribeModal({ open, onClose }: Props) {
                   Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.
                 </div>
               )}
+
+              <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", height: 0, overflow: "hidden" }}>
+                <input
+                  type="text"
+                  name="_hp"
+                  autoComplete="off"
+                  tabIndex={-1}
+                  value={hp}
+                  onChange={(e) => setHp(e.target.value)}
+                />
+              </div>
 
               <button
                 type="submit"
