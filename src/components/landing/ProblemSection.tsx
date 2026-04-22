@@ -133,7 +133,7 @@ export default function ProblemSection() {
               § 01 — Das Problem
             </div>
             <div className="mono" style={{ fontSize: 12, color: "var(--ink-3)" }}>
-              +++ medium agro +++
+              Automatisierte Exzellenz gegen analoge Trägheit
             </div>
           </div>
           <h2
