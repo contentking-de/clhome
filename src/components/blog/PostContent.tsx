@@ -7,6 +7,7 @@ interface PostContentProps {
 function splitContentAtMiddle(html: string): [string, string] {
   const splitCandidates: number[] = [];
   let tableDepth = 0;
+  let listDepth = 0;
   const tagPattern = /<\/?(?:p|h[1-6]|ul|ol|table|blockquote|div)\b[^>]*>/gi;
 
   let match;
@@ -20,7 +21,7 @@ function splitContentAtMiddle(html: string): [string, string] {
     if (tagName === "table") {
       if (isClosing) {
         tableDepth = Math.max(0, tableDepth - 1);
-        if (tableDepth === 0) {
+        if (tableDepth === 0 && listDepth === 0) {
           splitCandidates.push(match.index + tag.length);
         }
       } else {
@@ -29,7 +30,19 @@ function splitContentAtMiddle(html: string): [string, string] {
       continue;
     }
 
-    if (tableDepth > 0) continue;
+    if (tagName === "ul" || tagName === "ol") {
+      if (isClosing) {
+        listDepth = Math.max(0, listDepth - 1);
+        if (listDepth === 0 && tableDepth === 0) {
+          splitCandidates.push(match.index + tag.length);
+        }
+      } else {
+        listDepth++;
+      }
+      continue;
+    }
+
+    if (tableDepth > 0 || listDepth > 0) continue;
 
     if (isClosing) {
       splitCandidates.push(match.index + tag.length);
