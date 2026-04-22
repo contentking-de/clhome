@@ -92,7 +92,7 @@ export default async function ArchivedAlertPage({ params }: Props) {
                 {generatedDate.toLocaleDateString("de-DE", { day: "2-digit", month: "long", year: "numeric" }).toUpperCase()}
               </span>
               <span>{edition.period.toUpperCase()}</span>
-              <span>{edition.stats.articleCount} QUELLEN</span>
+              <span>{edition.stats.totalArticles} QUELLEN</span>
             </div>
           </header>
 

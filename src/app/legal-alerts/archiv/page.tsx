@@ -70,7 +70,7 @@ export default async function ArchivPage() {
                       {date.toLocaleDateString("de-DE", { day: "2-digit", month: "long", year: "numeric" }).toUpperCase()}
                     </div>
                     <div className="mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "var(--ink-3)", minWidth: 120 }}>
-                      {edition.period} · {edition.stats.articleCount} Quellen
+                      {edition.period} · {edition.stats.totalArticles} Quellen
                     </div>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginLeft: "auto" }}>
                       {Object.keys(edition.reports).map((key) => {

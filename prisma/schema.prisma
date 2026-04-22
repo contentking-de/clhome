@@ -82,11 +82,42 @@ model LegalAlertEdition {
   generatedAt DateTime
   period      String
   runDay      String
+  nextUpdate  String?
   stats       Json
   reports     Json
   feedJson    Json
+  errors      String[]
   isCurrent   Boolean  @default(true)
   createdAt   DateTime @default(now())
+  items       LegalAlertItem[]
+}
+
+model LegalAlertItem {
+  id                String   @id @default(cuid())
+  editionId         String
+  edition           LegalAlertEdition @relation(fields: [editionId], references: [id], onDelete: Cascade)
+  type              String
+  brand             String[]
+  beklagter         String[]
+  region            String
+  branche           String
+  klaegerSchaetzung String
+  klaegerAnzahl     Int?
+  quelle            String
+  summary           String
+  link              String
+  publishedAt       String
+  rechtsgebiet      String?
+  vorlaufzeit       String?
+  anzahlDatensaetze Int?
+  produktIdentifier String?
+  aktenzeichen      String?
+  createdAt         DateTime @default(now())
+
+  @@index([editionId])
+  @@index([type])
+  @@index([region])
+  @@index([branche])
 }
 
 model Lead {

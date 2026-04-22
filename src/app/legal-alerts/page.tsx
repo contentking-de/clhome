@@ -63,7 +63,7 @@ export default async function LegalAlertsPage() {
               }).toUpperCase()}
             </span>
             <span>ZEITRAUM: {edition.period.toUpperCase()}</span>
-            <span>{edition.stats.articleCount} QUELLEN</span>
+            <span>{edition.stats.totalArticles} QUELLEN</span>
           </div>
         </div>
       </section>
@@ -113,7 +113,7 @@ export default async function LegalAlertsPage() {
           <div className="l-grid-stats" style={{ gap: 0, border: "1px solid var(--line-2)" }}>
             {[
               { value: String(edition.stats.feedsProcessed), label: "Quellen überwacht" },
-              { value: String(edition.stats.articleCount), label: "Artikel analysiert" },
+              { value: String(edition.stats.totalArticles), label: "Artikel analysiert" },
               { value: String(Object.keys(edition.reports).length), label: "Reports erstellt" },
               { value: `Jeden ${edition.runDay}`, label: "Neues Update" },
             ].map((s, i) => (
@@ -148,7 +148,7 @@ export default async function LegalAlertsPage() {
                       {archDate.toLocaleDateString("de-DE", { day: "2-digit", month: "long", year: "numeric" }).toUpperCase()}
                     </div>
                     <div className="mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "var(--ink-3)", marginBottom: 16 }}>
-                      {arch.period} · {arch.stats.articleCount} Quellen
+                      {arch.period} · {arch.stats.totalArticles} Quellen
                     </div>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                       {Object.keys(arch.reports).map((key) => {

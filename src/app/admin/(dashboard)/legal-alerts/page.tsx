@@ -59,11 +59,11 @@ export default async function AdminLegalAlerts() {
             </div>
             <div>
               <div className="text-xs text-secondary uppercase tracking-wide mb-1">Artikel</div>
-              <div className="text-2xl font-bold font-headline">{current.stats.articleCount}</div>
+              <div className="text-2xl font-bold font-headline">{current.stats.totalArticles}</div>
             </div>
             <div>
-              <div className="text-xs text-secondary uppercase tracking-wide mb-1">Scrapes</div>
-              <div className="text-2xl font-bold font-headline">{current.stats.scrapeCount}</div>
+              <div className="text-xs text-secondary uppercase tracking-wide mb-1">Ausfälle</div>
+              <div className="text-2xl font-bold font-headline">{current.stats.feedsFailed}</div>
             </div>
           </div>
 
@@ -85,16 +85,18 @@ export default async function AdminLegalAlerts() {
             </div>
           </div>
 
-          {current.stats.feedsFailed.length > 0 && (
+          {current.stats.feedsFailed > 0 && (
             <div className="mt-4 p-3 rounded-lg bg-red-950/20 border border-red-500/20">
               <div className="text-sm font-semibold text-red-400 mb-1">
-                {current.stats.feedsFailed.length} Feed(s) fehlgeschlagen
+                {current.stats.feedsFailed} Feed(s) fehlgeschlagen
               </div>
-              <ul className="text-xs text-red-400/80 space-y-0.5">
-                {current.stats.feedsFailed.map((f) => (
-                  <li key={f.name}>{f.name}: {f.error}</li>
-                ))}
-              </ul>
+              {current.errors.length > 0 && (
+                <ul className="text-xs text-red-400/80 space-y-0.5">
+                  {current.errors.map((e) => (
+                    <li key={e}>{e}</li>
+                  ))}
+                </ul>
+              )}
             </div>
           )}
         </div>
