@@ -115,7 +115,7 @@ export default async function LegalAlertsPage() {
               { value: String(edition.stats.feedsProcessed), label: "Quellen überwacht" },
               { value: String(edition.stats.totalArticles), label: "Artikel analysiert" },
               { value: String(Object.keys(edition.reports).length), label: "Reports erstellt" },
-              { value: `Jeden ${edition.runDay}`, label: "Neues Update" },
+              { value: edition.runDay === "Manuell" ? "Regelmäßig" : `Jeden ${edition.runDay}`, label: "Neues Update" },
             ].map((s, i) => (
               <div key={s.label} style={{ padding: 32, textAlign: "center", borderRight: i < 3 ? "1px solid var(--line-2)" : "none" }}>
                 <div className="display" style={{ fontSize: 36, fontWeight: 800, color: i === 3 ? "var(--accent)" : "var(--ink)", marginBottom: 8 }}>{s.value}</div>

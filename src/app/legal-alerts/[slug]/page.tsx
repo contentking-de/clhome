@@ -139,7 +139,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                 <div style={{ padding: 24, background: "var(--bg-3)", border: "1px solid var(--line-2)" }}>
                   <div className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", color: "var(--accent)", marginBottom: 12 }}>UPDATE-ZYKLUS</div>
                   <div className="display" style={{ fontSize: 20, fontWeight: 700, marginBottom: 8 }}>
-                    Jeden {edition.runDay} neu
+                    {edition.runDay === "Manuell" ? "Regelmäßig aktualisiert" : `Jeden ${edition.runDay} neu`}
                   </div>
                   <p style={{ fontSize: 13, color: "var(--ink-2)", lineHeight: 1.55, marginBottom: 16 }}>
                     Verpassen Sie keine Klagewelle.
@@ -194,7 +194,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                 <div style={{ padding: 24, background: "var(--bg-3)", border: "1px solid var(--line-2)" }}>
                   <div className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", color: "var(--accent)", marginBottom: 12 }}>UPDATE-ZYKLUS</div>
                   <div className="display" style={{ fontSize: 20, fontWeight: 700, marginBottom: 8 }}>
-                    Jeden {edition.runDay} neu
+                    {edition.runDay === "Manuell" ? "Regelmäßig aktualisiert" : `Jeden ${edition.runDay} neu`}
                   </div>
                   <p style={{ fontSize: 13, color: "var(--ink-2)", lineHeight: 1.55, marginBottom: 16 }}>
                     Verpassen Sie keine Klagewelle.
