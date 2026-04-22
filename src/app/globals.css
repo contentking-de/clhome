@@ -386,7 +386,14 @@ input, textarea, select { font: inherit; color: inherit; }
 }
 
 /* TipTap editor (admin only, keeps light theme via admin layout) */
-.tiptap-editor .ProseMirror { min-height: 400px; outline: none; padding: 1rem; }
+.tiptap-editor .ProseMirror { min-height: 400px; outline: none; padding: 1rem; color: #131b2e; }
+.tiptap-editor .prose-blog h1, .tiptap-editor .prose-blog h2, .tiptap-editor .prose-blog h3 { color: #131b2e; }
+.tiptap-editor .prose-blog p, .tiptap-editor .prose-blog ul, .tiptap-editor .prose-blog ol, .tiptap-editor .prose-blog li { color: #2c3350; }
+.tiptap-editor .prose-blog td { color: #2c3350; }
+.tiptap-editor .prose-blog blockquote { color: #555b75; }
+.tiptap-editor .prose-blog a { color: #4d34ff; }
+.tiptap-editor .prose-blog thead { background-color: #e2e7ff; }
+.tiptap-editor .prose-blog tbody tr:hover { background-color: #f2f3ff; }
 .tiptap-editor .ProseMirror p.is-editor-empty:first-child::before {
   color: #76777d; content: attr(data-placeholder); float: left; height: 0; pointer-events: none;
 }
