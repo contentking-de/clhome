@@ -137,6 +137,7 @@ function Logo() {
 
 const NAV_LINKS = [
   { id: "anwaelte", label: "Für Anwälte", bell: false },
+  { id: "services", label: "Services", bell: false },
   { id: "engine", label: "Engine", bell: false },
   { id: "satelliten", label: "Satelliten", bell: false },
   { id: "alerts", label: "Legal Alerts", bell: true },

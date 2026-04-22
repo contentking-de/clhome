@@ -214,6 +214,31 @@ export function IconPlay(p: IconProps) {
     </Ico>
   );
 }
+export function IconGraduate(p: IconProps) {
+  return (
+    <Ico {...p}>
+      <path d="M2 10l10-5 10 5-10 5z" />
+      <path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5" />
+      <path d="M22 10v6" />
+    </Ico>
+  );
+}
+export function IconCircuit(p: IconProps) {
+  return (
+    <Ico {...p}>
+      <rect x="8" y="8" width="8" height="8" />
+      <path d="M12 3v5M12 16v5M3 12h5M16 12h5M5 5l4 3M15 16l4 3M5 19l4-3M15 8l4-3" />
+    </Ico>
+  );
+}
+export function IconMegaphone(p: IconProps) {
+  return (
+    <Ico {...p}>
+      <path d="M18 4a8 8 0 010 16M4 9h2l8-4v14l-8-4H4V9z" />
+      <path d="M6 15v4a1 1 0 001 1h2a1 1 0 001-1v-2" />
+    </Ico>
+  );
+}
 
 export const Icons: Record<string, (p: IconProps) => React.ReactElement> = {
   IconArrow,
@@ -241,6 +266,9 @@ export const Icons: Record<string, (p: IconProps) => React.ReactElement> = {
   IconFilter,
   IconSliders,
   IconPlay,
+  IconGraduate,
+  IconCircuit,
+  IconMegaphone,
 };
 
 export function ArrowSvg() {

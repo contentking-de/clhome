@@ -4,6 +4,7 @@ import Hero from "@/components/landing/Hero";
 import ProblemSection from "@/components/landing/ProblemSection";
 import EngineSection from "@/components/landing/EngineSection";
 import SatelliteSection from "@/components/landing/SatelliteSection";
+import ServicesSection from "@/components/landing/ServicesSection";
 import ClusterSection from "@/components/landing/ClusterSection";
 import CalculatorSection from "@/components/landing/CalculatorSection";
 import AlertsSection from "@/components/landing/AlertsSection";
@@ -34,6 +35,7 @@ export default async function Home() {
       <main id="main-content" tabIndex={-1} style={{ outline: "none" }}>
         <Hero />
         <ProblemSection />
+        <ServicesSection />
         <EngineSection />
         <SatelliteSection />
         <ClusterSection />
