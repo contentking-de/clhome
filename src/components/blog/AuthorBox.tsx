@@ -26,8 +26,8 @@ export default function AuthorBox({
       <div style={{ display: "flex", alignItems: "start", gap: 20 }}>
         <div
           style={{
-            width: 64,
-            height: 64,
+            width: 128,
+            height: 128,
             flexShrink: 0,
             overflow: "hidden",
             background: "var(--bg-3)",
@@ -46,7 +46,7 @@ export default function AuthorBox({
             <span
               className="display"
               style={{
-                fontSize: 24,
+                fontSize: 48,
                 fontWeight: 800,
                 color: "var(--ink-3)",
               }}
