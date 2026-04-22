@@ -221,7 +221,7 @@ export default function Header() {
               color: "var(--ink-3)",
             }}
           >
-            [ 4 / 4 ] Gebiete verfügbar
+            [ 178 / 250 ] Gebiete verfügbar
           </span>
           <a
             href="#kontakt"
