@@ -207,8 +207,8 @@ export default function CalculatorSection() {
                   }}
                 >
                   {fmt(savedHours)}
-                  <span style={{ fontSize: 32, color: "var(--ink-2)" }}>
-                    &nbsp;h
+                  <span style={{ fontSize: 32, color: "var(--ink-2)", marginLeft: "0.25em" }}>
+                    h
                   </span>
                 </div>
               </div>

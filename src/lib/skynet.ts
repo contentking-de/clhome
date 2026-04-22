@@ -284,7 +284,7 @@ const REPORT_META: Record<string, {
   frühwarnung: {
     slug: "fruehwarnung",
     title: "Sammelklagen-Frühwarnung",
-    subtitle: "Neue Klagen, potenzielle Verfahren und regulatorische Signale – kompakt aufbereitet.",
+    subtitle: "Neue Klagen, potenzielle Verfahren und regulatorische Signale – Für Sie kuratiert und kompakt aufbereitet.",
     icon: "crisis_alert",
     accent: "text-error",
   },
