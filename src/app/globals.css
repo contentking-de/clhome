@@ -339,6 +339,30 @@ input, textarea, select { font: inherit; color: inherit; }
 }
 .alert-modal-input::placeholder { color: var(--ink-3); }
 .alert-modal-input:focus { border-color: var(--accent); outline: none; }
+
+/* Pulsing bell icon */
+@keyframes bell-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.25); opacity: 0.7; }
+}
+@keyframes bell-ring {
+  0%, 100% { transform: rotate(0deg); }
+  15% { transform: rotate(14deg); }
+  30% { transform: rotate(-12deg); }
+  45% { transform: rotate(8deg); }
+  60% { transform: rotate(-4deg); }
+  75% { transform: rotate(0deg); }
+}
+.alert-bell-pulse {
+  display: inline-flex; position: relative;
+  animation: bell-ring 2.5s ease-in-out infinite;
+}
+.alert-bell-pulse::after {
+  content: ""; position: absolute; top: -2px; right: -2px;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--danger, #ef4444);
+  animation: bell-pulse 1.5s ease-in-out infinite;
+}
 @media (max-width:767px) {
   .alert-filter-search { min-width: 100%; }
   .alert-card { padding: 16px; }
