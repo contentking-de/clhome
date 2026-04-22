@@ -5,19 +5,19 @@ const COLS = [
   {
     t: "Produkt",
     l: [
-      { label: "Engine", href: "#engine" },
-      { label: "Custom Intake AI", href: "#engine" },
-      { label: "Auto-Drafting", href: "#engine" },
-      { label: "Performance-Satelliten", href: "#engine" },
-      { label: "The Workshop", href: "#engine" },
+      { label: "Engine", href: "/#engine" },
+      { label: "Custom Intake AI", href: "/#engine" },
+      { label: "Auto-Drafting", href: "/#engine" },
+      { label: "Performance-Satelliten", href: "/#engine" },
+      { label: "The Workshop", href: "/#engine" },
     ],
   },
   {
     t: "Zielgruppen",
     l: [
-      { label: "Anwälte", href: "#anwaelte" },
-      { label: "Unternehmen", href: "#anwaelte" },
-      { label: "Privatkunden / Satelliten", href: "#anwaelte" },
+      { label: "Anwälte", href: "/#anwaelte" },
+      { label: "Unternehmen", href: "/#anwaelte" },
+      { label: "Privatkunden / Satelliten", href: "/#anwaelte" },
     ],
   },
   {
