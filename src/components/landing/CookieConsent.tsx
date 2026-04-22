@@ -165,8 +165,17 @@ export function CookieSettingsButton() {
         document.cookie = `${CONSENT_KEY}=;path=/;max-age=0`;
         window.location.reload();
       }}
-      className="consent-reopen"
+      className="consent-reopen mono"
     >
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" />
+        <circle cx="8" cy="9" r="1.5" fill="currentColor" stroke="none" />
+        <circle cx="14" cy="7.5" r="1" fill="currentColor" stroke="none" />
+        <circle cx="16" cy="13" r="1.5" fill="currentColor" stroke="none" />
+        <circle cx="10" cy="14" r="1" fill="currentColor" stroke="none" />
+        <circle cx="7" cy="13" r="0.8" fill="currentColor" stroke="none" />
+        <circle cx="13" cy="17" r="1" fill="currentColor" stroke="none" />
+      </svg>
       Cookie-Einstellungen
     </button>
   );

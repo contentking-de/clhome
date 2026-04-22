@@ -720,12 +720,15 @@ input, textarea, select { font: inherit; color: inherit; }
 }
 .consent-details-btn:hover { color: var(--accent); }
 .consent-reopen {
-  font-size: inherit;
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--ink-3);
+  text-decoration: none;
   cursor: pointer;
   transition: color 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 .consent-reopen:hover { color: var(--accent); }
 @media (max-width: 767px) {
