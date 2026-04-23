@@ -1,4 +1,4 @@
-import SubpageHeader from "./SubpageHeader";
+import Header from "./Header";
 import Footer from "./Footer";
 
 export default function SubpageShell({
@@ -8,7 +8,7 @@ export default function SubpageShell({
 }) {
   return (
     <>
-      <SubpageHeader />
+      <Header />
       <main id="main-content" tabIndex={-1} style={{ paddingTop: 0, outline: "none" }}>{children}</main>
       <Footer />
     </>

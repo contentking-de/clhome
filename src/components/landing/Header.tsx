@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ArrowSvg, IconBell } from "./Icons";
 
 function Ticker() {
@@ -136,14 +137,14 @@ function Logo() {
 }
 
 const NAV_LINKS = [
-  { id: "anwaelte", label: "Für Anwälte", bell: false },
+  { id: "anwaelte", label: "Für Anwälte", bell: false, href: "/fuer-anwaelte" },
   { id: "services", label: "Services", bell: false },
   { id: "engine", label: "Engine", bell: false },
   { id: "satelliten", label: "Satelliten", bell: false },
-  { id: "alerts", label: "Legal Alerts", bell: true },
-  { id: "story", label: "Story", bell: false },
-  { id: "blog", label: "Blog", bell: false },
-  { id: "kontakt", label: "Kontakt", bell: false },
+  { id: "alerts", label: "Legal Alerts", bell: true, href: "/legal-alerts" },
+  { id: "story", label: "Story", bell: false, href: "/story" },
+  { id: "blog", label: "Blog", bell: false, href: "/blog" },
+  { id: "kontakt", label: "Kontakt", bell: false, href: "/kontakt" },
 ];
 
 export { Logo };
@@ -151,6 +152,8 @@ export { Logo };
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const mobileNavRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -160,6 +163,20 @@ export default function Header() {
         behavior: "smooth",
       });
     setMobileOpen(false);
+  };
+
+  const linkHref = (l: (typeof NAV_LINKS)[number]) => {
+    if (l.href) return l.href;
+    if (isHome) return `#${l.id}`;
+    return `/#${l.id}`;
+  };
+
+  const handleClick = (e: React.MouseEvent, l: (typeof NAV_LINKS)[number]) => {
+    if (l.href) return;
+    if (isHome) {
+      e.preventDefault();
+      scrollTo(l.id);
+    }
   };
 
   const handleEscape = useCallback((e: KeyboardEvent) => {
@@ -211,11 +228,8 @@ export default function Header() {
             {NAV_LINKS.map((l) => (
               <a
                 key={l.id}
-                href={`#${l.id}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollTo(l.id);
-                }}
+                href={linkHref(l)}
+                onClick={(e) => handleClick(e, l)}
                 className="mono"
                 style={{
                   fontSize: 12,
@@ -250,10 +264,12 @@ export default function Header() {
             [ 178 / 250 ] Gebiete verfügbar
           </span>
           <a
-            href="#kontakt"
+            href={isHome ? "#kontakt" : "/kontakt"}
             onClick={(e) => {
-              e.preventDefault();
-              scrollTo("kontakt");
+              if (isHome) {
+                e.preventDefault();
+                scrollTo("kontakt");
+              }
             }}
             className="l-btn l-btn-primary"
             style={{ padding: "10px 16px" }}
@@ -305,11 +321,8 @@ export default function Header() {
             {NAV_LINKS.map((l) => (
               <a
                 key={l.id}
-                href={`#${l.id}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollTo(l.id);
-                }}
+                href={linkHref(l)}
+                onClick={(e) => { handleClick(e, l); setMobileOpen(false); }}
                 className="mono"
                 style={{
                   fontSize: 13,
@@ -327,10 +340,13 @@ export default function Header() {
               </a>
             ))}
             <a
-              href="#kontakt"
+              href={isHome ? "#kontakt" : "/kontakt"}
               onClick={(e) => {
-                e.preventDefault();
-                scrollTo("kontakt");
+                if (isHome) {
+                  e.preventDefault();
+                  scrollTo("kontakt");
+                }
+                setMobileOpen(false);
               }}
               className="l-btn l-btn-primary"
               style={{ alignSelf: "flex-start", marginTop: 8 }}
