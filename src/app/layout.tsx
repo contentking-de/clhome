@@ -24,11 +24,11 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
-  title: "clever.legal | Recht haben dauert Sekunden",
+  title: "KI Lösungen & Workshops für Anwälte - clever.legal",
   description:
     "clever.legal GmbH – Wir eliminieren die Bürokratie des Wartens. Mit algorithmischer Präzision und menschlicher Exzellenz transformieren wir komplexe Rechtslagen in sofortige Resultate.",
   openGraph: {
-    title: "clever.legal | Recht haben dauert Sekunden",
+    title: "KI Lösungen & Workshops für Anwälte - clever.legal",
     description:
       "Mit algorithmischer Präzision und menschlicher Exzellenz transformieren wir komplexe Rechtslagen in sofortige Resultate.",
     type: "website",
