@@ -54,7 +54,7 @@ function Slider({
         aria-valuetext={`${value.toLocaleString("de-DE")} ${unit}`}
         style={{
           width: "100%",
-          accentColor: "oklch(0.88 0.22 125)",
+          accentColor: "oklch(0.72 0.19 245)",
           height: 4,
         }}
       />
