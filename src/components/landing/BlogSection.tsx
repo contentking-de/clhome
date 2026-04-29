@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/routing";
 
 interface BlogPost {
   slug: string;
@@ -7,7 +8,8 @@ interface BlogPost {
   createdAt: Date;
 }
 
-export default function BlogSection({ posts }: { posts: BlogPost[] }) {
+export default async function BlogSection({ posts }: { posts: BlogPost[] }) {
+  const t = await getTranslations("BlogSection");
   const hasReal = posts.length > 0;
 
   return (
@@ -25,7 +27,7 @@ export default function BlogSection({ posts }: { posts: BlogPost[] }) {
         >
           <div>
             <div className="l-label" style={{ marginBottom: 18 }}>
-              § 07 — Feldnotizen
+              {t("sectionLabel")}
             </div>
             <h2
               className="display"
@@ -34,8 +36,8 @@ export default function BlogSection({ posts }: { posts: BlogPost[] }) {
                 fontWeight: 700,
               }}
             >
-              Aus dem{" "}
-              <span style={{ color: "var(--accent)" }}>Maschinenraum.</span>
+              {t("headlineBefore")}{" "}
+              <span style={{ color: "var(--accent)" }}>{t("headlineAccent")}</span>
             </h2>
           </div>
           <Link
@@ -48,7 +50,7 @@ export default function BlogSection({ posts }: { posts: BlogPost[] }) {
               color: "var(--ink-2)",
             }}
           >
-            Alle Artikel →
+            {t("linkAllArticles")}
           </Link>
         </div>
 
@@ -68,7 +70,7 @@ export default function BlogSection({ posts }: { posts: BlogPost[] }) {
                 color: "var(--ink-3)",
               }}
             >
-              Noch keine Artikel vorhanden.
+              {t("emptyState")}
             </div>
           </div>
         ) : (
@@ -120,7 +122,7 @@ export default function BlogSection({ posts }: { posts: BlogPost[] }) {
                         color: "var(--accent)",
                       }}
                     >
-                      #BLOG
+                      {t("tagBlog")}
                     </span>
                     <span
                       style={{
@@ -167,7 +169,7 @@ export default function BlogSection({ posts }: { posts: BlogPost[] }) {
                       color: "var(--accent)",
                     }}
                   >
-                    Lesen →
+                    {t("linkRead")}
                   </div>
                 </Link>
               );

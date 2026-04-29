@@ -166,6 +166,7 @@ export interface EditionView {
   nextUpdate: string | null;
   stats: NormalizedStats;
   reports: Record<string, string>;
+  reportsEn: Record<string, string> | null;
   errors: string[];
   isCurrent: boolean;
   createdAt: Date;
@@ -180,6 +181,7 @@ function toEditionView(edition: LegalAlertEdition): EditionView {
     nextUpdate: edition.nextUpdate,
     stats: normalizeStats(edition.stats),
     reports: edition.reports as Record<string, string>,
+    reportsEn: edition.reportsEn as Record<string, string> | null,
     errors: edition.errors,
     isCurrent: edition.isCurrent,
     createdAt: edition.createdAt,

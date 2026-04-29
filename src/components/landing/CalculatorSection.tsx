@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 function Slider({
   label,
@@ -63,6 +64,7 @@ function Slider({
 }
 
 export default function CalculatorSection() {
+  const t = useTranslations("Calculator");
   const [cases, setCases] = useState(80);
   const [mins, setMins] = useState(120);
   const [rate, setRate] = useState(280);
@@ -89,10 +91,10 @@ export default function CalculatorSection() {
         >
           <div>
             <div className="l-label" style={{ marginBottom: 18 }}>
-              § 04 — Der Beweis
+              {t("sectionLabel")}
             </div>
             <div className="mono" style={{ fontSize: 12, color: "var(--ink-3)" }}>
-              Zeit ist die einzige limitierte Währung.
+              {t("subline")}
             </div>
           </div>
           <h2
@@ -102,10 +104,10 @@ export default function CalculatorSection() {
               fontWeight: 700,
             }}
           >
-            Wie viel Zeit
+            {t("headingLine1")}
             <br />
-            <span style={{ color: "var(--ink-2)" }}>verschwenden Sie</span>{" "}
-            <span style={{ color: "var(--accent)" }}>gerade?</span>
+            <span style={{ color: "var(--ink-2)" }}>{t("headingLine2Muted")}</span>{" "}
+            <span style={{ color: "var(--accent)" }}>{t("headingLine3Accent")}</span>
           </h2>
         </div>
 
@@ -134,33 +136,33 @@ export default function CalculatorSection() {
                 marginBottom: 32,
               }}
             >
-              [ INPUT ]
+              {t("inputPanelLabel")}
             </div>
             <Slider
-              label="Fälle pro Monat"
+              label={t("sliderCasesLabel")}
               value={cases}
               min={10}
               max={500}
               step={5}
-              unit="Fälle"
+              unit={t("sliderCasesUnit")}
               onChange={setCases}
             />
             <Slider
-              label="Ø Bearbeitung pro Fall"
+              label={t("sliderMinsLabel")}
               value={mins}
               min={30}
               max={360}
               step={10}
-              unit="min"
+              unit={t("sliderMinsUnit")}
               onChange={setMins}
             />
             <Slider
-              label="Interner Stundensatz"
+              label={t("sliderRateLabel")}
               value={rate}
               min={80}
               max={600}
               step={10}
-              unit="€/h"
+              unit={t("sliderRateUnit")}
               onChange={setRate}
             />
           </div>
@@ -185,7 +187,7 @@ export default function CalculatorSection() {
                   marginBottom: 32,
                 }}
               >
-                [ OUTPUT / MONAT ]
+                {t("outputPanelLabel")}
               </div>
               <div style={{ marginBottom: 32 }}>
                 <div
@@ -197,7 +199,7 @@ export default function CalculatorSection() {
                     textTransform: "uppercase",
                   }}
                 >
-                  Zurückgewonnene Stunden
+                  {t("savedHoursLabel")}
                 </div>
                 <div
                   className="display"
@@ -211,7 +213,7 @@ export default function CalculatorSection() {
                 >
                   {fmt(savedHours)}
                   <span style={{ fontSize: 32, color: "var(--ink-2)", marginLeft: "0.25em" }}>
-                    h
+                    {t("hoursSuffix")}
                   </span>
                 </div>
               </div>
@@ -225,7 +227,7 @@ export default function CalculatorSection() {
                     textTransform: "uppercase",
                   }}
                 >
-                  Zurückgewonnene Marge
+                  {t("savedMarginLabel")}
                 </div>
                 <div
                   className="display"
@@ -253,10 +255,9 @@ export default function CalculatorSection() {
                 borderTop: "1px dashed var(--line-2)",
               }}
             >
-              Annahme: 90% Zeiteinsparung auf Routineaufgaben gem. clever.legal
-              Benchmark.
+              {t("footnote")}
               <br />
-              Pro Jahr:{" "}
+              {t("footnotePerYear")}{" "}
               <span style={{ color: "var(--accent)" }}>
                 + €&thinsp;{fmt(savedEuro * 12)}
               </span>

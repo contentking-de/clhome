@@ -1,43 +1,48 @@
-const FOUNDERS = [
-  {
-    name: "Marc Ellerbrock",
-    role: "Massenklage-Stratege",
-    code: "MEK",
-    tag: "LEGAL",
-    bio: "Juristisches Gewissen. Bewies mit zockerhelden.de wie man Massenverfahren skaliert.",
-    brands: ["Zockerhelden", "Meta-Klage", "Coachinganwalt", "BEMK"],
-    image: "/team/marc-ellerbrock.jpeg",
-  },
-  {
-    name: "Nico Sacotte",
-    role: "Content-Stratege",
-    code: "NSA",
-    tag: "CONTENT",
-    bio: "25+ Jahre Online Marketing. Baut organische Autorität — gegen verkrustete Strukturen.",
-    brands: ["Commerzbank", "Burda", "O2", "Immoscout", "Fleurop"],
-    image: "/team/nico-sacotte.png",
-  },
-  {
-    name: "Thorsten Loth",
-    role: "Performance Marketing",
-    code: "TLO",
-    tag: "GROWTH",
-    bio: "Jagt Traffic auf Satelliten und B2B-Landingpages. Zwei Jahrzehnte Paid-Excellence.",
-    brands: ["Apollo", "Fressnapf", "C&A", "Deichmann", "BK"],
-    image: "/team/thorsten-loth.webp",
-  },
-  {
-    name: "Christoph Ehrke",
-    role: "IT-Architekt",
-    code: "CEH",
-    tag: "TECH",
-    bio: "Denkt in hochperformanter Logik, nicht Paragraphen. Die Black Box, die alles möglich macht.",
-    brands: ["OMlocal", "OMfire", "30+ Team"],
-    image: "/team/christoph-ehrke.jpeg",
-  },
-];
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/routing";
 
-export default function TeamSection() {
+export default async function TeamSection() {
+  const t = await getTranslations("Team");
+
+  const FOUNDERS = [
+    {
+      name: t("marcName"),
+      role: t("marcRole"),
+      code: "MEK",
+      tag: "LEGAL",
+      bio: t("marcBio"),
+      brands: ["Zockerhelden", "Meta-Klage", "Coachinganwalt", "BEMK"],
+      image: "/team/marc-ellerbrock.jpeg",
+    },
+    {
+      name: t("nicoName"),
+      role: t("nicoRole"),
+      code: "NSA",
+      tag: "CONTENT",
+      bio: t("nicoBio"),
+      brands: ["Commerzbank", "Burda", "O2", "Immoscout", "Fleurop"],
+      image: "/team/nico-sacotte.png",
+    },
+    {
+      name: t("thorstenName"),
+      role: t("thorstenRole"),
+      code: "TLO",
+      tag: "GROWTH",
+      bio: t("thorstenBio"),
+      brands: ["Apollo", "Fressnapf", "C&A", "Deichmann", "BK"],
+      image: "/team/thorsten-loth.webp",
+    },
+    {
+      name: t("christophName"),
+      role: t("christophRole"),
+      code: "CEH",
+      tag: "TECH",
+      bio: t("christophBio"),
+      brands: ["OMlocal", "OMfire", "30+ Team"],
+      image: "/team/christoph-ehrke.jpeg",
+    },
+  ];
+
   return (
     <section
       id="story"
@@ -55,10 +60,10 @@ export default function TeamSection() {
         >
           <div>
             <div className="l-label" style={{ marginBottom: 18 }}>
-              § 06 — Das Team
+              {t("sectionLabel")}
             </div>
             <div className="mono" style={{ fontSize: 12, color: "var(--ink-3)" }}>
-              Spezialeinheit · Recht × Tech × Reichweite
+              {t("subline")}
             </div>
           </div>
           <h2
@@ -68,9 +73,9 @@ export default function TeamSection() {
               fontWeight: 700,
             }}
           >
-            Vier Köpfe.
+            {t("headlineLine1")}
             <br />
-            <span style={{ color: "var(--accent)" }}>Keine Ehrfurcht.</span>
+            <span style={{ color: "var(--accent)" }}>{t("headlineLine2Accent")}</span>
           </h2>
         </div>
 
@@ -226,7 +231,7 @@ export default function TeamSection() {
                 marginBottom: 16,
               }}
             >
-              ORIGIN · AFFENBERG · 2024
+              {t("originKicker")}
             </div>
             <p
               className="display"
@@ -237,8 +242,7 @@ export default function TeamSection() {
                 letterSpacing: "-0.02em",
               }}
             >
-              „Während wir uns über die Evolution der Primaten wundern, steckt
-              das deutsche Rechtssystem noch in der analogen Kreidezeit fest."
+              {t("originQuote")}
             </p>
             <div
               className="mono"
@@ -249,7 +253,7 @@ export default function TeamSection() {
                 marginTop: 20,
               }}
             >
-              — Nico &amp; Thorsten, Spaziergang mit den Berberaffen
+              {t("originAttribution")}
             </div>
           </div>
           <div
@@ -280,7 +284,7 @@ export default function TeamSection() {
                 textTransform: "uppercase",
               }}
             >
-              Jahre kumulierte Erfahrung
+              {t("experienceYearLabel")}
             </div>
             <div
               style={{
@@ -289,7 +293,7 @@ export default function TeamSection() {
                 borderTop: "1px dashed var(--line-2)",
               }}
             >
-              <a
+              <Link
                 href="/story"
                 className="mono"
                 style={{
@@ -299,8 +303,8 @@ export default function TeamSection() {
                   color: "var(--accent)",
                 }}
               >
-                Ganze Story lesen →
-              </a>
+                {t("linkReadFullStory")}
+              </Link>
             </div>
           </div>
         </div>

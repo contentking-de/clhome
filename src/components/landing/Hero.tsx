@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { ArrowSvg } from "./Icons";
 
 function LiveCounter() {
@@ -57,7 +58,8 @@ function HeroStat({
 }
 
 export default function Hero() {
-  const lines = ["Recht haben", "dauert Sekunden.", "Recht bekommen"];
+  const t = useTranslations("Hero");
+  const lines = [t("headlineLine1"), t("headlineLine2"), t("headlineLine3")];
   const fullText = lines.join("\n");
   const [typedCount, setTypedCount] = useState(0);
   const [showReveal, setShowReveal] = useState(false);
@@ -145,7 +147,7 @@ export default function Hero() {
         >
           <span className="l-chip">
             <span className="dot" />
-            Authority Disruptor // Edition 2026
+            {t("chip")}
           </span>
           <span
             className="mono"
@@ -155,7 +157,7 @@ export default function Hero() {
               letterSpacing: "0.1em",
             }}
           >
-            N = 4 Gründer · 50+ Jahre Erfahrung
+            {t("chipMeta")}
           </span>
         </div>
 
@@ -215,7 +217,7 @@ export default function Hero() {
               transition: "opacity 0.6s ease",
             }}
           >
-            ab jetzt auch.
+            {t("headlineReveal")}
           </span>
         </h1>
       </div>
@@ -236,13 +238,13 @@ export default function Hero() {
               color: "var(--ink-2)",
             }}
           >
-            Wir verkaufen keine Software, sondern{" "}
-            <span style={{ color: "var(--ink)", fontWeight: 600 }}>
-              Kapazität & Zeit
-            </span>
-            . clever.legal installiert die KI-Infrastruktur, mit der Sie
-            Einzelmandanten und Massenverfahren gleichermaßen vereinfachen und skalieren — während Ihre Konkurrenz noch PDFs
-            sortiert.
+            {t.rich("leadParagraph", {
+              emphasis: (chunks) => (
+                <span style={{ color: "var(--ink)", fontWeight: 600 }}>
+                  {chunks}
+                </span>
+              ),
+            })}
           </p>
 
           <div
@@ -261,7 +263,7 @@ export default function Hero() {
               }}
               className="l-btn l-btn-primary"
             >
-              Strategie-Gespräch anfordern
+              {t("ctaPrimary")}
               <ArrowSvg />
             </a>
             <a
@@ -272,7 +274,7 @@ export default function Hero() {
               }}
               className="l-btn"
             >
-              Engine ansehen
+              {t("ctaSecondary")}
             </a>
           </div>
         </div>
@@ -393,24 +395,24 @@ export default function Hero() {
       >
         <div className="l-grid-stats">
           <HeroStat
-            label="Prüfzeit reduziert um"
-            value="−90%"
-            sub="Ø Mandanten-Dokument"
+            label={t("stat1Label")}
+            value={t("stat1Value")}
+            sub={t("stat1Sub")}
           />
           <HeroStat
-            label="Intake → Ready-to-File"
-            value="< 5 min"
-            sub="war: 2h 40m"
+            label={t("stat2Label")}
+            value={t("stat2Value")}
+            sub={t("stat2Sub")}
           />
           <HeroStat
-            label="Fälle automatisiert"
+            label={t("stat3Label")}
             value={<LiveCounter />}
-            sub="Netzwerk gesamt · live"
+            sub={t("stat3Sub")}
           />
           <HeroStat
-            label="Lizenz pro Gebiet"
-            value="1"
-            sub="Scharfschützen-Policy"
+            label={t("stat4Label")}
+            value={t("stat4Value")}
+            sub={t("stat4Sub")}
           />
         </div>
       </div>

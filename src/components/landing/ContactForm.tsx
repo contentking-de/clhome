@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, FormEvent, InputHTMLAttributes } from "react";
+import { useTranslations } from "next-intl";
 import { ArrowSvg } from "./Icons";
 
 function TField({
@@ -82,6 +83,8 @@ function TField({
 }
 
 export default function ContactForm() {
+  const t = useTranslations("ContactForm");
+
   const [form, setForm] = useState({
     name: "",
     kanzlei: "",
@@ -108,11 +111,11 @@ export default function ContactForm() {
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Senden fehlgeschlagen");
+        throw new Error(data.error || t("errorSendFailed"));
       }
       setSent(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Senden fehlgeschlagen");
+      setError(err instanceof Error ? err.message : t("errorSendFailed"));
     } finally {
       setSending(false);
     }
@@ -137,13 +140,13 @@ export default function ContactForm() {
             color: "var(--accent)",
           }}
         >
-          [ OK ] TRANSMISSION COMPLETE
+          {t("statusTransmissionComplete")}
         </div>
         <div className="display" style={{ fontSize: 36, fontWeight: 700 }}>
-          Nachricht empfangen.
+          {t("successTitle")}
         </div>
         <p style={{ fontSize: 15, color: "var(--ink-2)" }}>
-          Marc oder Nico melden sich innerhalb von 24 Stunden persönlich.
+          {t("successBody")}
         </p>
       </div>
     );
@@ -155,27 +158,27 @@ export default function ContactForm() {
       style={{ display: "flex", flexDirection: "column", gap: 24 }}
     >
       <TField
-        label="Name"
+        label={t("labelName")}
         value={form.name}
         onChange={(v) => setForm({ ...form, name: v })}
       />
       <TField
-        label="Kanzlei"
+        label={t("labelKanzlei")}
         value={form.kanzlei}
         onChange={(v) => setForm({ ...form, kanzlei: v })}
       />
       <div className="l-grid-half" style={{ gap: 24 }}>
         <TField
-          label="E-Mail"
+          label={t("labelEmail")}
           type="email"
           value={form.email}
           onChange={(v) => setForm({ ...form, email: v })}
         />
         <TField
-          label="Rechtsgebiet / Region"
+          label={t("labelRechtsgebietRegion")}
           value={form.gebiet}
           onChange={(v) => setForm({ ...form, gebiet: v })}
-          placeholder="z.B. Datenschutz / NRW"
+          placeholder={t("placeholderRechtsgebiet")}
         />
       </div>
       <label style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -188,7 +191,7 @@ export default function ContactForm() {
             color: "var(--ink-3)",
           }}
         >
-          Interesse an
+          {t("labelInteresseAn")}
         </span>
         <select
           value={form.service}
@@ -215,16 +218,16 @@ export default function ContactForm() {
           onFocus={(e) => { e.target.style.borderBottomColor = "var(--accent)"; }}
           onBlur={(e) => { e.target.style.borderBottomColor = "var(--line)"; }}
         >
-          <option value="" disabled>Bitte wählen…</option>
-          <option value="KI-Schulungen & Workshops">KI-Schulungen &amp; Workshops</option>
-          <option value="KI-Integration in Kanzleien">KI-Integration in Kanzleien</option>
-          <option value="Lead-Satelliten">Lead-Satelliten</option>
-          <option value="Online-Marketing Services">Online-Marketing Services</option>
-          <option value="Sonstiges">Sonstiges</option>
+          <option value="" disabled>{t("selectPleaseChoose")}</option>
+          <option value="KI-Schulungen & Workshops">{t("optionKiSchulungen")}</option>
+          <option value="KI-Integration in Kanzleien">{t("optionKiIntegration")}</option>
+          <option value="Lead-Satelliten">{t("optionLeadSatelliten")}</option>
+          <option value="Online-Marketing Services">{t("optionOnlineMarketing")}</option>
+          <option value="Sonstiges">{t("optionSonstiges")}</option>
         </select>
       </label>
       <TField
-        label="Nachricht"
+        label={t("labelNachricht")}
         value={form.msg}
         onChange={(v) => setForm({ ...form, msg: v })}
         multi
@@ -245,7 +248,7 @@ export default function ContactForm() {
         className="l-btn l-btn-primary"
         style={{ alignSelf: "flex-start", marginTop: 8, opacity: sending ? 0.6 : 1 }}
       >
-        {sending ? "Wird gesendet…" : "Strategie-Gespräch anfordern"}
+        {sending ? t("submitSending") : t("submitDefault")}
         {!sending && <ArrowSvg />}
       </button>
       {error && (

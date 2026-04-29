@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import Icon from "@/components/ui/Icon";
 import RefreshButton from "@/components/admin/RefreshLegalAlerts";
 import ReportPreview from "@/components/admin/ReportPreview";
+import TranslateLegalAlertsButton from "@/components/admin/TranslateLegalAlertsButton";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -72,7 +73,13 @@ export default async function AdminLegalAlerts() {
           </div>
 
           <div className="mb-2">
-            <div className="text-xs text-secondary uppercase tracking-wide mb-2">Reports</div>
+            <div className="flex items-center justify-between mb-2">
+              <div className="text-xs text-secondary uppercase tracking-wide">Reports</div>
+              <TranslateLegalAlertsButton
+                editionId={current.id}
+                hasEnglish={!!current.reportsEn}
+              />
+            </div>
             <div className="flex flex-wrap gap-2">
               {Object.keys(current.reports).map((key) => {
                 const meta = reportMeta[key];

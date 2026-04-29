@@ -1,11 +1,17 @@
+import { getTranslations } from "next-intl/server";
+
 function Row({
   left,
   right,
   highlight,
+  statusQuoLabel,
+  cleverLabel,
 }: {
   left: string;
   right: string;
   highlight?: boolean;
+  statusQuoLabel: string;
+  cleverLabel: string;
 }) {
   return (
     <div
@@ -35,7 +41,7 @@ function Row({
             letterSpacing: "0.14em",
           }}
         >
-          STATUS&nbsp;QUO
+          {statusQuoLabel}
         </span>
         <span style={{ fontSize: 16, lineHeight: 1.5 }}>{left}</span>
       </div>
@@ -62,7 +68,7 @@ function Row({
             letterSpacing: "0.14em",
           }}
         >
-          CLEVER.LEGAL
+          {cleverLabel}
         </span>
         <span style={{ fontSize: 16, lineHeight: 1.5, color: "var(--ink)" }}>
           {right}
@@ -72,53 +78,55 @@ function Row({
   );
 }
 
-const ROWS = [
-  {
-    l: "Junioren lesen PDFs, die Uhr tickt, die Marge schrumpft.",
-    r: "KI validiert. Sie entscheiden. In Sekunden, nicht Stunden.",
-    h: true,
-  },
-  {
-    l: "Massenverfahren = Massenaufwand. Team skaliert nicht mit.",
-    r: "Massenverfahren ohne Massenaufwand. Schriftsätze auf Autopilot.",
-    h: false,
-  },
-  {
-    l: "Mandanten-Akquise per Flyer und Hoffnung.",
-    r: "Performance-Satelliten liefern qualifizierte Leads auf Knopfdruck.",
-    h: false,
-  },
-  {
-    l: '„KI-Strategie" als Powerpoint. Seit 18 Monaten.',
-    r: "48-Stunden-Vollintegration. Wir gehen erst, wenn das System läuft.",
-    h: false,
-  },
-  {
-    l: "Fachkräftemangel stoppt Wachstum.",
-    r: "Kapazität pro Mitarbeiter × 10. Personal bleibt optional.",
-    h: false,
-  },
-];
+export default async function ProblemSection() {
+  const t = await getTranslations("Problem");
 
-const PAINS = [
-  {
-    n: "01",
-    t: "Margen-Killer",
-    d: "Manuelle Fallprüfung ist unwirtschaftlich. Jede Stunde in PDFs ist eine Stunde weniger Strategie.",
-  },
-  {
-    n: "02",
-    t: "Personal-Falle",
-    d: "Fachkräftemangel stoppt Wachstum. Neue Mandate brauchen neue Menschen. Oder: neue Systeme.",
-  },
-  {
-    n: "03",
-    t: "Innovations-Angst",
-    d: "Die Konkurrenz schläft nicht. Sie automatisiert bereits. AI-FoMo ist real.",
-  },
-];
+  const ROWS = [
+    {
+      l: t("compareRow1Left"),
+      r: t("compareRow1Right"),
+      h: true,
+    },
+    {
+      l: t("compareRow2Left"),
+      r: t("compareRow2Right"),
+      h: false,
+    },
+    {
+      l: t("compareRow3Left"),
+      r: t("compareRow3Right"),
+      h: false,
+    },
+    {
+      l: t("compareRow4Left"),
+      r: t("compareRow4Right"),
+      h: false,
+    },
+    {
+      l: t("compareRow5Left"),
+      r: t("compareRow5Right"),
+      h: false,
+    },
+  ];
 
-export default function ProblemSection() {
+  const PAINS = [
+    {
+      n: "01",
+      t: t("pain01Title"),
+      d: t("pain01Body"),
+    },
+    {
+      n: "02",
+      t: t("pain02Title"),
+      d: t("pain02Body"),
+    },
+    {
+      n: "03",
+      t: t("pain03Title"),
+      d: t("pain03Body"),
+    },
+  ];
+
   return (
     <section
       id="problem"
@@ -133,10 +141,10 @@ export default function ProblemSection() {
         >
           <div>
             <div className="l-label" style={{ marginBottom: 18 }}>
-              § 01 — Das Problem
+              {t("sectionLabel")}
             </div>
             <div className="mono" style={{ fontSize: 12, color: "var(--ink-3)" }}>
-              Automatisierte Exzellenz gegen analoge Trägheit
+              {t("monoSubtitle")}
             </div>
           </div>
           <h2
@@ -146,10 +154,10 @@ export default function ProblemSection() {
               fontWeight: 700,
             }}
           >
-            Das System ist langsam.
+            {t("headingLine1")}
             <br />
             <span style={{ color: "var(--accent)" }}>
-              Wir sind es nicht.
+              {t("headingLine2")}
             </span>
           </h2>
         </div>
@@ -180,7 +188,7 @@ export default function ProblemSection() {
                   color: "var(--ink-3)",
                 }}
               >
-                Analoge Trägheit
+                {t("columnHeaderLeft")}
               </span>
             </div>
             <div
@@ -199,12 +207,19 @@ export default function ProblemSection() {
                   color: "var(--accent)",
                 }}
               >
-                Automatisierte Exzellenz
+                {t("columnHeaderRight")}
               </span>
             </div>
           </div>
           {ROWS.map((r, i) => (
-            <Row key={i} left={r.l} right={r.r} highlight={r.h} />
+            <Row
+              key={i}
+              left={r.l}
+              right={r.r}
+              highlight={r.h}
+              statusQuoLabel={t("rowLabelStatusQuo")}
+              cleverLabel={t("rowLabelClever")}
+            />
           ))}
           <div
             className="l-problem-footer"
@@ -224,7 +239,7 @@ export default function ProblemSection() {
                 color: "var(--ink-3)",
               }}
             >
-              — Anwaltliche Sorgfalt ist keine Ausrede für analoge Trägheit.
+              {t("footerQuote")}
             </span>
             <span
               className="mono"

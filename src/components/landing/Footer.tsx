@@ -1,47 +1,50 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { getTranslations } from "next-intl/server";
 import { Logo } from "./Header";
 import { CookieSettingsButton } from "./CookieConsent";
 
-const COLS = [
-  {
-    t: "Produkt",
-    l: [
-      { label: "Engine", href: "/#engine" },
-      { label: "Custom Intake AI", href: "/#engine" },
-      { label: "Auto-Drafting", href: "/#engine" },
-      { label: "Performance-Satelliten", href: "/#engine" },
-      { label: "The Workshop", href: "/#engine" },
-    ],
-  },
-  {
-    t: "Zielgruppen",
-    l: [
-      { label: "Anwälte", href: "/#anwaelte" },
-      { label: "Unternehmen", href: "/#anwaelte" },
-      { label: "Privatkunden / Satelliten", href: "/#anwaelte" },
-    ],
-  },
-  {
-    t: "Ressourcen",
-    l: [
-      { label: "Legal Alerts", href: "/legal-alerts" },
-      { label: "Blog", href: "/blog" },
-      { label: "Story", href: "/story" },
-      { label: "Kontakt", href: "/kontakt" },
-    ],
-  },
-  {
-    t: "Recht",
-    l: [
-      { label: "Impressum", href: "/impressum" },
-      { label: "Datenschutz", href: "/datenschutz" },
-      { label: "Barrierefreiheit", href: "/barrierefreiheit" },
-      { label: "AGB", href: "#" },
-    ],
-  },
-];
+export default async function Footer() {
+  const t = await getTranslations("Footer");
 
-export default function Footer() {
+  const COLS = [
+    {
+      t: t("colProductTitle"),
+      l: [
+        { label: t("colProductEngine"), href: "/#engine" },
+        { label: t("colProductCustomIntakeAi"), href: "/#engine" },
+        { label: t("colProductAutoDrafting"), href: "/#engine" },
+        { label: t("colProductPerformanceSatelliten"), href: "/#engine" },
+        { label: t("colProductTheWorkshop"), href: "/#engine" },
+      ],
+    },
+    {
+      t: t("colAudiencesTitle"),
+      l: [
+        { label: t("colAudiencesAnwaelte"), href: "/#anwaelte" },
+        { label: t("colAudiencesUnternehmen"), href: "/#anwaelte" },
+        { label: t("colAudiencesPrivatkunden"), href: "/#anwaelte" },
+      ],
+    },
+    {
+      t: t("colResourcesTitle"),
+      l: [
+        { label: t("colResourcesLegalAlerts"), href: "/legal-alerts" },
+        { label: t("colResourcesBlog"), href: "/blog" },
+        { label: t("colResourcesStory"), href: "/story" },
+        { label: t("colResourcesKontakt"), href: "/kontakt" },
+      ],
+    },
+    {
+      t: t("colLegalTitle"),
+      l: [
+        { label: t("colLegalImpressum"), href: "/impressum" },
+        { label: t("colLegalDatenschutz"), href: "/datenschutz" },
+        { label: t("colLegalBarrierefreiheit"), href: "/barrierefreiheit" },
+        { label: t("colLegalAgb"), href: "#" },
+      ],
+    },
+  ];
+
   return (
     <footer style={{ background: "var(--bg)" }}>
       {/* Mega statement */}
@@ -54,7 +57,7 @@ export default function Footer() {
       >
         <div className="l-container" style={{ textAlign: "center" }}>
           <div className="l-label" style={{ marginBottom: 24 }}>
-            EPILOG
+            {t("epilogLabel")}
           </div>
           <h3
             className="display"
@@ -65,10 +68,10 @@ export default function Footer() {
               letterSpacing: "-0.04em",
             }}
           >
-            Recht haben dauert Sekunden.
+            {t("epilogHeadlineLine1")}
             <br />
             <span style={{ color: "var(--accent)" }}>
-              Recht bekommen ab jetzt auch.
+              {t("epilogHeadlineLine2Accent")}
             </span>
           </h3>
         </div>
@@ -93,8 +96,7 @@ export default function Footer() {
                 maxWidth: 280,
               }}
             >
-              Legal-Enabler und Tech-Hub. Infrastruktur für die Rechtsberatung
-              der nächsten Generation.
+              {t("brandDescription")}
             </p>
             <div
               className="mono"
@@ -105,7 +107,7 @@ export default function Footer() {
                 marginTop: 32,
               }}
             >
-              EST. 2024 · MARKDORF, DE
+              {t("establishedLine")}
             </div>
           </div>
           {COLS.map((c) => (
@@ -168,7 +170,7 @@ export default function Footer() {
               letterSpacing: "0.1em",
             }}
           >
-            © 2026 clever.legal GmbH i. Gr. · Alle Rechte vorbehalten
+            {t("copyright")}
           </div>
           <div
             className="mono"

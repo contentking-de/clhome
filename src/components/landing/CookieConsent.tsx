@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 
 const CONSENT_KEY = "cl_cookie_consent";
 const CONSENT_VERSION = 1;
@@ -13,12 +14,6 @@ interface ConsentState {
   timestamp: string;
   categories: Record<ConsentCategory, boolean>;
 }
-
-const CATEGORIES: { key: ConsentCategory; label: string; desc: string; locked?: boolean }[] = [
-  { key: "necessary", label: "Technisch notwendig", desc: "Session, Sicherheit, Grundfunktionen", locked: true },
-  { key: "analytics", label: "Analyse", desc: "Anonyme Nutzungsstatistiken zur Verbesserung der Website" },
-  { key: "marketing", label: "Marketing", desc: "Personalisierte Inhalte und Werbung" },
-];
 
 function readConsent(): ConsentState | null {
   if (typeof document === "undefined") return null;
@@ -49,6 +44,7 @@ function writeConsent(categories: Record<ConsentCategory, boolean>) {
 }
 
 export default function CookieConsent() {
+  const t = useTranslations("CookieConsent");
   const [visible, setVisible] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [selections, setSelections] = useState<Record<ConsentCategory, boolean>>({
@@ -56,6 +52,12 @@ export default function CookieConsent() {
     analytics: false,
     marketing: false,
   });
+
+  const CATEGORIES: { key: ConsentCategory; label: string; desc: string; locked?: boolean }[] = [
+    { key: "necessary", label: t("categoryNecessaryLabel"), desc: t("categoryNecessaryDesc"), locked: true },
+    { key: "analytics", label: t("categoryAnalyticsLabel"), desc: t("categoryAnalyticsDesc") },
+    { key: "marketing", label: t("categoryMarketingLabel"), desc: t("categoryMarketingDesc") },
+  ];
 
   useEffect(() => {
     const existing = readConsent();
@@ -86,18 +88,16 @@ export default function CookieConsent() {
   if (!visible) return null;
 
   return (
-    <div className="consent-backdrop" role="dialog" aria-label="Cookie-Einstellungen" aria-modal="true">
+    <div className="consent-backdrop" role="dialog" aria-label={t("dialogAriaLabel")} aria-modal="true">
       <div className="consent-banner">
         <div className="consent-header">
-          <span className="mono consent-label">COOKIE-EINSTELLUNGEN</span>
+          <span className="mono consent-label">{t("bannerTitle")}</span>
         </div>
 
         <p className="consent-text">
-          Wir verwenden Cookies, um Ihnen die bestmögliche Erfahrung zu bieten.
-          Technisch notwendige Cookies sind immer aktiv. Für alle weiteren Cookies
-          benötigen wir Ihre Einwilligung.{" "}
+          {t("bannerIntro")}{" "}
           <Link href="/datenschutz" className="consent-link">
-            Datenschutzerklärung
+            {t("privacyLink")}
           </Link>
         </p>
 
@@ -130,25 +130,25 @@ export default function CookieConsent() {
           {showDetails ? (
             <>
               <button onClick={saveCustom} className="l-btn l-btn-primary consent-btn">
-                Auswahl speichern
+                {t("saveSelection")}
               </button>
               <button onClick={acceptAll} className="l-btn consent-btn">
-                Alle akzeptieren
+                {t("acceptAll")}
               </button>
             </>
           ) : (
             <>
               <button onClick={acceptAll} className="l-btn l-btn-primary consent-btn">
-                Alle akzeptieren
+                {t("acceptAll")}
               </button>
               <button onClick={rejectOptional} className="l-btn consent-btn">
-                Nur notwendige
+                {t("rejectOptional")}
               </button>
               <button
                 onClick={() => setShowDetails(true)}
                 className="consent-details-btn"
               >
-                Einstellungen
+                {t("openSettings")}
               </button>
             </>
           )}
@@ -159,6 +159,7 @@ export default function CookieConsent() {
 }
 
 export function CookieSettingsButton() {
+  const t = useTranslations("CookieConsent");
   return (
     <button
       onClick={() => {
@@ -176,7 +177,7 @@ export function CookieSettingsButton() {
         <circle cx="7" cy="13" r="0.8" fill="currentColor" stroke="none" />
         <circle cx="13" cy="17" r="1" fill="currentColor" stroke="none" />
       </svg>
-      Cookie-Einstellungen
+      {t("cookieSettingsButton")}
     </button>
   );
 }

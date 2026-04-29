@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { IconSat, IconShield, IconGavel, IconTarget } from "./Icons";
 
 const SATELLITES = [
@@ -21,31 +22,33 @@ const SATELLITES = [
   },
 ];
 
-const STEPS = [
-  {
-    num: "01",
-    title: "Lead trifft Landingpage",
-    text: "Gezielte Kampagnen leiten potenzielle Mandanten auf Ihre Satelliten-Domain — optimiert für maximale Conversion.",
-  },
-  {
-    num: "02",
-    title: "Automatisiertes Onboarding",
-    text: "Der Mandant gibt alle relevanten Daten strukturiert ab. Kein E-Mail-Ping-Pong, keine Telefonate, keine Wartezeit.",
-  },
-  {
-    num: "03",
-    title: "Digitale Vollmacht",
-    text: "Am Ende des Flows steht die digital signierte Vollmacht. Fertig. Sofort bearbeitbar.",
-  },
-];
+export default async function SatelliteSection() {
+  const t = await getTranslations("Satellite");
 
-export default function SatelliteSection() {
+  const STEPS = [
+    {
+      num: "01",
+      title: t("step1Title"),
+      text: t("step1Text"),
+    },
+    {
+      num: "02",
+      title: t("step2Title"),
+      text: t("step2Text"),
+    },
+    {
+      num: "03",
+      title: t("step3Title"),
+      text: t("step3Text"),
+    },
+  ];
+
   return (
     <section id="satelliten" style={{ borderBottom: "1px solid var(--line-2)" }}>
       <div className="l-container" style={{ padding: "96px 32px" }}>
         {/* Header */}
         <div className="l-label" style={{ marginBottom: 18 }}>
-          § 04 — Lead-Generierung
+          {t("sectionLabel")}
         </div>
         <h2
           className="display"
@@ -55,8 +58,8 @@ export default function SatelliteSection() {
             marginBottom: 20,
           }}
         >
-          Die clever.legal{" "}
-          <span style={{ color: "var(--accent)" }}>Performance-Satelliten.</span>
+          {t("headingPart1")}
+          <span style={{ color: "var(--accent)" }}>{t("headingAccent")}</span>
         </h2>
         <p
           style={{
@@ -67,9 +70,7 @@ export default function SatelliteSection() {
             marginBottom: 56,
           }}
         >
-          Individuelle Landingpages für Ihre Kanzlei-Schwerpunkte. Kein
-          langweiliges Kontaktformular — sondern ein vollautomatisierter
-          Lead-Flow, der echte Mandate liefert.
+          {t("intro")}
         </p>
 
         {/* Satellite cards */}
@@ -138,7 +139,7 @@ export default function SatelliteSection() {
                   marginTop: "auto",
                 }}
               >
-                BESUCHEN →
+                {t("visitCta")}
               </div>
             </a>
           ))}
@@ -165,12 +166,10 @@ export default function SatelliteSection() {
                 marginBottom: 12,
               }}
             >
-              Vom Klick zur Vollmacht.{" "}
-              <span style={{ color: "var(--accent)" }}>Vollautomatisch.</span>
+              {t("flowHeading")}
             </h3>
             <p style={{ color: "var(--ink-2)", fontSize: 16, maxWidth: 600 }}>
-              Das ganze Vorgeplänkel entfällt. Kein Kontaktformular, kein
-              E-Mail-Ping-Pong — Ihr Mandant onboardet sich selbst.
+              {t("flowSubtext")}
             </p>
           </div>
 

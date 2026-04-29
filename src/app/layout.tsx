@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Inter_Tight } from "next/font/google";
 import { JetBrains_Mono } from "next/font/google";
-import CookieConsent from "@/components/landing/CookieConsent";
 import "./globals.css";
 
 const inter = Inter({
@@ -24,16 +23,6 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
-  title: "KI Lösungen & Workshops für Anwälte - clever.legal",
-  description:
-    "clever.legal GmbH – Wir eliminieren die Bürokratie des Wartens. Mit algorithmischer Präzision und menschlicher Exzellenz transformieren wir komplexe Rechtslagen in sofortige Resultate.",
-  openGraph: {
-    title: "KI Lösungen & Workshops für Anwälte - clever.legal",
-    description:
-      "Mit algorithmischer Präzision und menschlicher Exzellenz transformieren wir komplexe Rechtslagen in sofortige Resultate.",
-    type: "website",
-    locale: "de_DE",
-  },
 };
 
 export default function RootLayout({
@@ -42,17 +31,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="de"
-      className={`${inter.variable} ${interTight.variable} ${jetbrainsMono.variable}`}
-    >
-      <body>
-        <a href="#main-content" className="skip-link">
-          Zum Inhalt springen
-        </a>
-        {children}
-        <CookieConsent />
-      </body>
+    <html className={`${inter.variable} ${interTight.variable} ${jetbrainsMono.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }

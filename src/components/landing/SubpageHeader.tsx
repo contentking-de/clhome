@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 import { ArrowSvg, IconBell } from "./Icons";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 function Ticker() {
   const items = [
@@ -130,17 +132,18 @@ function Logo() {
   );
 }
 
-const NAV_LINKS = [
-  { href: "/fuer-anwaelte", label: "Für Anwälte", bell: false },
-  { href: "/fuer-unternehmen", label: "Unternehmen", bell: false },
-  { href: "/legal-alerts", label: "Legal Alerts", bell: true },
-  { href: "/story", label: "Story", bell: false },
-  { href: "/blog", label: "Blog", bell: false },
-  { href: "/kontakt", label: "Kontakt", bell: false },
-];
-
 export default function SubpageHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const t = useTranslations("Header");
+
+  const NAV_LINKS = [
+    { href: "/fuer-anwaelte", label: t("navFuerAnwaelte"), bell: false },
+    { href: "/fuer-unternehmen", label: t("navUnternehmen"), bell: false },
+    { href: "/legal-alerts", label: t("navLegalAlerts"), bell: true },
+    { href: "/story", label: t("navStory"), bell: false },
+    { href: "/blog", label: t("navBlog"), bell: false },
+    { href: "/kontakt", label: t("navKontakt"), bell: false },
+  ];
 
   return (
     <header
@@ -192,22 +195,13 @@ export default function SubpageHeader() {
           className="hidden xl:flex"
           style={{ alignItems: "center", gap: 12 }}
         >
-          <span
-            className="mono"
-            style={{
-              fontSize: 11,
-              letterSpacing: "0.1em",
-              color: "var(--ink-3)",
-            }}
-          >
-            [ 178 / 250 ] Gebiete verfügbar
-          </span>
+          <LanguageSwitcher />
           <Link
             href="/kontakt"
             className="l-btn l-btn-primary"
             style={{ padding: "10px 16px" }}
           >
-            Strategie-Gespräch
+            {t("ctaStrategieGespraech")}
             <ArrowSvg />
           </Link>
         </div>
@@ -216,7 +210,7 @@ export default function SubpageHeader() {
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="xl:hidden"
-          aria-label="Menü"
+          aria-label={t("mobileMenuToggleAria")}
           style={{ padding: 8 }}
         >
           <svg
@@ -268,7 +262,7 @@ export default function SubpageHeader() {
               className="l-btn l-btn-primary"
               style={{ alignSelf: "flex-start", marginTop: 8 }}
             >
-              Strategie-Gespräch
+              {t("ctaStrategieGespraech")}
               <ArrowSvg />
             </Link>
           </nav>

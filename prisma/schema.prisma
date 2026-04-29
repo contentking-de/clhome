@@ -59,17 +59,21 @@ model VerificationToken {
 }
 
 model Post {
-  id         String   @id @default(cuid())
-  title      String
-  slug       String   @unique
-  excerpt    String?
-  content    String
-  coverImage String?
-  published  Boolean  @default(false)
-  author     User     @relation(fields: [authorId], references: [id])
-  authorId   String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  excerpt         String?
+  content         String
+  coverImage      String?
+  published       Boolean  @default(false)
+  author          User     @relation(fields: [authorId], references: [id])
+  authorId        String
+  locale          String   @default("de")
+  translationOfId String?
+  translationOf   Post?    @relation("PostTranslation", fields: [translationOfId], references: [id])
+  translations    Post[]   @relation("PostTranslation")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
 enum Role {
@@ -85,6 +89,7 @@ model LegalAlertEdition {
   nextUpdate  String?
   stats       Json
   reports     Json
+  reportsEn   Json?
   feedJson    Json
   errors      String[]
   isCurrent   Boolean  @default(true)

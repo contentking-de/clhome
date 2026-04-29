@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/routing";
 import { ArrowSvg } from "./Icons";
 
 const ALERTS = [
@@ -34,7 +35,9 @@ const SEV_COLOR: Record<string, string> = {
   LOW: "var(--accent)",
 };
 
-export default function AlertsSection() {
+export default async function AlertsSection() {
+  const t = await getTranslations("Alerts");
+
   return (
     <section
       id="alerts"
@@ -49,11 +52,11 @@ export default function AlertsSection() {
         >
           <div>
             <div className="l-label" style={{ marginBottom: 18 }}>
-              § 05 — Legal Alerts
+              {t("sectionLabel")}
             </div>
             <div className="l-chip">
               <span className="dot" style={{ background: "var(--danger)" }} />
-              LIVE FEED · wöchentlich
+              {t("chipLiveFeed")}
             </div>
           </div>
           <h2
@@ -63,9 +66,10 @@ export default function AlertsSection() {
               fontWeight: 700,
             }}
           >
-            Immer einen
+            {t("headlineLine1")}
             <br />
-            Schritt <span style={{ color: "var(--accent)" }}>voraus.</span>
+            {t("headlineLine2")}{" "}
+            <span style={{ color: "var(--accent)" }}>{t("headlineLine3Accent")}</span>
           </h2>
         </div>
 
@@ -180,7 +184,7 @@ export default function AlertsSection() {
                 <Link
                   href="/legal-alerts"
                   role="cell"
-                  aria-label={`Öffnen: ${a.t}`}
+                  aria-label={`${t("linkOpen").replace(" →", "")}: ${a.t}`}
                   className="mono"
                   style={{
                     fontSize: 11,
@@ -190,7 +194,7 @@ export default function AlertsSection() {
                     textAlign: "right",
                   }}
                 >
-                  Öffnen →
+                  {t("linkOpen")}
                 </Link>
               </div>
             ))}
@@ -216,7 +220,7 @@ export default function AlertsSection() {
                   marginBottom: 20,
                 }}
               >
-                WEEKLY INTEL
+                {t("sideKicker")}
               </div>
               <div
                 className="display"
@@ -227,7 +231,7 @@ export default function AlertsSection() {
                   marginBottom: 16,
                 }}
               >
-                Nie wieder kalte Mandate.
+                {t("sideHeadline")}
               </div>
               <p
                 style={{
@@ -237,8 +241,7 @@ export default function AlertsSection() {
                   marginBottom: 24,
                 }}
               >
-                Kuratierte Frühwarnungen zu Sammelklagen, regulatorischen
-                Signalen und Trends — bevor der Markt reagiert.
+                {t("sideBody")}
               </p>
               <div
                 style={{
@@ -263,7 +266,7 @@ export default function AlertsSection() {
                       letterSpacing: "0.1em",
                     }}
                   >
-                    QUELLEN
+                    {t("statQuellen")}
                   </div>
                 </div>
                 <div>
@@ -285,13 +288,13 @@ export default function AlertsSection() {
                       letterSpacing: "0.1em",
                     }}
                   >
-                    MONITORING
+                    {t("statMonitoring")}
                   </div>
                 </div>
               </div>
             </div>
             <Link href="/legal-alerts" className="l-btn l-btn-primary">
-              Zugang sichern
+              {t("ctaSecureAccess")}
               <ArrowSvg />
             </Link>
           </div>

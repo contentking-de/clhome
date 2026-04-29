@@ -1,55 +1,58 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { ArrowSvg } from "./Icons";
 
-const CLUSTERS = [
-  {
-    id: "anwaelte",
-    tag: "B2B · Kanzleien",
-    title: "Die Fokus-Garantie",
-    lead: "Vom Sichten zum Entscheiden. Ihre KI reduziert Prüfzeiten um bis zu 90%. Sie lesen keine PDFs mehr — Sie validieren Ergebnisse.",
-    bullets: [
-      "Massenverfahren ohne Massenaufwand",
-      "Vom Erstkontakt zur Klage in < 5 Minuten",
-      "Gebiets- und Nischenschutz — 1 Partner pro Region",
-      "beA-Integration, OCR, Fristenkontrolle on rails",
-    ],
-    metric: { v: "−90%", l: "Prüfzeit" },
-    cta: "Strategie-Gespräch",
-  },
-  {
-    id: "unternehmen",
-    tag: "B2B · Corporate Legal",
-    title: "Legal Dept. on Steroids",
-    lead: 'Wir eliminieren den Flaschenhals „Rechtsabteilung". Automatisierte Workflows verschieben Standard-Prüfungen in Echtzeit — nicht in Wochen.',
-    bullets: [
-      "Automatisierte Vertragsprüfung",
-      "Durchlaufzeiten halbiert",
-      "DSGVO · Compliance · Audit-Trail",
-      "Nahtlos integriert in bestehende Stacks",
-    ],
-    metric: { v: "0.5×", l: "Durchlaufzeit" },
-    cta: "Digitalisierungs-Audit",
-  },
-  {
-    id: "privat",
-    tag: "D2C · Satelliten",
-    title: "Massenverfahren, industrialisiert",
-    lead: "Satelliten-Domains bündeln Betroffene hocheffizient. Traffic rein, Mandat raus, Schriftsatz automatisch — das Fließband für Recht bekommen.",
-    bullets: [
-      "Themenspezifische Landingpages",
-      "SEO + SEA Dual-Jagd",
-      "Selbst-Service Onboarding für Mandanten",
-      "CAC um 62 % unter Marktdurchschnitt",
-    ],
-    metric: { v: "8.4%", l: "Conversion" },
-    cta: "Satelliten-Liste",
-  },
-];
-
 export default function ClusterSection() {
+  const t = useTranslations("Cluster");
   const [active, setActive] = useState(0);
+
+  const CLUSTERS = [
+    {
+      id: "anwaelte",
+      tag: t("cluster1Tag"),
+      title: t("cluster1Title"),
+      lead: t("cluster1Lead"),
+      bullets: [
+        t("cluster1Bullet1"),
+        t("cluster1Bullet2"),
+        t("cluster1Bullet3"),
+        t("cluster1Bullet4"),
+      ],
+      metric: { v: t("cluster1MetricValue"), l: t("cluster1MetricLabel") },
+      cta: t("cluster1Cta"),
+    },
+    {
+      id: "unternehmen",
+      tag: t("cluster2Tag"),
+      title: t("cluster2Title"),
+      lead: t("cluster2Lead"),
+      bullets: [
+        t("cluster2Bullet1"),
+        t("cluster2Bullet2"),
+        t("cluster2Bullet3"),
+        t("cluster2Bullet4"),
+      ],
+      metric: { v: t("cluster2MetricValue"), l: t("cluster2MetricLabel") },
+      cta: t("cluster2Cta"),
+    },
+    {
+      id: "privat",
+      tag: t("cluster3Tag"),
+      title: t("cluster3Title"),
+      lead: t("cluster3Lead"),
+      bullets: [
+        t("cluster3Bullet1"),
+        t("cluster3Bullet2"),
+        t("cluster3Bullet3"),
+        t("cluster3Bullet4"),
+      ],
+      metric: { v: t("cluster3MetricValue"), l: t("cluster3MetricLabel") },
+      cta: t("cluster3Cta"),
+    },
+  ];
+
   const c = CLUSTERS[active];
 
   return (
@@ -66,10 +69,10 @@ export default function ClusterSection() {
         >
           <div>
             <div className="l-label" style={{ marginBottom: 18 }}>
-              § 03 — Zielgruppen
+              {t("sectionLabel")}
             </div>
             <div className="mono" style={{ fontSize: 12, color: "var(--ink-3)" }}>
-              Keine Weiche — drei Cluster.
+              {t("subline")}
             </div>
           </div>
           <h2
@@ -79,9 +82,9 @@ export default function ClusterSection() {
               fontWeight: 700,
             }}
           >
-            Drei Fronten.
+            {t("headingLine1")}
             <br />
-            <span style={{ color: "var(--accent)" }}>Eine Infrastruktur.</span>
+            <span style={{ color: "var(--accent)" }}>{t("headingLine2Accent")}</span>
           </h2>
         </div>
       </div>
@@ -219,7 +222,7 @@ export default function ClusterSection() {
                   marginBottom: 18,
                 }}
               >
-                Kern-KPI
+                {t("kpiHeading")}
               </div>
               <div
                 className="display"

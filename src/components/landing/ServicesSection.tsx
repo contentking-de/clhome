@@ -1,77 +1,7 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { getTranslations } from "next-intl/server";
 import { IconGraduate, IconCircuit, IconSat, IconMegaphone } from "./Icons";
 import { ArrowSvg } from "./Icons";
-
-const SERVICES = [
-  {
-    num: "01",
-    slug: "ki-schulungen",
-    Icon: IconGraduate,
-    title: "KI-Schulungen & Workshops",
-    subtitle: "FÜR KANZLEIEN",
-    desc: "Ihr Team lernt nicht nur, was KI kann — es lernt, wie man sie im juristischen Alltag souverän einsetzt. Unsere Workshops sind praxisnah, auf Ihre Rechtsgebiete zugeschnitten und liefern ab Tag 1 Ergebnisse.",
-    bullets: [
-      "Hands-on-Workshops vor Ort oder remote — keine PowerPoint-Theorie",
-      "Prompt Engineering für juristische Texte, Vertragsanalyse und Recherche",
-      "Team-Adoption-Garantie: Wir gehen erst, wenn jede Kraft im Haus die Tools beherrscht",
-    ],
-    metrics: [
-      { l: "Dauer", v: "1–2 Tage" },
-      { l: "Adoption", v: "100%" },
-    ],
-  },
-  {
-    num: "02",
-    slug: "ki-integration",
-    Icon: IconCircuit,
-    title: "KI-Integration in Kanzleien",
-    subtitle: "PROZESS-TRANSFORMATION",
-    desc: "Wir analysieren Ihre bestehenden Abläufe und installieren KI dort, wo sie den größten Hebel hat. Keine Spielerei, kein Buzzword-Bingo — sondern messbar weniger Aufwand, mehr Kapazität und schnellere Durchlaufzeiten.",
-    bullets: [
-      "Prozess-Audit: Wir durchleuchten Ihre Workflows und identifizieren Automatisierungs-Potenzial",
-      "Custom-Integration von LLMs, OCR und Dokumenten-KI in Ihre bestehende Infrastruktur",
-      "Skalierung ohne neues Personal: Mehr Fälle bearbeiten bei gleichbleibenden Kosten",
-    ],
-    metrics: [
-      { l: "Prüfzeit", v: "−90%" },
-      { l: "Genauigkeit", v: "99.4%" },
-    ],
-  },
-  {
-    num: "03",
-    slug: "lead-satelliten",
-    Icon: IconSat,
-    title: "Lead-Satelliten",
-    subtitle: "MANDATSGEWINNUNG",
-    desc: "Für jedes Rechtsgebiet eine eigene, hochkonvertierende Landingpage — Ihre ‚Satelliten'. Spezialisiert, SEO-optimiert und mit automatisierten Funnels ausgestattet, die qualifizierte Mandate auf Autopilot liefern.",
-    bullets: [
-      "Spezialisierte Domains pro Rechtsgebiet für maximale Sichtbarkeit und Vertrauen",
-      "Vollautomatisierter Funnel: Vom Erstkontakt über die Fallprüfung bis zur digitalen Vollmacht",
-      "Performance-optimierte Kampagnen, die den Cost-per-Acquisition um bis zu 62% senken",
-    ],
-    metrics: [
-      { l: "CAC", v: "−62%" },
-      { l: "Conv.", v: "8.4%" },
-    ],
-  },
-  {
-    num: "04",
-    slug: "online-marketing",
-    Icon: IconMegaphone,
-    title: "Online-Marketing Services",
-    subtitle: "SEO · LOCAL SEO · SEA · SOCIAL MEDIA",
-    desc: "Sichtbarkeit ist kein Zufall, sondern Handwerk. Wir bauen die digitale Präsenz Ihrer Kanzlei systematisch aus — mit organischer Reichweite, bezahltem Traffic und Social-Media-Strategien, die Autorität und Vertrauen aufbauen.",
-    bullets: [
-      "SEO & Local SEO: Topplatzierungen in Google — lokal und überregional, organisch und nachhaltig",
-      "Google Ads (SEA): Performance-Kampagnen mit klar definiertem ROI und laufender Optimierung",
-      "Social Media: Content-Strategien, die Ihre Expertise sichtbar machen und Mandanten anziehen",
-    ],
-    metrics: [
-      { l: "Sichtbarkeit", v: "+340%" },
-      { l: "Ø ROI", v: "6.2×" },
-    ],
-  },
-];
 
 function ServiceCard({
   num,
@@ -82,6 +12,7 @@ function ServiceCard({
   desc,
   bullets,
   metrics,
+  linkCta,
   featured,
 }: {
   num: string;
@@ -92,6 +23,7 @@ function ServiceCard({
   desc: string;
   bullets: string[];
   metrics: { l: string; v: string }[];
+  linkCta: string;
   featured?: boolean;
 }) {
   return (
@@ -236,14 +168,87 @@ function ServiceCard({
             color: "var(--accent)",
           }}
         >
-          Mehr erfahren →
+          {linkCta}
         </span>
       </div>
     </Link>
   );
 }
 
-export default function ServicesSection() {
+export default async function ServicesSection() {
+  const t = await getTranslations("Services");
+
+  const SERVICES = [
+    {
+      num: "01",
+      slug: "ki-schulungen",
+      Icon: IconGraduate,
+      title: t("service1Title"),
+      subtitle: t("service1Subtitle"),
+      desc: t("service1Desc"),
+      bullets: [
+        t("service1Bullet1"),
+        t("service1Bullet2"),
+        t("service1Bullet3"),
+      ],
+      metrics: [
+        { l: t("service1Metric1Label"), v: t("service1Metric1Value") },
+        { l: t("service1Metric2Label"), v: t("service1Metric2Value") },
+      ],
+    },
+    {
+      num: "02",
+      slug: "ki-integration",
+      Icon: IconCircuit,
+      title: t("service2Title"),
+      subtitle: t("service2Subtitle"),
+      desc: t("service2Desc"),
+      bullets: [
+        t("service2Bullet1"),
+        t("service2Bullet2"),
+        t("service2Bullet3"),
+      ],
+      metrics: [
+        { l: t("service2Metric1Label"), v: t("service2Metric1Value") },
+        { l: t("service2Metric2Label"), v: t("service2Metric2Value") },
+      ],
+    },
+    {
+      num: "03",
+      slug: "lead-satelliten",
+      Icon: IconSat,
+      title: t("service3Title"),
+      subtitle: t("service3Subtitle"),
+      desc: t("service3Desc"),
+      bullets: [
+        t("service3Bullet1"),
+        t("service3Bullet2"),
+        t("service3Bullet3"),
+      ],
+      metrics: [
+        { l: t("service3Metric1Label"), v: t("service3Metric1Value") },
+        { l: t("service3Metric2Label"), v: t("service3Metric2Value") },
+      ],
+    },
+    {
+      num: "04",
+      slug: "online-marketing",
+      Icon: IconMegaphone,
+      title: t("service4Title"),
+      subtitle: t("service4Subtitle"),
+      desc: t("service4Desc"),
+      bullets: [
+        t("service4Bullet1"),
+        t("service4Bullet2"),
+        t("service4Bullet3"),
+      ],
+      metrics: [
+        { l: t("service4Metric1Label"), v: t("service4Metric1Value") },
+        { l: t("service4Metric2Label"), v: t("service4Metric2Value") },
+      ],
+    },
+  ];
+
   return (
     <section
       id="services"
@@ -256,11 +261,11 @@ export default function ServicesSection() {
         <div className="l-grid-sh">
           <div>
             <div className="l-label" style={{ marginBottom: 18 }}>
-              § 03 — Angebot & Services
+              {t("sectionLabel")}
             </div>
             <div className="l-chip" style={{ marginBottom: 24 }}>
               <span className="dot" />
-              Vier Leistungsbereiche · ein Ziel
+              {t("chip")}
             </div>
           </div>
           <h2
@@ -270,9 +275,9 @@ export default function ServicesSection() {
               fontWeight: 700,
             }}
           >
-            Was wir
+            {t("headingLine1")}
             <br />
-            <span style={{ color: "var(--accent)" }}>liefern.</span>
+            <span style={{ color: "var(--accent)" }}>{t("headingLine2Accent")}</span>
           </h2>
         </div>
       </div>
@@ -286,10 +291,7 @@ export default function ServicesSection() {
             color: "var(--ink-2)",
           }}
         >
-          Wir kombinieren KI-Kompetenz, Performance Marketing und
-          Kanzlei-Know-how zu einem geschlossenen System. Vier Services, die
-          ineinandergreifen — damit Ihre Kanzlei nicht nur effizienter arbeitet,
-          sondern auch planbarer wächst.
+          {t("intro")}
         </p>
       </div>
 
@@ -311,7 +313,7 @@ export default function ServicesSection() {
                   i < 2 ? "1px solid var(--line-2)" : "none",
               }}
             >
-              <ServiceCard {...s} featured={i === 0} />
+              <ServiceCard {...s} linkCta={t("cardLinkCta")} featured={i === 0} />
             </div>
           ))}
         </div>
@@ -337,8 +339,7 @@ export default function ServicesSection() {
             }}
           >
             <span style={{ color: "var(--accent)" }}>▸</span>&nbsp;
-            Schulung → Integration → Satelliten → Marketing. Ein Ökosystem.
-            Keine Insellösungen.
+            {t("engineBarText")}
           </span>
           <a
             href="#kontakt"
@@ -351,7 +352,7 @@ export default function ServicesSection() {
               whiteSpace: "nowrap",
             }}
           >
-            Leistungspaket anfragen →
+            {t("engineBarCta")}
           </a>
         </div>
       </div>

@@ -1,6 +1,9 @@
+import { getTranslations } from "next-intl/server";
 import Icon from "../ui/Icon";
 
-export default function NotWhatWeDoSection() {
+export default async function NotWhatWeDoSection() {
+  const t = await getTranslations("NotWhatWeDo");
+
   return (
     <section id="abgrenzung" className="py-32 px-8 bg-surface-container-low">
       <div className="max-w-7xl mx-auto">
@@ -14,19 +17,18 @@ export default function NotWhatWeDoSection() {
                 <Icon name="block" className="text-3xl text-red-400" />
               </span>
               <span className="text-red-400 font-label font-bold text-xs uppercase tracking-widest">
-                Klare Abgrenzung
+                {t("badge")}
               </span>
             </div>
 
             <h2 className="font-headline text-[2.5rem] font-extrabold leading-tight text-white mb-6">
-              Was wir{" "}
-              <span className="text-red-400">nicht</span>{" "}
-              tun.
+              {t("headingPart1")}
+              <span className="text-red-400">{t("headingEmphasis")}</span>
+              {t("headingPart2")}
             </h2>
 
             <p className="text-secondary-fixed-dim text-lg leading-relaxed mb-10">
-              Wir helfen nicht dabei, Personal abzubauen. Unser Ansatz geht in
-              eine andere Richtung.
+              {t("intro")}
             </p>
 
             <div className="bg-white/5 border border-white/10 rounded-xl p-8 md:p-10">
@@ -34,13 +36,10 @@ export default function NotWhatWeDoSection() {
                 <Icon name="rocket_launch" className="text-3xl text-tertiary-fixed-dim mt-1 shrink-0" />
                 <div>
                   <h3 className="font-headline text-xl font-bold text-white mb-3">
-                    Mehr Mandate. Gleiches Team. Höhere Qualität.
+                    {t("cardTitle")}
                   </h3>
                   <p className="text-secondary-fixed-dim leading-relaxed">
-                    Mit unseren Maßnahmen helfen wir Kanzleien dabei, nicht über
-                    Headcount zu skalieren, sondern über Zeitersparnis – mehr
-                    Mandanten mit demselben Team in gleicher oder höherer
-                    Qualität bedienen.
+                    {t("cardBody")}
                   </p>
                 </div>
               </div>

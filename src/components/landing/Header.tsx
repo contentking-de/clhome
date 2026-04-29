@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/routing";
 import { ArrowSvg, IconBell } from "./Icons";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 function Ticker() {
   const items = [
@@ -136,17 +137,6 @@ function Logo() {
   );
 }
 
-const NAV_LINKS = [
-  { id: "anwaelte", label: "Für Anwälte", bell: false, href: "/fuer-anwaelte" },
-  { id: "services", label: "Services", bell: false },
-  { id: "engine", label: "Engine", bell: false },
-  { id: "satelliten", label: "Satelliten", bell: false },
-  { id: "alerts", label: "Legal Alerts", bell: true, href: "/legal-alerts" },
-  { id: "story", label: "Story", bell: false, href: "/story" },
-  { id: "blog", label: "Blog", bell: false, href: "/blog" },
-  { id: "kontakt", label: "Kontakt", bell: false, href: "/kontakt" },
-];
-
 export { Logo };
 
 export default function Header() {
@@ -154,6 +144,18 @@ export default function Header() {
   const mobileNavRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const t = useTranslations("Header");
+
+  const NAV_LINKS = [
+    { id: "anwaelte", label: t("navFuerAnwaelte"), bell: false, href: "/fuer-anwaelte" },
+    { id: "services", label: t("navServices"), bell: false },
+    { id: "engine", label: t("navEngine"), bell: false },
+    { id: "satelliten", label: t("navSatelliten"), bell: false },
+    { id: "alerts", label: t("navLegalAlerts"), bell: true, href: "/legal-alerts" },
+    { id: "story", label: t("navStory"), bell: false, href: "/story" },
+    { id: "blog", label: t("navBlog"), bell: false, href: "/blog" },
+    { id: "kontakt", label: t("navKontakt"), bell: false, href: "/kontakt" },
+  ];
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -222,7 +224,7 @@ export default function Header() {
           <Logo />
           <nav
             className="hidden xl:flex"
-            aria-label="Hauptnavigation"
+            aria-label={t("navAriaMain")}
             style={{ gap: 24 }}
           >
             {NAV_LINKS.map((l) => (
@@ -253,16 +255,7 @@ export default function Header() {
           className="hidden xl:flex"
           style={{ alignItems: "center", gap: 12 }}
         >
-          <span
-            className="mono"
-            style={{
-              fontSize: 11,
-              letterSpacing: "0.1em",
-              color: "var(--ink-3)",
-            }}
-          >
-            [ 178 / 250 ] Gebiete verfügbar
-          </span>
+          <LanguageSwitcher />
           <a
             href={isHome ? "#kontakt" : "/kontakt"}
             onClick={(e) => {
@@ -274,7 +267,7 @@ export default function Header() {
             className="l-btn l-btn-primary"
             style={{ padding: "10px 16px" }}
           >
-            Strategie-Gespräch
+            {t("ctaStrategieGespraech")}
             <ArrowSvg />
           </a>
         </div>
@@ -283,7 +276,7 @@ export default function Header() {
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="xl:hidden"
-          aria-label="Menü"
+          aria-label={t("mobileMenuToggleAria")}
           aria-expanded={mobileOpen}
           aria-controls="mobile-nav"
           style={{ padding: 8 }}
@@ -317,7 +310,7 @@ export default function Header() {
             padding: "16px 32px",
           }}
         >
-          <nav aria-label="Mobile Navigation" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <nav aria-label={t("navAriaMobile")} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {NAV_LINKS.map((l) => (
               <a
                 key={l.id}
@@ -351,7 +344,7 @@ export default function Header() {
               className="l-btn l-btn-primary"
               style={{ alignSelf: "flex-start", marginTop: 8 }}
             >
-              Strategie-Gespräch
+              {t("ctaStrategieGespraech")}
               <ArrowSvg />
             </a>
           </nav>

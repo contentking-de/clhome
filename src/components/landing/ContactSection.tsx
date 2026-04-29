@@ -1,8 +1,11 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import ContactForm from "./ContactForm";
 
 export default function ContactSection() {
+  const t = useTranslations("Contact");
+
   return (
     <section
       id="kontakt"
@@ -20,11 +23,11 @@ export default function ContactSection() {
         >
           <div>
             <div className="l-label" style={{ marginBottom: 18 }}>
-              § 08 — Kontakt
+              {t("sectionLabel")}
             </div>
             <div className="l-chip">
               <span className="dot" />
-              Nur 1 Partner pro Rechtsgebiet
+              {t("chipOnePartner")}
             </div>
           </div>
           <h2
@@ -34,9 +37,9 @@ export default function ContactSection() {
               fontWeight: 700,
             }}
           >
-            Verfügbarkeit
+            {t("headlineLine1")}
             <br />
-            <span style={{ color: "var(--accent)" }}>prüfen.</span>
+            <span style={{ color: "var(--accent)" }}>{t("headlineLine2Accent")}</span>
           </h2>
         </div>
 
@@ -77,15 +80,15 @@ export default function ContactSection() {
                   marginBottom: 10,
                 }}
               >
-                BASE
+                {t("labelBase")}
               </div>
               <div style={{ fontSize: 15, lineHeight: 1.6, color: "var(--ink)" }}>
                 <div style={{ fontWeight: 600 }}>
-                  clever.legal GmbH i. Gr.
+                  {t("companyName")}
                 </div>
-                Florianweg 1
+                {t("addressLine1")}
                 <br />
-                88677 Markdorf
+                {t("addressLine2")}
               </div>
             </div>
             <div>
@@ -98,7 +101,7 @@ export default function ContactSection() {
                   marginBottom: 10,
                 }}
               >
-                KANAL
+                {t("labelKanal")}
               </div>
               <a
                 href="mailto:info@clever.legal"
@@ -122,10 +125,10 @@ export default function ContactSection() {
                   marginBottom: 10,
                 }}
               >
-                GF
+                {t("labelGf")}
               </div>
               <div style={{ fontSize: 15, color: "var(--ink)" }}>
-                RA Marc Ellerbrock
+                {t("gfName")}
               </div>
             </div>
             <div

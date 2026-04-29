@@ -1,13 +1,17 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import Icon from "@/components/ui/Icon";
+import TranslateButton from "@/components/admin/TranslateButton";
 
 export const dynamic = "force-dynamic";
 
 export default async function PostsListPage() {
   const posts = await prisma.post.findMany({
     orderBy: { createdAt: "desc" },
-    include: { author: { select: { name: true, email: true } } },
+    include: {
+      author: { select: { name: true, email: true } },
+      translations: { select: { id: true, locale: true } },
+    },
   });
 
   return (
@@ -52,13 +56,22 @@ export default async function PostsListPage() {
                     {post.title}
                   </h3>
                   <span
-                    className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                    className={`px-2 py-0.5 rounded-full text-xs font-medium shrink-0 ${
                       post.published
                         ? "bg-surface-tint/10 text-surface-tint"
                         : "bg-outline-variant/20 text-secondary"
                     }`}
                   >
                     {post.published ? "Veröffentlicht" : "Entwurf"}
+                  </span>
+                  <span
+                    className={`px-2 py-0.5 rounded-full text-xs font-bold shrink-0 font-mono ${
+                      post.locale === "en"
+                        ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
+                        : "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300"
+                    }`}
+                  >
+                    {post.locale.toUpperCase()}
                   </span>
                 </div>
                 <p className="text-secondary text-sm">
@@ -68,9 +81,28 @@ export default async function PostsListPage() {
                     month: "2-digit",
                     year: "numeric",
                   })}
+                  {post.translationOfId && (
+                    <span className="text-blue-500 ml-2">
+                      (Übersetzung)
+                    </span>
+                  )}
                 </p>
               </div>
               <div className="flex items-center gap-2 ml-4">
+                {post.locale === "de" &&
+                  !post.translations.some((t) => t.locale === "en") && (
+                    <TranslateButton postId={post.id} />
+                  )}
+                {post.locale === "de" &&
+                  post.translations.some((t) => t.locale === "en") && (
+                    <Link
+                      href={`/admin/posts/${post.translations.find((t) => t.locale === "en")!.id}/edit`}
+                      className="p-2 rounded-lg text-blue-500 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                      title="EN-Version bearbeiten"
+                    >
+                      <Icon name="edit_note" className="text-xl" />
+                    </Link>
+                  )}
                 <Link
                   href={`/blog/${post.slug}`}
                   target="_blank"

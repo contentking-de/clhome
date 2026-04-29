@@ -1,26 +1,35 @@
+import createMiddleware from "next-intl/middleware";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { routing } from "./i18n/routing";
+
+const intlMiddleware = createMiddleware(routing);
 
 export function middleware(req: NextRequest) {
-  const isAdminRoute = req.nextUrl.pathname.startsWith("/admin");
-  const isLoginRoute =
-    req.nextUrl.pathname.startsWith("/admin/login") ||
-    req.nextUrl.pathname.startsWith("/admin/verify");
+  const { pathname } = req.nextUrl;
 
-  if (isAdminRoute && !isLoginRoute) {
-    const sessionCookie =
-      req.cookies.get("authjs.session-token") ||
-      req.cookies.get("__Secure-authjs.session-token");
+  if (pathname.startsWith("/admin")) {
+    const isLoginRoute =
+      pathname.startsWith("/admin/login") ||
+      pathname.startsWith("/admin/verify");
 
-    if (!sessionCookie) {
-      const loginUrl = new URL("/admin/login", req.nextUrl.origin);
-      return NextResponse.redirect(loginUrl);
+    if (!isLoginRoute) {
+      const sessionCookie =
+        req.cookies.get("authjs.session-token") ||
+        req.cookies.get("__Secure-authjs.session-token");
+
+      if (!sessionCookie) {
+        const loginUrl = new URL("/admin/login", req.nextUrl.origin);
+        return NextResponse.redirect(loginUrl);
+      }
     }
+
+    return NextResponse.next();
   }
 
-  return NextResponse.next();
+  return intlMiddleware(req);
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/((?!api|_next|.*\\..*).*)"],
 };

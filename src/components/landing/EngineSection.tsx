@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { Icons } from "./Icons";
 
 function EngineModule({
@@ -109,51 +110,53 @@ function EngineModule({
   );
 }
 
-const MODULES = [
-  {
-    num: "01",
-    icon: "IconCpu",
-    title: "Custom Intake AI",
-    desc: "OCR extrahiert Kerndaten aus Mandanten-Dokumenten in Sekunden. Vertragsnummern, Beträge, Fristen — strukturiert, validiert, archiviert.",
-    metrics: [
-      { l: "Genauigkeit", v: "99.4%" },
-      { l: "Ø Zeit", v: "12s" },
-    ],
-    featured: true,
-  },
-  {
-    num: "02",
-    icon: "IconDoc",
-    title: "Auto-Drafting Engine",
-    desc: "Fertige Schriftsätze auf Basis Ihrer Erfolgs-Templates. Jeder Mandant einzigartig, jeder Schriftsatz individuell — aber in Minuten, nicht Tagen.",
-    metrics: [
-      { l: "Output", v: "< 5 min" },
-      { l: "Templates", v: "∞" },
-    ],
-  },
-  {
-    num: "03",
-    icon: "IconSat",
-    title: "Performance-Satelliten",
-    desc: "Spezialisierte Landingpages für Ihre Rechtsgebiete. Thorsten jagt Traffic, Nico baut Autorität, der Funnel liefert qualifizierte Mandate.",
-    metrics: [
-      { l: "CAC", v: "−62%" },
-      { l: "Conv.", v: "8.4%" },
-    ],
-  },
-  {
-    num: "04",
-    icon: "IconGavel",
-    title: "The Workshop",
-    desc: "48 Stunden Vollintegration. Vor Ort. Ihr Team, unser System. Wir gehen erst, wenn jede Kraft im Haus die Engine beherrscht.",
-    metrics: [
-      { l: "Dauer", v: "48 h" },
-      { l: "Adoption", v: "100%" },
-    ],
-  },
-];
+export default async function EngineSection() {
+  const t = await getTranslations("Engine");
 
-export default function EngineSection() {
+  const MODULES = [
+    {
+      num: "01",
+      icon: "IconCpu",
+      title: t("module01Title"),
+      desc: t("module01Desc"),
+      metrics: [
+        { l: t("module01Metric1Label"), v: t("module01Metric1Value") },
+        { l: t("module01Metric2Label"), v: t("module01Metric2Value") },
+      ],
+      featured: true,
+    },
+    {
+      num: "02",
+      icon: "IconDoc",
+      title: t("module02Title"),
+      desc: t("module02Desc"),
+      metrics: [
+        { l: t("module02Metric1Label"), v: t("module02Metric1Value") },
+        { l: t("module02Metric2Label"), v: t("module02Metric2Value") },
+      ],
+    },
+    {
+      num: "03",
+      icon: "IconSat",
+      title: t("module03Title"),
+      desc: t("module03Desc"),
+      metrics: [
+        { l: t("module03Metric1Label"), v: t("module03Metric1Value") },
+        { l: t("module03Metric2Label"), v: t("module03Metric2Value") },
+      ],
+    },
+    {
+      num: "04",
+      icon: "IconGavel",
+      title: t("module04Title"),
+      desc: t("module04Desc"),
+      metrics: [
+        { l: t("module04Metric1Label"), v: t("module04Metric1Value") },
+        { l: t("module04Metric2Label"), v: t("module04Metric2Value") },
+      ],
+    },
+  ];
+
   return (
     <section
       id="engine"
@@ -168,11 +171,11 @@ export default function EngineSection() {
         >
           <div>
             <div className="l-label" style={{ marginBottom: 18 }}>
-              § 02 — Die Engine
+              {t("sectionLabel")}
             </div>
             <div className="l-chip" style={{ marginBottom: 24 }}>
               <span className="dot" />
-              Vier Module · ein geschlossenes System
+              {t("chip")}
             </div>
           </div>
           <h2
@@ -182,10 +185,9 @@ export default function EngineSection() {
               fontWeight: 700,
             }}
           >
-            Ihre Kanzlei
+            {t("headingLine1")}
             <br />
-            <span style={{ color: "var(--ink-2)" }}>auf</span>{" "}
-            <span style={{ color: "var(--accent)" }}>Steroiden.</span>
+            <span style={{ color: "var(--accent)" }}>{t("headingLine2")}</span>
           </h2>
         </div>
       </div>
@@ -231,8 +233,7 @@ export default function EngineSection() {
               color: "var(--ink-2)",
             }}
           >
-            <span style={{ color: "var(--accent)" }}>▸</span>&nbsp; Intake →
-            Draft → File → Follow-up. Ein Flow. Kein Medienbruch.
+            <span style={{ color: "var(--accent)" }}>▸</span>&nbsp; {t("barTagline")}
           </span>
           <a
             href="#kontakt"
@@ -244,7 +245,7 @@ export default function EngineSection() {
               color: "var(--accent)",
             }}
           >
-            Architektur-Deck anfordern →
+            {t("barCta")}
           </a>
         </div>
       </div>
