@@ -110,6 +110,7 @@ model LegalAlertItem {
   klaegerAnzahl     Int?
   quelle            String
   summary           String
+  summaryEn         String?
   link              String
   publishedAt       String
   rechtsgebiet      String?

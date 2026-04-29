@@ -233,6 +233,7 @@ function toAlertItemView(item: LegalAlertItem): AlertItemView {
     klaegerAnzahl: item.klaegerAnzahl,
     quelle: item.quelle,
     summary: item.summary,
+    summaryEn: item.summaryEn,
     link: item.link,
     publishedAt: item.publishedAt,
     rechtsgebiet: item.rechtsgebiet,

@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 import type { AlertItemView } from "@/lib/alert-types";
-import { TYPE_COLORS, getTypeLabels } from "@/lib/alert-types";
+import { TYPE_COLORS, getTypeLabels, translateField } from "@/lib/alert-types";
 
 interface Props {
   items: AlertItemView[];
@@ -93,7 +93,7 @@ export default function AlertItemsView({ items, availableTypes }: Props) {
             >
               <option value="">{t("allRegions")}</option>
               {regions.map((r) => (
-                <option key={r} value={r}>{r}</option>
+                <option key={r} value={r}>{translateField("region", r, locale)}</option>
               ))}
             </select>
           </div>
@@ -108,7 +108,7 @@ export default function AlertItemsView({ items, availableTypes }: Props) {
             >
               <option value="">{t("allBranchen")}</option>
               {branchen.map((b) => (
-                <option key={b} value={b}>{b}</option>
+                <option key={b} value={b}>{translateField("branche", b, locale)}</option>
               ))}
             </select>
           </div>
@@ -169,6 +169,7 @@ function AlertCard({ item, locale, typeLabels, t }: {
 }) {
   const typeColor = TYPE_COLORS[item.type as keyof typeof TYPE_COLORS] ?? "var(--ink-3)";
   const typeLabel = typeLabels[item.type] ?? item.type;
+  const summary = locale === "en" && item.summaryEn ? item.summaryEn : item.summary;
 
   return (
     <a
@@ -186,7 +187,7 @@ function AlertCard({ item, locale, typeLabels, t }: {
         <span className="alert-card-date mono">{item.publishedAt}</span>
       </div>
 
-      <div className="alert-card-summary">{item.summary}</div>
+      <div className="alert-card-summary">{summary}</div>
 
       <div className="alert-card-meta">
         {item.brand.length > 0 && (
@@ -207,9 +208,9 @@ function AlertCard({ item, locale, typeLabels, t }: {
 
       <div className="alert-card-footer">
         <div className="alert-card-chips">
-          {item.region && <span className="alert-card-chip">{item.region}</span>}
-          {item.branche && <span className="alert-card-chip">{item.branche}</span>}
-          {item.rechtsgebiet && <span className="alert-card-chip">{item.rechtsgebiet}</span>}
+          {item.region && <span className="alert-card-chip">{translateField("region", item.region, locale)}</span>}
+          {item.branche && <span className="alert-card-chip">{translateField("branche", item.branche, locale)}</span>}
+          {item.rechtsgebiet && <span className="alert-card-chip">{translateField("rechtsgebiet", item.rechtsgebiet, locale)}</span>}
         </div>
         <div className="alert-card-right">
           {item.klaegerAnzahl !== null && (

@@ -51,6 +51,7 @@ export interface AlertItemView {
   klaegerAnzahl: number | null;
   quelle: string;
   summary: string;
+  summaryEn: string | null;
   link: string;
   publishedAt: string;
   rechtsgebiet: string | null;
@@ -58,4 +59,55 @@ export interface AlertItemView {
   anzahlDatensaetze: number | null;
   produktIdentifier: string | null;
   aktenzeichen: string | null;
+}
+
+const BRANCHE_EN: Record<string, string> = {
+  Automobilindustrie: "Automotive",
+  "E-Commerce": "E-Commerce",
+  Gesundheitswesen: "Healthcare",
+  "Glücksspielindustrie": "Gambling",
+  Lebensmittelindustrie: "Food Industry",
+  Pharmaindustrie: "Pharmaceuticals",
+  Systemgastronomie: "Fast Food",
+  Technologie: "Technology",
+  Finanzdienstleistungen: "Financial Services",
+  Versicherungen: "Insurance",
+  Telekommunikation: "Telecommunications",
+  Energiewirtschaft: "Energy",
+  Immobilien: "Real Estate",
+  Logistik: "Logistics",
+};
+
+const REGION_EN: Record<string, string> = {
+  Deutschland: "Germany",
+  Australien: "Australia",
+  Global: "Global",
+  USA: "USA",
+  "Vereinigtes Königreich": "United Kingdom",
+  Frankreich: "France",
+  Österreich: "Austria",
+  Schweiz: "Switzerland",
+  Niederlande: "Netherlands",
+  EU: "EU",
+};
+
+const RECHTSGEBIET_EN: Record<string, string> = {
+  Datenschutzrecht: "Data Protection Law",
+  Kapitalmarktrecht: "Capital Markets Law",
+  Produkthaftung: "Product Liability",
+  Produktsicherheit: "Product Safety",
+  Verbraucherschutzrecht: "Consumer Protection Law",
+  "Wettbewerbsrecht / Verbraucherschutz": "Competition / Consumer Protection",
+  Arbeitsrecht: "Employment Law",
+  Kartellrecht: "Antitrust Law",
+  Umweltrecht: "Environmental Law",
+  Versicherungsrecht: "Insurance Law",
+};
+
+export function translateField(field: string, value: string, locale: string): string {
+  if (locale !== "en") return value;
+  if (field === "branche") return BRANCHE_EN[value] ?? value;
+  if (field === "region") return REGION_EN[value] ?? value;
+  if (field === "rechtsgebiet") return RECHTSGEBIET_EN[value] ?? value;
+  return value;
 }

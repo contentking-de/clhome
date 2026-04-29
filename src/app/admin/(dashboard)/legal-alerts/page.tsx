@@ -18,6 +18,14 @@ export default async function AdminLegalAlerts() {
   const confirmed = subscribers.filter((s) => s.confirmedAt);
   const pending = subscribers.filter((s) => !s.confirmedAt);
 
+  let hasItemTranslations = false;
+  if (current) {
+    const untranslatedCount = await prisma.legalAlertItem.count({
+      where: { editionId: current.id, summaryEn: null },
+    });
+    hasItemTranslations = untranslatedCount === 0;
+  }
+
   return (
     <div className="max-w-4xl">
       <div className="mb-8">
@@ -78,6 +86,7 @@ export default async function AdminLegalAlerts() {
               <TranslateLegalAlertsButton
                 editionId={current.id}
                 hasEnglish={!!current.reportsEn}
+                hasItemTranslations={hasItemTranslations}
               />
             </div>
             <div className="flex flex-wrap gap-2">
