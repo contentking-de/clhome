@@ -10,10 +10,12 @@ interface SidebarPost {
 
 interface RelatedPostsSidebarProps {
   posts: SidebarPost[];
+  locale?: string;
 }
 
 export default function RelatedPostsSidebar({
   posts,
+  locale = "de",
 }: RelatedPostsSidebarProps) {
   if (posts.length === 0) return null;
 
@@ -29,7 +31,7 @@ export default function RelatedPostsSidebar({
           marginBottom: 20,
         }}
       >
-        Weitere Artikel
+        {locale === "en" ? "More Articles" : "Weitere Artikel"}
       </h3>
       <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         {posts.map((post) => (
@@ -83,11 +85,14 @@ export default function RelatedPostsSidebar({
                   letterSpacing: "0.1em",
                 }}
               >
-                {new Date(post.createdAt).toLocaleDateString("de-DE", {
-                  day: "2-digit",
-                  month: "short",
-                  year: "numeric",
-                })}
+                {new Date(post.createdAt).toLocaleDateString(
+                  locale === "en" ? "en-US" : "de-DE",
+                  {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  }
+                )}
               </time>
             </div>
           </Link>

@@ -266,7 +266,7 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
             {relatedPosts.length > 0 && (
               <div className="hidden lg:block">
-                <RelatedPostsSidebar posts={relatedPosts} />
+                <RelatedPostsSidebar posts={relatedPosts} locale={locale} />
               </div>
             )}
           </div>
