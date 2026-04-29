@@ -87,6 +87,7 @@ export default function ContactForm() {
     kanzlei: "",
     email: "",
     gebiet: "",
+    service: "",
     msg: "",
     _hp: "",
   });
@@ -177,6 +178,51 @@ export default function ContactForm() {
           placeholder="z.B. Datenschutz / NRW"
         />
       </div>
+      <label style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <span
+          className="mono"
+          style={{
+            fontSize: 10,
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            color: "var(--ink-3)",
+          }}
+        >
+          Interesse an
+        </span>
+        <select
+          value={form.service}
+          onChange={(e) => setForm({ ...form, service: e.target.value })}
+          required
+          style={{
+            width: "100%",
+            background: "transparent",
+            border: "none",
+            borderBottom: "1px solid var(--line)",
+            padding: "10px 0 8px",
+            fontSize: 16,
+            color: form.service ? "var(--ink)" : "var(--ink-3)",
+            outline: "none",
+            fontFamily: "inherit",
+            cursor: "pointer",
+            appearance: "none",
+            WebkitAppearance: "none",
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E\")",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "right 0 center",
+          }}
+          onFocus={(e) => { e.target.style.borderBottomColor = "var(--accent)"; }}
+          onBlur={(e) => { e.target.style.borderBottomColor = "var(--line)"; }}
+        >
+          <option value="" disabled>Bitte wählen…</option>
+          <option value="KI-Schulungen & Workshops">KI-Schulungen &amp; Workshops</option>
+          <option value="KI-Integration in Kanzleien">KI-Integration in Kanzleien</option>
+          <option value="Lead-Satelliten">Lead-Satelliten</option>
+          <option value="Online-Marketing Services">Online-Marketing Services</option>
+          <option value="Sonstiges">Sonstiges</option>
+        </select>
+      </label>
       <TField
         label="Nachricht"
         value={form.msg}

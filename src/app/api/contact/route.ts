@@ -20,7 +20,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: first }, { status: 400 });
     }
 
-    const { name, kanzlei, email, gebiet, msg, _hp } = parsed.data;
+    const { name, kanzlei, email, gebiet, service, msg, _hp } = parsed.data;
 
     if (isBot(_hp)) {
       return NextResponse.json({ success: true, id: "ok" });
@@ -41,6 +41,7 @@ export async function POST(request: Request) {
           kanzlei: kanzlei || null,
           email,
           gebiet: gebiet || null,
+          service: service || null,
           message: msg,
         },
       }),
@@ -54,6 +55,7 @@ export async function POST(request: Request) {
           `Kanzlei: ${kanzlei || "–"}`,
           `E-Mail: ${email}`,
           `Rechtsgebiet / Region: ${gebiet || "–"}`,
+          `Interesse an: ${service || "–"}`,
           "",
           "Nachricht:",
           msg,

@@ -9,6 +9,7 @@ export const contactSchema = z.object({
   kanzlei: z.string().trim().max(200).optional().default(""),
   email: z.string().trim().toLowerCase().email("Ungültige E-Mail-Adresse.").max(320),
   gebiet: z.string().trim().max(200).optional().default(""),
+  service: z.string().trim().max(200).optional().default(""),
   msg: z.string().trim().min(1, "Nachricht ist ein Pflichtfeld.").max(5000),
   _hp: z.string().max(0).optional().default(""),
 });

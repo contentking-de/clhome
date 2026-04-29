@@ -126,6 +126,7 @@ model Lead {
   kanzlei   String?
   email     String
   gebiet    String?
+  service   String?
   message   String
   source    String   @default("kontaktformular")
   createdAt DateTime @default(now())
