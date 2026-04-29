@@ -7,6 +7,51 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
+const SYSTEM_PROMPT = `You are an experienced legal-tech journalist and content strategist for clever.legal, a legal-tech company building AI infrastructure for law firms and corporate legal departments.
+
+clever.legal positions itself as an "Authority Disruptor" — the alliance of high-end legal expertise and technological radicalism in the legal market. The company delivers AI infrastructure for law firms and legal-tech digitization for enterprises.
+
+Target audience:
+- Lawyers and law firms (B2B)
+- Companies with legal departments
+- Legal professionals and decision-makers
+
+Your task:
+1. Research the given topic thoroughly using web search — find current data, studies, legislative changes, court decisions, and industry trends from English-language sources
+2. Write a comprehensive, in-depth, and detailed blog article in English
+3. The article should be at least 2000-3000 words
+4. Use HTML tables where appropriate (comparisons, data, overviews, pros/cons, cost breakdowns)
+5. Structure the article clearly with <h2> and <h3> headings
+6. Include relevant statistics, studies, and current data
+
+Source citations — IMPORTANT:
+- Every specific number, statistic, or study MUST include an inline source citation
+- Link the source directly in the text: e.g. "According to the <a href="https://...">2026 Wolters Kluwer Benchmark Report</a>, 63.3% of law firms use AI."
+- For tables with numbers: add a source line below each table, e.g. <p><em>Source: <a href="https://...">Name of study/source</a>, year</em></p>
+- When multiple sources feed into a table, list them all: <p><em>Sources: <a href="...">Source A</a>; <a href="...">Source B</a></em></p>
+- Use the original URLs from your web research whenever possible
+- If no URL is available, still name the publisher, title, and year of the source in the text
+- Use ONLY English-language sources — do not cite German-language publications
+
+Tone: Intelligent, professional yet modern. Well-researched and in-depth, but clearly written. No superficial marketing speak.
+
+IMPORTANT — Output format:
+Respond EXACTLY in the following format with the separator lines. No JSON, no Markdown code block, no explanation:
+
+---TITLE---
+The article title (concise, SEO-optimized)
+---EXCERPT---
+A summary in 2-3 sentences for the preview
+---CONTENT---
+<h2>First heading</h2>
+<p>First paragraph...</p>
+
+HTML rules for the CONTENT section:
+- No <h1> tag (the title is handled separately)
+- Allowed tags: h2, h3, p, ul, ol, li, table, thead, tbody, tr, th, td, blockquote, strong, em, a, br
+- Always structure tables with thead and tbody
+- No style or class attributes`;
+
 function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -53,43 +98,65 @@ export async function POST(
     );
   }
 
-  const message = await anthropic.messages.create({
+  const titleResponse = await anthropic.messages.create({
     model: "claude-sonnet-4-20250514",
-    max_tokens: 8000,
+    max_tokens: 200,
     messages: [
       {
         role: "user",
-        content: `Translate the following German blog post into English. Keep the same HTML structure, formatting, and tone. The translation should be natural and professional, not literal. Return ONLY a JSON object with exactly these keys: "title", "excerpt", "content". The "content" value must be the translated HTML.
-
-Title: ${post.title}
-Excerpt: ${post.excerpt || ""}
-Content (HTML):
-${post.content}`,
+        content: `Translate this German article title to English. Return ONLY the translated title, nothing else.\n\n${post.title}`,
       },
     ],
   });
 
-  const textBlock = message.content.find((b) => b.type === "text");
-  if (!textBlock || textBlock.type !== "text") {
-    return NextResponse.json(
-      { error: "Keine Antwort vom AI-Service erhalten." },
-      { status: 500 }
-    );
+  const titleBlock = titleResponse.content.find((b) => b.type === "text");
+  const englishTitle = titleBlock && titleBlock.type === "text"
+    ? titleBlock.text.trim()
+    : post.title;
+
+  const response = await anthropic.messages.create({
+    model: "claude-sonnet-4-20250514",
+    max_tokens: 16000,
+    system: SYSTEM_PROMPT,
+    tools: [
+      {
+        type: "web_search_20250305",
+        name: "web_search",
+        max_uses: 10,
+      },
+    ],
+    messages: [{ role: "user", content: `Topic: ${englishTitle}` }],
+  });
+
+  let text = "";
+  for (const block of response.content) {
+    if (block.type === "text") {
+      text += block.text;
+    }
   }
 
-  let translated: { title: string; excerpt: string; content: string };
-  try {
-    const jsonMatch = textBlock.text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error("No JSON found");
-    translated = JSON.parse(jsonMatch[0]);
-  } catch {
-    return NextResponse.json(
-      { error: "AI-Antwort konnte nicht verarbeitet werden." },
-      { status: 500 }
-    );
+  let result: { title: string; excerpt: string; content: string };
+
+  const titleMatch = text.match(/---TITLE---\s*([\s\S]*?)\s*---EXCERPT---/);
+  const excerptMatch = text.match(/---EXCERPT---\s*([\s\S]*?)\s*---CONTENT---/);
+  const contentMatch = text.match(/---CONTENT---\s*([\s\S]*)$/);
+
+  if (titleMatch && contentMatch) {
+    result = {
+      title: titleMatch[1].trim(),
+      excerpt: excerptMatch?.[1]?.trim() || "",
+      content: contentMatch[1].trim(),
+    };
+  } else {
+    const firstH2 = text.match(/<h2[^>]*>(.*?)<\/h2>/);
+    result = {
+      title: firstH2?.[1] || englishTitle,
+      excerpt: "",
+      content: text.trim(),
+    };
   }
 
-  let enSlug = slugify(translated.title);
+  let enSlug = slugify(result.title);
   const slugExists = await prisma.post.findUnique({
     where: { slug: enSlug },
   });
@@ -99,10 +166,10 @@ ${post.content}`,
 
   const newPost = await prisma.post.create({
     data: {
-      title: translated.title,
+      title: result.title,
       slug: enSlug,
-      excerpt: translated.excerpt || null,
-      content: translated.content,
+      excerpt: result.excerpt || null,
+      content: result.content,
       coverImage: post.coverImage,
       published: false,
       authorId: post.authorId,
