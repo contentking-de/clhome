@@ -46,7 +46,9 @@ export default async function BlogPostPage({ params }: Props) {
           name: true,
           email: true,
           bio: true,
+          bioEn: true,
           jobTitle: true,
+          jobTitleEn: true,
           avatar: true,
         },
       },
@@ -255,8 +257,11 @@ export default async function BlogPostPage({ params }: Props) {
                 name={post.author.name}
                 email={post.author.email}
                 jobTitle={post.author.jobTitle}
+                jobTitleEn={post.author.jobTitleEn}
                 bio={post.author.bio}
+                bioEn={post.author.bioEn}
                 avatar={post.author.avatar}
+                locale={locale}
               />
             </div>
             {relatedPosts.length > 0 && (

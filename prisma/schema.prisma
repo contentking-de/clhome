@@ -14,7 +14,9 @@ model User {
   image         String?
   role          Role      @default(EDITOR)
   bio           String?
+  bioEn         String?
   jobTitle      String?
+  jobTitleEn    String?
   avatar        String?
   accounts      Account[]
   sessions      Session[]

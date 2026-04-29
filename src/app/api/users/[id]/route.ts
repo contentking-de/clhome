@@ -20,7 +20,7 @@ export async function PUT(
 
   const { id } = await params;
   const body = await req.json();
-  const { role, name, bio, jobTitle, avatar } = body;
+  const { role, name, bio, bioEn, jobTitle, jobTitleEn, avatar } = body;
 
   if (role && id === session.user.id) {
     return NextResponse.json(
@@ -33,7 +33,9 @@ export async function PUT(
   if (role) data.role = role === "ADMIN" ? "ADMIN" : "EDITOR";
   if (name !== undefined) data.name = name || null;
   if (bio !== undefined) data.bio = bio || null;
+  if (bioEn !== undefined) data.bioEn = bioEn || null;
   if (jobTitle !== undefined) data.jobTitle = jobTitle || null;
+  if (jobTitleEn !== undefined) data.jobTitleEn = jobTitleEn || null;
   if (avatar !== undefined) data.avatar = avatar || null;
 
   const user = await prisma.user.update({ where: { id }, data });

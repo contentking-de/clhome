@@ -9,7 +9,9 @@ interface User {
   email: string;
   role: "ADMIN" | "EDITOR";
   bio: string | null;
+  bioEn: string | null;
   jobTitle: string | null;
+  jobTitleEn: string | null;
   avatar: string | null;
   emailVerified: string | null;
   createdAt: string;
@@ -419,7 +421,9 @@ function ProfileEditor({
 }) {
   const [name, setName] = useState(user.name || "");
   const [jobTitle, setJobTitle] = useState(user.jobTitle || "");
+  const [jobTitleEn, setJobTitleEn] = useState(user.jobTitleEn || "");
   const [bio, setBio] = useState(user.bio || "");
+  const [bioEn, setBioEn] = useState(user.bioEn || "");
   const [avatar, setAvatar] = useState(user.avatar || "");
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -443,7 +447,7 @@ function ProfileEditor({
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
-    await onSave({ name, jobTitle, bio, avatar });
+    await onSave({ name, jobTitle, jobTitleEn, bio, bioEn, avatar });
     setSaving(false);
   }
 
@@ -535,6 +539,39 @@ function ProfileEditor({
                 placeholder="Ein paar Sätze über den Autor..."
                 className="w-full px-4 py-3 rounded-lg border border-outline-variant/30 bg-surface focus:outline-none focus:ring-2 focus:ring-surface-tint/50 text-on-background resize-none"
               />
+            </div>
+
+            <div className="pt-4 border-t border-outline-variant/10">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-sm font-semibold text-on-surface">🇬🇧 English Profile</span>
+                <span className="text-xs text-secondary">(für englische Artikel)</span>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-on-surface mb-1.5">
+                    Job Title (EN)
+                  </label>
+                  <input
+                    type="text"
+                    value={jobTitleEn}
+                    onChange={(e) => setJobTitleEn(e.target.value)}
+                    placeholder="e.g. Attorney at Law, Editor"
+                    className="w-full px-4 py-3 rounded-lg border border-outline-variant/30 bg-surface focus:outline-none focus:ring-2 focus:ring-surface-tint/50 text-on-background"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-on-surface mb-1.5">
+                    Short Bio (EN)
+                  </label>
+                  <textarea
+                    value={bioEn}
+                    onChange={(e) => setBioEn(e.target.value)}
+                    rows={3}
+                    placeholder="A few sentences about the author..."
+                    className="w-full px-4 py-3 rounded-lg border border-outline-variant/30 bg-surface focus:outline-none focus:ring-2 focus:ring-surface-tint/50 text-on-background resize-none"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -2,18 +2,27 @@ interface AuthorBoxProps {
   name: string | null;
   email: string;
   jobTitle: string | null;
+  jobTitleEn?: string | null;
   bio: string | null;
+  bioEn?: string | null;
   avatar: string | null;
+  locale?: string;
 }
 
 export default function AuthorBox({
   name,
   email,
   jobTitle,
+  jobTitleEn,
   bio,
+  bioEn,
   avatar,
+  locale = "de",
 }: AuthorBoxProps) {
   const displayName = name || email;
+  const displayJobTitle = locale === "en" && jobTitleEn ? jobTitleEn : jobTitle;
+  const displayBio = locale === "en" && bioEn ? bioEn : bio;
+  const authorLabel = locale === "en" ? "Author" : "Autor";
 
   return (
     <div
@@ -66,7 +75,7 @@ export default function AuthorBox({
               marginBottom: 4,
             }}
           >
-            Autor
+            {authorLabel}
           </p>
           <h3
             className="display"
@@ -74,7 +83,7 @@ export default function AuthorBox({
           >
             {displayName}
           </h3>
-          {jobTitle && (
+          {displayJobTitle && (
             <p
               className="mono"
               style={{
@@ -84,10 +93,10 @@ export default function AuthorBox({
                 letterSpacing: "0.1em",
               }}
             >
-              {jobTitle}
+              {displayJobTitle}
             </p>
           )}
-          {bio && (
+          {displayBio && (
             <p
               style={{
                 color: "var(--ink-2)",
@@ -96,7 +105,7 @@ export default function AuthorBox({
                 marginTop: 8,
               }}
             >
-              {bio}
+              {displayBio}
             </p>
           )}
         </div>
