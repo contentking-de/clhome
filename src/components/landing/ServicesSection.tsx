@@ -1,9 +1,11 @@
+import Link from "next/link";
 import { IconGraduate, IconCircuit, IconSat, IconMegaphone } from "./Icons";
 import { ArrowSvg } from "./Icons";
 
 const SERVICES = [
   {
     num: "01",
+    slug: "ki-schulungen",
     Icon: IconGraduate,
     title: "KI-Schulungen & Workshops",
     subtitle: "FÜR KANZLEIEN",
@@ -20,6 +22,7 @@ const SERVICES = [
   },
   {
     num: "02",
+    slug: "ki-integration",
     Icon: IconCircuit,
     title: "KI-Integration in Kanzleien",
     subtitle: "PROZESS-TRANSFORMATION",
@@ -36,6 +39,7 @@ const SERVICES = [
   },
   {
     num: "03",
+    slug: "lead-satelliten",
     Icon: IconSat,
     title: "Lead-Satelliten",
     subtitle: "MANDATSGEWINNUNG",
@@ -52,6 +56,7 @@ const SERVICES = [
   },
   {
     num: "04",
+    slug: "online-marketing",
     Icon: IconMegaphone,
     title: "Online-Marketing Services",
     subtitle: "SEO · LOCAL SEO · SEA · SOCIAL MEDIA",
@@ -70,6 +75,7 @@ const SERVICES = [
 
 function ServiceCard({
   num,
+  slug,
   Icon,
   title,
   subtitle,
@@ -79,6 +85,7 @@ function ServiceCard({
   featured,
 }: {
   num: string;
+  slug: string;
   Icon: typeof IconGraduate;
   title: string;
   subtitle: string;
@@ -88,7 +95,8 @@ function ServiceCard({
   featured?: boolean;
 }) {
   return (
-    <div
+    <Link
+      href={`/leistungen/${slug}`}
       style={{
         border: "1px solid var(--line-2)",
         padding: "36px 32px 32px",
@@ -98,6 +106,9 @@ function ServiceCard({
         display: "flex",
         flexDirection: "column",
         gap: 20,
+        textDecoration: "none",
+        color: "inherit",
+        transition: "background 0.2s",
       }}
     >
       <div
@@ -184,38 +195,51 @@ function ServiceCard({
         style={{
           marginTop: "auto",
           display: "flex",
-          gap: 18,
+          justifyContent: "space-between",
+          alignItems: "flex-end",
           paddingTop: 16,
           borderTop: "1px dashed var(--line-2)",
         }}
       >
-        {metrics.map((m, i) => (
-          <div key={i}>
-            <div
-              className="mono"
-              style={{
-                fontSize: 10,
-                color: "var(--ink-3)",
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-              }}
-            >
-              {m.l}
+        <div style={{ display: "flex", gap: 18 }}>
+          {metrics.map((m, i) => (
+            <div key={i}>
+              <div
+                className="mono"
+                style={{
+                  fontSize: 10,
+                  color: "var(--ink-3)",
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                }}
+              >
+                {m.l}
+              </div>
+              <div
+                className="display"
+                style={{
+                  fontSize: 22,
+                  fontWeight: 700,
+                  color: featured ? "var(--accent)" : "var(--ink)",
+                }}
+              >
+                {m.v}
+              </div>
             </div>
-            <div
-              className="display"
-              style={{
-                fontSize: 22,
-                fontWeight: 700,
-                color: featured ? "var(--accent)" : "var(--ink)",
-              }}
-            >
-              {m.v}
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <span
+          className="mono"
+          style={{
+            fontSize: 11,
+            letterSpacing: "0.14em",
+            color: "var(--accent)",
+          }}
+        >
+          Mehr erfahren →
+        </span>
       </div>
-    </div>
+    </Link>
   );
 }
 
