@@ -98,6 +98,36 @@ export default function RelatedPostsSidebar({
           </Link>
         ))}
       </div>
+
+      <div
+        style={{
+          marginTop: 32,
+          padding: 24,
+          background: "var(--bg-2)",
+          border: "1px solid var(--line-2)",
+          borderLeft: "3px solid var(--accent)",
+        }}
+      >
+        <p
+          style={{
+            fontSize: 14,
+            lineHeight: 1.6,
+            color: "var(--ink-2)",
+            marginBottom: 16,
+          }}
+        >
+          {locale === "en"
+            ? "Have questions, ideas, or feedback about our content? Get in touch and let\u2019s talk."
+            : "Sie haben Fragen, W\u00fcnsche oder Anregungen zu unseren Inhalten? Dann nehmen Sie Kontakt auf und wir sprechen dar\u00fcber."}
+        </p>
+        <Link
+          href="/kontakt"
+          className="l-btn l-btn-primary"
+          style={{ fontSize: 13, padding: "10px 18px", width: "100%", justifyContent: "center" }}
+        >
+          {locale === "en" ? "Contact us" : "Kontakt aufnehmen"}
+        </Link>
+      </div>
     </aside>
   );
 }
