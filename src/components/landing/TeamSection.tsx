@@ -132,6 +132,7 @@ export default function TeamSection() {
                 <img
                   src={f.image}
                   alt={`${f.name}, ${f.role}`}
+                  loading="lazy"
                   style={{
                     width: "100%",
                     height: "100%",

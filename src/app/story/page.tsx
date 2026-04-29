@@ -185,6 +185,7 @@ export default function StoryPage() {
                     <img
                       src={f.image}
                       alt={f.name}
+                      loading="lazy"
                       style={{ width: "100%", height: "100%", objectFit: "cover", filter: "grayscale(100%)" }}
                     />
                   </div>
@@ -214,6 +215,7 @@ export default function StoryPage() {
                     <img
                       src={f.image}
                       alt={f.name}
+                      loading="lazy"
                       style={{ width: "100%", height: "100%", objectFit: "cover", filter: "grayscale(100%)" }}
                     />
                   </div>
@@ -242,7 +244,7 @@ export default function StoryPage() {
             {founders.map((f, i) => (
               <div key={f.code} style={{ padding: 24, borderRight: i < 3 ? "1px solid var(--line-2)" : "none", background: "var(--bg-2)", textAlign: "center" }}>
                 <div style={{ width: 120, height: 120, overflow: "hidden", margin: "0 auto 16px", border: "1px solid var(--line-2)" }}>
-                  <img src={f.image} alt={f.name} style={{ width: "100%", height: "100%", objectFit: "cover", filter: "grayscale(100%)" }} />
+                  <img src={f.image} alt={f.name} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "grayscale(100%)" }} />
                 </div>
                 <div className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", color: "var(--accent)", marginBottom: 8 }}>#{f.tag}</div>
                 <div className="display" style={{ fontSize: 16, fontWeight: 700, marginBottom: 4 }}>{f.name}</div>
