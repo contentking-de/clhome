@@ -4,6 +4,7 @@ import {
   getAllReportMeta,
   getReportMeta,
 } from "@/lib/skynet";
+import { translatePeriod, translateRunDay } from "@/lib/alert-types";
 import SubpageShell from "@/components/landing/SubpageShell";
 import AlertSubscribeButton from "@/components/legal-alerts/AlertSubscribeButton";
 import { Link } from "@/i18n/routing";
@@ -72,7 +73,7 @@ export default async function LegalAlertsPage() {
                 year: "numeric",
               }).toUpperCase()}
             </span>
-            <span>{t("periodPrefix")}{edition.period.toUpperCase()}</span>
+            <span>{t("periodPrefix")}{translatePeriod(edition.period, locale).toUpperCase()}</span>
             <span>{edition.stats.totalArticles}{t("sourcesLabel")}</span>
           </div>
         </div>
@@ -125,7 +126,7 @@ export default async function LegalAlertsPage() {
               { value: String(edition.stats.feedsProcessed), label: t("statSourcesMonitored") },
               { value: String(edition.stats.totalArticles), label: t("statArticlesAnalyzed") },
               { value: String(Object.keys(edition.reports).length), label: t("statReportsCreated") },
-              { value: edition.runDay === "Manuell" ? t("statRegularly") : t("statEvery", { day: edition.runDay }), label: t("statNextUpdate") },
+              { value: edition.runDay === "Manuell" ? t("statRegularly") : t("statEvery", { day: translateRunDay(edition.runDay, locale) }), label: t("statNextUpdate") },
             ].map((s, i) => (
               <div key={s.label} style={{ padding: 32, textAlign: "center", borderRight: i < 3 ? "1px solid var(--line-2)" : "none" }}>
                 <div className="display" style={{ fontSize: 36, fontWeight: 800, color: i === 3 ? "var(--accent)" : "var(--ink)", marginBottom: 8 }}>{s.value}</div>
@@ -158,7 +159,7 @@ export default async function LegalAlertsPage() {
                       {archDate.toLocaleDateString(dateFmt, { day: "2-digit", month: "long", year: "numeric" }).toUpperCase()}
                     </div>
                     <div className="mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "var(--ink-3)", marginBottom: 16 }}>
-                      {arch.period} · {t("archivSources", { count: arch.stats.totalArticles })}
+                      {translatePeriod(arch.period, locale)} · {t("archivSources", { count: arch.stats.totalArticles })}
                     </div>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                       {Object.keys(arch.reports).map((key) => {

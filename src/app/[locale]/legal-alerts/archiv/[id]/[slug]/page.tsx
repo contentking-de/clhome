@@ -4,6 +4,7 @@ import {
   getReportMeta,
   getAllReportMeta,
 } from "@/lib/skynet";
+import { translatePeriod } from "@/lib/alert-types";
 import { notFound } from "next/navigation";
 import SubpageShell from "@/components/landing/SubpageShell";
 import MarkdownRenderer from "@/components/legal-alerts/MarkdownRenderer";
@@ -103,7 +104,7 @@ export default async function ArchivedAlertPage({ params }: Props) {
               <span>
                 {generatedDate.toLocaleDateString(dateFmt, { day: "2-digit", month: "long", year: "numeric" }).toUpperCase()}
               </span>
-              <span>{edition.period.toUpperCase()}</span>
+              <span>{translatePeriod(edition.period, locale).toUpperCase()}</span>
               <span>{edition.stats.totalArticles}{t("sourcesLabel")}</span>
             </div>
           </header>

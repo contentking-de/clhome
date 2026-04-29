@@ -8,6 +8,7 @@ import {
   getCategoryForSlug,
   getTypesForCategory,
 } from "@/lib/skynet";
+import { translatePeriod, translateRunDay } from "@/lib/alert-types";
 import { notFound } from "next/navigation";
 import SubpageShell from "@/components/landing/SubpageShell";
 import MarkdownRenderer from "@/components/legal-alerts/MarkdownRenderer";
@@ -105,7 +106,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
               <span>
                 {generatedDate.toLocaleDateString(dateFmt, { day: "2-digit", month: "long", year: "numeric" }).toUpperCase()}
               </span>
-              <span>{edition.period.toUpperCase()}</span>
+              <span>{translatePeriod(edition.period, locale).toUpperCase()}</span>
               <span>{edition.stats.totalArticles}{t("sourcesLabel")}</span>
               {hasItems && <span>{items.length} {t("messagesLabel")}</span>}
             </div>
@@ -151,7 +152,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                 <div style={{ padding: 24, background: "var(--bg-3)", border: "1px solid var(--line-2)" }}>
                   <div className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", color: "var(--accent)", marginBottom: 12 }}>{t("updateCycleLabel")}</div>
                   <div className="display" style={{ fontSize: 20, fontWeight: 700, marginBottom: 8 }}>
-                    {edition.runDay === "Manuell" ? t("regularlyUpdated") : t("everyDayNew", { day: edition.runDay })}
+                    {edition.runDay === "Manuell" ? t("regularlyUpdated") : t("everyDayNew", { day: translateRunDay(edition.runDay, locale) })}
                   </div>
                   <p style={{ fontSize: 13, color: "var(--ink-2)", lineHeight: 1.55, marginBottom: 16 }}>
                     {t("dontMissWave")}
@@ -204,7 +205,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                 <div style={{ padding: 24, background: "var(--bg-3)", border: "1px solid var(--line-2)" }}>
                   <div className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", color: "var(--accent)", marginBottom: 12 }}>{t("updateCycleLabel")}</div>
                   <div className="display" style={{ fontSize: 20, fontWeight: 700, marginBottom: 8 }}>
-                    {edition.runDay === "Manuell" ? t("regularlyUpdated") : t("everyDayNew", { day: edition.runDay })}
+                    {edition.runDay === "Manuell" ? t("regularlyUpdated") : t("everyDayNew", { day: translateRunDay(edition.runDay, locale) })}
                   </div>
                   <p style={{ fontSize: 13, color: "var(--ink-2)", lineHeight: 1.55, marginBottom: 16 }}>
                     {t("dontMissWave")}
@@ -283,7 +284,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                       })}
                     </span>
                     <span style={{ fontSize: 14, color: "var(--ink-2)" }}>
-                      {arch.period}
+                      {translatePeriod(arch.period, locale)}
                     </span>
                     <span className="mono" style={{ fontSize: 11, letterSpacing: "0.14em", color: "var(--accent)" }}>
                       {t("readCta")}

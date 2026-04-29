@@ -111,3 +111,30 @@ export function translateField(field: string, value: string, locale: string): st
   if (field === "rechtsgebiet") return RECHTSGEBIET_EN[value] ?? value;
   return value;
 }
+
+const DAY_ABBREV_EN: Record<string, string> = {
+  MO: "MON", DI: "TUE", MI: "WED", DO: "THU", FR: "FRI", SA: "SAT", SO: "SUN",
+};
+
+const DAY_NAME_EN: Record<string, string> = {
+  Montag: "Monday", Dienstag: "Tuesday", Mittwoch: "Wednesday",
+  Donnerstag: "Thursday", Freitag: "Friday", Samstag: "Saturday", Sonntag: "Sunday",
+  Manuell: "Manual",
+};
+
+export function translatePeriod(period: string, locale: string): string {
+  if (locale !== "en") return period;
+  let result = period
+    .replace(/^letzte\s+(\d+)\s+Tage/i, "last $1 days")
+    .replace(/^letzte\s+(\d+)\s+Tag\b/i, "last $1 day")
+    .replace(/^letzter\s+Tag/i, "last day")
+    .replace(/^letzte\s+Woche/i, "last week")
+    .replace(/^letzten\s+(\d+)\s+Wochen/i, "last $1 weeks");
+  result = result.replace(/\b(MO|DI|MI|DO|FR|SA|SO)\b/g, (m) => DAY_ABBREV_EN[m] ?? m);
+  return result;
+}
+
+export function translateRunDay(runDay: string, locale: string): string {
+  if (locale !== "en") return runDay;
+  return DAY_NAME_EN[runDay] ?? runDay;
+}

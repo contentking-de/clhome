@@ -1,4 +1,5 @@
 import { getArchivedEditions, getReportMeta } from "@/lib/skynet";
+import { translatePeriod } from "@/lib/alert-types";
 import SubpageShell from "@/components/landing/SubpageShell";
 import { Link } from "@/i18n/routing";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -77,7 +78,7 @@ export default async function ArchivPage() {
                       {date.toLocaleDateString(dateFmt, { day: "2-digit", month: "long", year: "numeric" }).toUpperCase()}
                     </div>
                     <div className="mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "var(--ink-3)", minWidth: 120 }}>
-                      {edition.period} · {t("archivSources", { count: edition.stats.totalArticles })}
+                      {translatePeriod(edition.period, locale)} · {t("archivSources", { count: edition.stats.totalArticles })}
                     </div>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginLeft: "auto" }}>
                       {Object.keys(edition.reports).map((key) => {
