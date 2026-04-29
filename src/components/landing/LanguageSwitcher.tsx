@@ -2,15 +2,22 @@
 
 import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/routing";
+import { useAlternateUrl } from "./AlternateUrlContext";
 
 export default function LanguageSwitcher() {
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
+  const { alternate } = useAlternateUrl();
 
   function switchLocale() {
     const newLocale = locale === "de" ? "en" : "de";
-    router.replace(pathname, { locale: newLocale });
+
+    if (alternate && alternate.locale === newLocale) {
+      router.replace(alternate.path, { locale: newLocale });
+    } else {
+      router.replace(pathname, { locale: newLocale });
+    }
   }
 
   return (

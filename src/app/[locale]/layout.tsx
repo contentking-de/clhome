@@ -3,6 +3,7 @@ import { getMessages, getTranslations, setRequestLocale } from "next-intl/server
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import CookieConsent from "@/components/landing/CookieConsent";
+import { AlternateUrlProvider } from "@/components/landing/AlternateUrlContext";
 import type { Metadata } from "next";
 
 type Props = {
@@ -52,8 +53,10 @@ export default async function LocaleLayout({ children, params }: Props) {
         {locale === "de" ? "Zum Inhalt springen" : "Skip to content"}
       </a>
       <NextIntlClientProvider messages={messages}>
-        {children}
-        <CookieConsent />
+        <AlternateUrlProvider>
+          {children}
+          <CookieConsent />
+        </AlternateUrlProvider>
       </NextIntlClientProvider>
     </>
   );

@@ -5,6 +5,7 @@ import SubpageShell from "@/components/landing/SubpageShell";
 import PostContent from "@/components/blog/PostContent";
 import AuthorBox from "@/components/blog/AuthorBox";
 import RelatedPostsSidebar from "@/components/blog/RelatedPostsSidebar";
+import SetAlternateUrl from "@/components/blog/SetAlternateUrl";
 import { Link } from "@/i18n/routing";
 import type { Metadata } from "next";
 
@@ -83,6 +84,12 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <SubpageShell>
+      {otherLocalePost && (
+        <SetAlternateUrl
+          locale={otherLocalePost.locale}
+          path={`/blog/${otherLocalePost.slug}`}
+        />
+      )}
       <article style={{ borderBottom: "1px solid var(--line-2)" }}>
         <div className="l-container l-article-pad" style={{ padding: "64px 32px 96px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32 }}>
