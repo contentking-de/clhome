@@ -10,7 +10,6 @@ interface AiGenerateDialogProps {
     title: string;
     excerpt: string;
     content: string;
-    coverImage?: string;
   }) => void;
 }
 
@@ -27,7 +26,6 @@ type Phase =
   | "idle"
   | "searching"
   | "processing"
-  | "generating-image"
   | "done"
   | "error";
 
@@ -41,8 +39,6 @@ export default function AiGenerateDialog({
   const [phase, setPhase] = useState<Phase>("idle");
   const [statusMessage, setStatusMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [showInstructions, setShowInstructions] = useState(false);
-  const [imagePreview, setImagePreview] = useState("");
   const [suggestions, setSuggestions] = useState(DEFAULT_SUGGESTIONS);
   const [refreshingSuggestions, setRefreshingSuggestions] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
@@ -56,7 +52,6 @@ export default function AiGenerateDialog({
       setPhase("idle");
       setStatusMessage("");
       setErrorMessage("");
-      setImagePreview("");
     }
   }, [open]);
 
@@ -73,41 +68,6 @@ export default function AiGenerateDialog({
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [open, phase, onClose]);
-
-  const generateImage = useCallback(
-    async (
-      title: string,
-      excerpt: string,
-      signal: AbortSignal
-    ): Promise<string | undefined> => {
-      try {
-        setPhase("generating-image");
-        setStatusMessage("Generiere Titelbild mit Gemini...");
-
-        const res = await fetch("/api/ai/generate-image", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ title, excerpt }),
-          signal,
-        });
-
-        if (!res.ok) {
-          const data = await res.json();
-          console.warn("Bildgenerierung fehlgeschlagen:", data.error);
-          return undefined;
-        }
-
-        const data = await res.json();
-        setImagePreview(data.url);
-        return data.url;
-      } catch (err) {
-        if ((err as Error).name === "AbortError") throw err;
-        console.warn("Bildgenerierung fehlgeschlagen:", err);
-        return undefined;
-      }
-    },
-    []
-  );
 
   const refreshSuggestions = useCallback(async () => {
     setRefreshingSuggestions(true);
@@ -135,7 +95,6 @@ export default function AiGenerateDialog({
     setPhase("searching");
     setStatusMessage("Recherchiere im Web und analysiere Quellen...");
     setErrorMessage("");
-    setImagePreview("");
 
     const controller = new AbortController();
     abortRef.current = controller;
@@ -211,17 +170,8 @@ export default function AiGenerateDialog({
         throw new Error("Kein Artikel-Ergebnis erhalten");
       }
 
-      const coverUrl = await generateImage(
-        articleResult.title,
-        articleResult.excerpt,
-        controller.signal
-      );
-
       setPhase("done");
-      onGenerated({
-        ...articleResult,
-        coverImage: coverUrl,
-      });
+      onGenerated(articleResult);
     } catch (err) {
       if ((err as Error).name === "AbortError") return;
       setPhase("error");
@@ -229,30 +179,24 @@ export default function AiGenerateDialog({
         err instanceof Error ? err.message : "Unbekannter Fehler"
       );
     }
-  }, [topic, instructions, onGenerated, generateImage]);
+  }, [topic, instructions, onGenerated]);
 
   if (!open) return null;
 
   const isLoading =
     phase === "searching" ||
-    phase === "processing" ||
-    phase === "generating-image";
+    phase === "processing";
 
   const phaseConfig = {
     searching: {
       icon: "travel_explore",
       title: "Web-Recherche läuft",
-      progress: "35%",
+      progress: "40%",
     },
     processing: {
       icon: "edit_note",
       title: "Artikel wird geschrieben",
-      progress: "65%",
-    },
-    "generating-image": {
-      icon: "image",
-      title: "Titelbild wird generiert",
-      progress: "90%",
+      progress: "75%",
     },
   };
 
@@ -277,7 +221,7 @@ export default function AiGenerateDialog({
                   KI-Artikel generieren
                 </h2>
                 <p className="text-secondary text-xs">
-                  Web-Recherche + Titelbild + Quellenangaben
+                  Web-Recherche + Quellenangaben
                 </p>
               </div>
             </div>
@@ -341,23 +285,17 @@ export default function AiGenerateDialog({
               </div>
 
               <div>
-                <button
-                  type="button"
-                  onClick={() => setShowInstructions(!showInstructions)}
-                  className="text-sm text-secondary hover:text-on-background flex items-center gap-1 transition-colors"
-                >
-                  <Icon name={showInstructions ? "expand_less" : "expand_more"} className="text-base" />
-                  Zusätzliche Anweisungen
-                </button>
-                {showInstructions && (
-                  <textarea
-                    value={instructions}
-                    onChange={(e) => setInstructions(e.target.value)}
-                    rows={3}
-                    placeholder="z.B. Fokus auf mittelständische Kanzleien, Vergleichstabelle aufnehmen, bestimmte Gesetze erwähnen..."
-                    className="mt-2 w-full px-4 py-3 rounded-lg border border-outline-variant/30 bg-surface focus:outline-none focus:ring-2 focus:ring-surface-tint/50 text-on-background resize-none placeholder:text-outline text-sm"
-                  />
-                )}
+                <label className="block text-sm font-medium text-on-surface mb-1.5">
+                  Briefing{" "}
+                  <span className="font-normal text-secondary">(optional)</span>
+                </label>
+                <textarea
+                  value={instructions}
+                  onChange={(e) => setInstructions(e.target.value)}
+                  rows={3}
+                  placeholder="z.B. Fokus auf mittelständische Kanzleien, Vergleichstabelle aufnehmen, bestimmte Gesetze erwähnen, Zielgruppe eingrenzen..."
+                  className="w-full px-4 py-3 rounded-lg border border-outline-variant/30 bg-surface focus:outline-none focus:ring-2 focus:ring-surface-tint/50 text-on-background resize-none placeholder:text-outline text-sm"
+                />
               </div>
 
               {phase === "error" && (
@@ -375,7 +313,7 @@ export default function AiGenerateDialog({
                   className="flex-1 bg-surface-tint text-white px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   <Icon name="auto_awesome" className="text-xl" />
-                  Artikel + Bild generieren
+                  Artikel generieren
                 </button>
                 <button
                   type="button"
@@ -410,23 +348,14 @@ export default function AiGenerateDialog({
                   <span
                     className={`w-2 h-2 rounded-full ${
                       phase === "searching" ||
-                      phase === "processing" ||
-                      phase === "generating-image"
+                      phase === "processing"
                         ? "bg-surface-tint"
                         : "bg-outline-variant/40"
                     }`}
                   />
                   <span
                     className={`w-2 h-2 rounded-full ${
-                      phase === "processing" ||
-                      phase === "generating-image"
-                        ? "bg-surface-tint"
-                        : "bg-outline-variant/40"
-                    }`}
-                  />
-                  <span
-                    className={`w-2 h-2 rounded-full ${
-                      phase === "generating-image"
+                      phase === "processing"
                         ? "bg-surface-tint"
                         : "bg-outline-variant/40"
                     }`}
@@ -460,19 +389,12 @@ export default function AiGenerateDialog({
             </div>
           ) : phase === "done" ? (
             <div className="py-8 flex flex-col items-center gap-4">
-              {imagePreview && (
-                <img
-                  src={imagePreview}
-                  alt="Generiertes Titelbild"
-                  className="w-full max-w-md rounded-xl border border-outline-variant/20 shadow-sm"
-                />
-              )}
               <div className="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center">
                 <Icon name="check_circle" className="text-3xl text-green-600" />
               </div>
               <div className="text-center">
                 <p className="font-headline font-bold text-on-background">
-                  Artikel {imagePreview ? "& Titelbild " : ""}generiert
+                  Artikel generiert
                 </p>
                 <p className="text-secondary text-sm mt-1">
                   Alle Felder wurden ins Formular übernommen.
