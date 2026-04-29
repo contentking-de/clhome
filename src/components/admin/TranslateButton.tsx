@@ -40,13 +40,16 @@ export default function TranslateButton({ postId }: { postId: string }) {
     <button
       onClick={handleTranslate}
       disabled={translating}
-      className="p-2 rounded-lg text-secondary hover:text-surface-tint hover:bg-surface-tint/10 transition-colors disabled:opacity-50"
+      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold font-mono bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-900/50 transition-colors disabled:opacity-50"
       title="Ins Englische übersetzen"
     >
       {translating ? (
-        <Icon name="progress_activity" className="text-xl animate-spin" />
+        <Icon name="progress_activity" className="text-sm animate-spin" />
       ) : (
-        <Icon name="translate" className="text-xl" />
+        <>
+          <Icon name="translate" className="text-sm" />
+          EN
+        </>
       )}
     </button>
   );
