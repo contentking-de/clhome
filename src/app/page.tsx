@@ -24,7 +24,6 @@ export default async function Home() {
       slug: true,
       title: true,
       excerpt: true,
-      coverImage: true,
       createdAt: true,
     },
   });

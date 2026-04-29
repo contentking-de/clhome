@@ -4,7 +4,6 @@ interface BlogPost {
   slug: string;
   title: string;
   excerpt: string | null;
-  coverImage: string | null;
   createdAt: Date;
 }
 
@@ -107,44 +106,6 @@ export default function BlogSection({ posts }: { posts: BlogPost[] }) {
                     transition: "background .15s",
                   }}
                 >
-                  {p.coverImage ? (
-                    <div
-                      style={{
-                        aspectRatio: "16/9",
-                        overflow: "hidden",
-                        border: "1px solid var(--line-2)",
-                      }}
-                    >
-                      <img
-                        src={p.coverImage}
-                        alt={p.title}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                        }}
-                      />
-                    </div>
-                  ) : (
-                    <div
-                      style={{
-                        aspectRatio: "16/9",
-                        background: "var(--bg-3)",
-                        position: "relative",
-                        overflow: "hidden",
-                        border: "1px solid var(--line-2)",
-                      }}
-                    >
-                      <div
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          background:
-                            "repeating-linear-gradient(45deg, transparent 0 12px, color-mix(in oklab, var(--ink), transparent 92%) 12px 13px)",
-                        }}
-                      />
-                    </div>
-                  )}
                   <div
                     style={{
                       display: "flex",
