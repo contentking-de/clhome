@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 interface Props {
   open: boolean;
@@ -13,6 +14,7 @@ export default function AlertSubscribeModal({ open, onClose }: Props) {
   const [hp, setHp] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "already" | "error">("idle");
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const t = useTranslations("AlertSubscribe");
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -70,33 +72,32 @@ export default function AlertSubscribeModal({ open, onClose }: Props) {
       }}
     >
       <div className="alert-modal-inner">
-        <button onClick={onClose} className="alert-modal-close" aria-label="Schließen">✕</button>
+        <button onClick={onClose} className="alert-modal-close" aria-label={t("closeLabel")}>✕</button>
 
         {status === "success" ? (
           <div style={{ textAlign: "center", padding: "16px 0" }}>
             <div style={{ fontSize: 40, marginBottom: 16 }}>📬</div>
             <h2 className="display" style={{ fontSize: 22, fontWeight: 700, marginBottom: 12 }}>
-              Bestätigungsmail gesendet
+              {t("successTitle")}
             </h2>
             <p style={{ color: "var(--ink-2)", fontSize: 14, lineHeight: 1.6, marginBottom: 24 }}>
-              Wir haben Ihnen eine E-Mail geschickt. Bitte klicken Sie auf den
-              Bestätigungslink, um Ihren Alert zu aktivieren.
+              {t("successText")}
             </p>
             <button onClick={handleReset} className="l-btn l-btn-primary" style={{ width: "100%", justifyContent: "center" }}>
-              Verstanden
+              {t("successButton")}
             </button>
           </div>
         ) : status === "already" ? (
           <div style={{ textAlign: "center", padding: "16px 0" }}>
             <div style={{ fontSize: 40, marginBottom: 16 }}>✅</div>
             <h2 className="display" style={{ fontSize: 22, fontWeight: 700, marginBottom: 12 }}>
-              Bereits abonniert
+              {t("alreadyTitle")}
             </h2>
             <p style={{ color: "var(--ink-2)", fontSize: 14, lineHeight: 1.6, marginBottom: 24 }}>
-              Diese E-Mail-Adresse ist bereits für die Legal Alerts registriert.
+              {t("alreadyText")}
             </p>
             <button onClick={handleReset} className="l-btn l-btn-primary" style={{ width: "100%", justifyContent: "center" }}>
-              Schließen
+              {t("alreadyButton")}
             </button>
           </div>
         ) : (
@@ -105,24 +106,23 @@ export default function AlertSubscribeModal({ open, onClose }: Props) {
               LEGAL ALERTS
             </div>
             <h2 id="alert-dialog-title" className="display" style={{ fontSize: 22, fontWeight: 700, marginBottom: 8 }}>
-              Alert einrichten
+              {t("modalTitle")}
             </h2>
             <p style={{ color: "var(--ink-2)", fontSize: 13, lineHeight: 1.5, marginBottom: 24 }}>
-              Erhalten Sie neue Sammelklagen-Frühwarnungen und Hot Legal Topics
-              direkt per E-Mail — immer wenn es neue Meldungen gibt.
+              {t("modalLead")}
             </p>
 
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 <label htmlFor="alert-name" className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--ink-3)" }}>
-                  Name
+                  {t("nameLabel")}
                 </label>
                 <input
                   id="alert-name"
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Ihr Name"
+                  placeholder={t("namePlaceholder")}
                   required
                   className="alert-modal-input"
                   aria-required="true"
@@ -130,14 +130,14 @@ export default function AlertSubscribeModal({ open, onClose }: Props) {
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 <label htmlFor="alert-email" className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--ink-3)" }}>
-                  E-Mail
+                  {t("emailLabel")}
                 </label>
                 <input
                   id="alert-email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Ihre E-Mail-Adresse"
+                  placeholder={t("emailPlaceholder")}
                   required
                   className="alert-modal-input"
                   aria-required="true"
@@ -147,7 +147,7 @@ export default function AlertSubscribeModal({ open, onClose }: Props) {
 
               {status === "error" && (
                 <div id="alert-error" role="alert" style={{ fontSize: 12, color: "var(--danger)" }}>
-                  Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.
+                  {t("errorMessage")}
                 </div>
               )}
 
@@ -168,13 +168,12 @@ export default function AlertSubscribeModal({ open, onClose }: Props) {
                 className="l-btn l-btn-primary"
                 style={{ width: "100%", justifyContent: "center", marginTop: 8 }}
               >
-                {status === "loading" ? "Wird gesendet…" : "Bestätigungsmail anfordern"}
+                {status === "loading" ? t("submitLoading") : t("submitLabel")}
               </button>
             </form>
 
             <p className="mono" style={{ fontSize: 9, color: "var(--ink-3)", letterSpacing: "0.06em", marginTop: 16, lineHeight: 1.6 }}>
-              Double-Opt-In · Sie erhalten eine E-Mail zur Bestätigung.
-              Kein Spam, jederzeit abbestellbar.
+              {t("disclaimer")}
             </p>
           </>
         )}

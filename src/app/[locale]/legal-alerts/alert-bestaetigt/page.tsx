@@ -1,29 +1,12 @@
 import SubpageShell from "@/components/landing/SubpageShell";
 import { Link } from "@/i18n/routing";
+import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Alert bestätigt | clever.legal",
-};
-
-const MESSAGES: Record<string, { title: string; text: string }> = {
-  success: {
-    title: "Bestätigt!",
-    text: "Ihre E-Mail-Adresse wurde erfolgreich bestätigt. Sie erhalten ab sofort unsere Legal Alerts.",
-  },
-  already: {
-    title: "Bereits bestätigt",
-    text: "Ihre E-Mail-Adresse wurde bereits bestätigt. Sie erhalten unsere Legal Alerts.",
-  },
-  invalid: {
-    title: "Ungültiger Link",
-    text: "Der Bestätigungslink ist ungültig oder abgelaufen.",
-  },
-  missing: {
-    title: "Fehler",
-    text: "Es fehlt ein Bestätigungstoken. Bitte verwenden Sie den Link aus der E-Mail.",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("LegalAlertsPage");
+  return { title: `${t("confirmSuccessTitle")} | clever.legal` };
+}
 
 interface Props {
   searchParams: Promise<{ status?: string }>;
@@ -31,7 +14,16 @@ interface Props {
 
 export default async function AlertConfirmPage({ searchParams }: Props) {
   const { status } = await searchParams;
-  const msg = MESSAGES[status || ""] || MESSAGES.invalid;
+  const t = await getTranslations("LegalAlertsPage");
+
+  const messageMap: Record<string, { title: string; text: string }> = {
+    success: { title: t("confirmSuccessTitle"), text: t("confirmSuccessText") },
+    already: { title: t("confirmAlreadyTitle"), text: t("confirmAlreadyText") },
+    invalid: { title: t("confirmInvalidTitle"), text: t("confirmInvalidText") },
+    missing: { title: t("confirmMissingTitle"), text: t("confirmMissingText") },
+  };
+
+  const msg = messageMap[status || ""] || messageMap.invalid;
   const isSuccess = status === "success" || status === "already";
 
   return (
@@ -62,7 +54,7 @@ export default async function AlertConfirmPage({ searchParams }: Props) {
             {msg.text}
           </p>
           <Link href="/legal-alerts" className="l-btn l-btn-primary">
-            Zu den Legal Alerts
+            {t("confirmCta")}
           </Link>
         </div>
       </section>

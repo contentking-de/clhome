@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import type { AlertItemView } from "@/lib/alert-types";
-import { TYPE_LABELS, TYPE_COLORS } from "@/lib/alert-types";
+import { TYPE_COLORS, getTypeLabels } from "@/lib/alert-types";
 
 interface Props {
   items: AlertItemView[];
@@ -18,6 +20,9 @@ export default function AlertItemsView({ items, availableTypes }: Props) {
   const [region, setRegion] = useState("");
   const [branche, setBranche] = useState("");
   const [search, setSearch] = useState("");
+  const t = useTranslations("AlertItems");
+  const locale = useLocale();
+  const typeLabels = getTypeLabels(locale);
 
   const regions = useMemo(() => unique(items.map((i) => i.region)), [items]);
   const branchen = useMemo(() => unique(items.map((i) => i.branche)), [items]);
@@ -44,11 +49,11 @@ export default function AlertItemsView({ items, availableTypes }: Props) {
     });
   }, [items, activeTypes, region, branche, search]);
 
-  const toggleType = (t: string) => {
+  const toggleType = (tp: string) => {
     setActiveTypes((prev) => {
       const next = new Set(prev);
-      if (next.has(t)) next.delete(t);
-      else next.add(t);
+      if (next.has(tp)) next.delete(tp);
+      else next.add(tp);
       return next;
     });
   };
@@ -61,17 +66,17 @@ export default function AlertItemsView({ items, availableTypes }: Props) {
       <div className="alert-filter-bar">
         <div className="alert-filter-row">
           <div className="alert-filter-types">
-            {availableTypes.map((t) => (
+            {availableTypes.map((tp) => (
               <button
-                key={t}
-                onClick={() => toggleType(t)}
-                className={`alert-type-chip ${activeTypes.has(t) ? "active" : ""}`}
+                key={tp}
+                onClick={() => toggleType(tp)}
+                className={`alert-type-chip ${activeTypes.has(tp) ? "active" : ""}`}
                 style={{
-                  "--chip-color": TYPE_COLORS[t as keyof typeof TYPE_COLORS],
+                  "--chip-color": TYPE_COLORS[tp as keyof typeof TYPE_COLORS],
                 } as React.CSSProperties}
               >
                 <span className="alert-type-dot" />
-                {TYPE_LABELS[t as keyof typeof TYPE_LABELS] ?? t}
+                {typeLabels[tp as keyof typeof typeLabels] ?? tp}
               </button>
             ))}
           </div>
@@ -79,14 +84,14 @@ export default function AlertItemsView({ items, availableTypes }: Props) {
 
         <div className="alert-filter-controls">
           <div className="alert-filter-select-wrap">
-            <label htmlFor="alert-filter-region" className="sr-only">Region filtern</label>
+            <label htmlFor="alert-filter-region" className="sr-only">{t("filterRegionLabel")}</label>
             <select
               id="alert-filter-region"
               value={region}
               onChange={(e) => setRegion(e.target.value)}
               className="alert-filter-select"
             >
-              <option value="">Alle Regionen</option>
+              <option value="">{t("allRegions")}</option>
               {regions.map((r) => (
                 <option key={r} value={r}>{r}</option>
               ))}
@@ -94,14 +99,14 @@ export default function AlertItemsView({ items, availableTypes }: Props) {
           </div>
 
           <div className="alert-filter-select-wrap">
-            <label htmlFor="alert-filter-branche" className="sr-only">Branche filtern</label>
+            <label htmlFor="alert-filter-branche" className="sr-only">{t("filterBrancheLabel")}</label>
             <select
               id="alert-filter-branche"
               value={branche}
               onChange={(e) => setBranche(e.target.value)}
               className="alert-filter-select"
             >
-              <option value="">Alle Branchen</option>
+              <option value="">{t("allBranchen")}</option>
               {branchen.map((b) => (
                 <option key={b} value={b}>{b}</option>
               ))}
@@ -112,7 +117,7 @@ export default function AlertItemsView({ items, availableTypes }: Props) {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Suche (Marke, Beklagter, …)"
+            placeholder={t("searchPlaceholder")}
             className="alert-filter-search"
           />
 
@@ -126,7 +131,7 @@ export default function AlertItemsView({ items, availableTypes }: Props) {
               }}
               className="alert-filter-reset"
             >
-              Zurücksetzen
+              {t("reset")}
             </button>
           )}
         </div>
@@ -134,21 +139,21 @@ export default function AlertItemsView({ items, availableTypes }: Props) {
 
       {/* Results count */}
       <div className="mono" style={{ fontSize: 11, letterSpacing: "0.1em", color: "var(--ink-3)", marginBottom: 20 }}>
-        {filtered.length} VON {items.length} MELDUNGEN
-        {hasActiveFilters && " (GEFILTERT)"}
+        {t("resultCount", { shown: filtered.length, total: items.length })}
+        {hasActiveFilters && t("filtered")}
       </div>
 
       {/* Items */}
       {filtered.length === 0 ? (
         <div style={{ textAlign: "center", padding: "64px 0" }}>
           <div className="mono" style={{ fontSize: 11, color: "var(--ink-3)", letterSpacing: "0.14em" }}>
-            Keine Meldungen für diese Filterkriterien.
+            {t("emptyFilter")}
           </div>
         </div>
       ) : (
         <div className="alert-items-grid">
           {filtered.map((item) => (
-            <AlertCard key={item.id} item={item} />
+            <AlertCard key={item.id} item={item} locale={locale} typeLabels={typeLabels} t={t} />
           ))}
         </div>
       )}
@@ -156,9 +161,14 @@ export default function AlertItemsView({ items, availableTypes }: Props) {
   );
 }
 
-function AlertCard({ item }: { item: AlertItemView }) {
+function AlertCard({ item, locale, typeLabels, t }: {
+  item: AlertItemView;
+  locale: string;
+  typeLabels: Record<string, string>;
+  t: (key: string) => string;
+}) {
   const typeColor = TYPE_COLORS[item.type as keyof typeof TYPE_COLORS] ?? "var(--ink-3)";
-  const typeLabel = TYPE_LABELS[item.type as keyof typeof TYPE_LABELS] ?? item.type;
+  const typeLabel = typeLabels[item.type] ?? item.type;
 
   return (
     <a
@@ -204,7 +214,7 @@ function AlertCard({ item }: { item: AlertItemView }) {
         <div className="alert-card-right">
           {item.klaegerAnzahl !== null && (
             <span className="alert-card-count mono">
-              {item.klaegerAnzahl.toLocaleString("de-DE")} Kläger
+              {item.klaegerAnzahl.toLocaleString(locale === "en" ? "en-US" : "de-DE")} {t("plaintiffs")}
             </span>
           )}
           {item.klaegerSchaetzung && item.klaegerSchaetzung !== "n/a" && item.klaegerAnzahl === null && (
@@ -216,7 +226,7 @@ function AlertCard({ item }: { item: AlertItemView }) {
       </div>
 
       <div className="alert-card-source mono">
-        {item.quelle} · QUELLE ÖFFNEN →
+        {item.quelle} · {t("openSource")}
       </div>
     </a>
   );

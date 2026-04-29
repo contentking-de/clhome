@@ -25,10 +25,12 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
+  const locale = await getLocale();
+  const t = await getTranslations("LegalAlertsPage");
   const key = getReportKeyBySlug(slug);
-  if (!key) return { title: "Nicht gefunden | clever.legal" };
-  const meta = getReportMeta(key);
-  if (!meta) return { title: "Nicht gefunden | clever.legal" };
+  if (!key) return { title: t("notFound") };
+  const meta = getReportMeta(key, locale);
+  if (!meta) return { title: t("notFound") };
   return {
     title: `${meta.title} | Legal Alerts | clever.legal`,
     description: meta.subtitle,
@@ -40,9 +42,11 @@ export default async function LegalAlertDetailPage({ params }: Props) {
   const key = getReportKeyBySlug(slug);
   if (!key) notFound();
 
-  const meta = getReportMeta(key)!;
   const locale = await getLocale();
   const t = await getTranslations("LegalAlertsPage");
+  const meta = getReportMeta(key, locale)!;
+  const dateFmt = locale === "en" ? "en-US" : "de-DE";
+
   const [edition, archived] = await Promise.all([
     getCurrentEdition(),
     getArchivedEditions(),
@@ -62,7 +66,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
   const hasItems = items.length > 0;
 
   const generatedDate = new Date(edition.generatedAt);
-  const allMeta = getAllReportMeta();
+  const allMeta = getAllReportMeta(locale);
   const otherReports = Object.entries(allMeta).filter(
     ([k]) => k !== key && edition.reports[k]
   );
@@ -86,7 +90,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
               marginBottom: 32,
             }}
           >
-            ← Zurück zu Legal Alerts
+            {t("backToAlerts")}
           </Link>
 
           <header style={{ marginBottom: 48 }}>
@@ -99,11 +103,11 @@ export default async function LegalAlertDetailPage({ params }: Props) {
             <p style={{ color: "var(--ink-2)", fontSize: 16, marginBottom: 20 }}>{meta.subtitle}</p>
             <div className="mono l-meta-row" style={{ display: "flex", gap: 24, fontSize: 11, letterSpacing: "0.1em", color: "var(--ink-3)" }}>
               <span>
-                {generatedDate.toLocaleDateString("de-DE", { day: "2-digit", month: "long", year: "numeric" }).toUpperCase()}
+                {generatedDate.toLocaleDateString(dateFmt, { day: "2-digit", month: "long", year: "numeric" }).toUpperCase()}
               </span>
               <span>{edition.period.toUpperCase()}</span>
-              <span>{edition.stats.totalArticles} QUELLEN</span>
-              {hasItems && <span>{items.length} MELDUNGEN</span>}
+              <span>{edition.stats.totalArticles}{t("sourcesLabel")}</span>
+              {hasItems && <span>{items.length} {t("messagesLabel")}</span>}
             </div>
           </header>
 
@@ -118,7 +122,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
               <aside className="hidden lg:block" style={{ position: "sticky", top: 80, alignSelf: "start", display: "flex", flexDirection: "column", gap: 24 }}>
                 {otherReports.length > 0 && (
                   <div>
-                    <div className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", color: "var(--ink-3)", marginBottom: 12 }}>WEITERE REPORTS</div>
+                    <div className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", color: "var(--ink-3)", marginBottom: 12 }}>{t("otherReports")}</div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                       {otherReports.map(([k, m]) => (
                         <Link
@@ -140,26 +144,26 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                   href="/legal-alerts/archiv"
                   style={{ display: "block", padding: 16, border: "1px solid var(--line-2)" }}
                 >
-                  <div className="display" style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>Archiv</div>
-                  <div style={{ fontSize: 12, color: "var(--ink-3)" }}>Alle vergangenen Ausgaben</div>
+                  <div className="display" style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>{t("archivSidebarTitle")}</div>
+                  <div style={{ fontSize: 12, color: "var(--ink-3)" }}>{t("archivSidebarSubtitle")}</div>
                 </Link>
 
                 <div style={{ padding: 24, background: "var(--bg-3)", border: "1px solid var(--line-2)" }}>
-                  <div className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", color: "var(--accent)", marginBottom: 12 }}>UPDATE-ZYKLUS</div>
+                  <div className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", color: "var(--accent)", marginBottom: 12 }}>{t("updateCycleLabel")}</div>
                   <div className="display" style={{ fontSize: 20, fontWeight: 700, marginBottom: 8 }}>
-                    {edition.runDay === "Manuell" ? "Regelmäßig aktualisiert" : `Jeden ${edition.runDay} neu`}
+                    {edition.runDay === "Manuell" ? t("regularlyUpdated") : t("everyDayNew", { day: edition.runDay })}
                   </div>
                   <p style={{ fontSize: 13, color: "var(--ink-2)", lineHeight: 1.55, marginBottom: 16 }}>
-                    Verpassen Sie keine Klagewelle.
+                    {t("dontMissWave")}
                   </p>
                   <AlertSubscribeButton className="l-btn l-btn-primary" style={{ fontSize: 12, padding: "8px 14px", width: "100%", justifyContent: "center" }} />
                 </div>
 
                 <div className="mono" style={{ paddingTop: 12, borderTop: "1px dashed var(--line-2)", fontSize: 10, letterSpacing: "0.1em", color: "var(--ink-3)", lineHeight: 1.8 }}>
-                  FEEDS: {edition.stats.feedsProcessed}<br />
-                  ARTIKEL: {edition.stats.totalArticles}
+                  {t("feedsLabel")}: {edition.stats.feedsProcessed}<br />
+                  {t("articlesLabel")}: {edition.stats.totalArticles}
                   {edition.stats.feedsFailed > 0 && (
-                    <><br />AUSFÄLLE: {edition.stats.feedsFailed}</>
+                    <><br />{t("failuresLabel")}: {edition.stats.feedsFailed}</>
                   )}
                 </div>
               </aside>
@@ -172,7 +176,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
               <aside className="hidden lg:block" style={{ position: "sticky", top: 80, alignSelf: "start", display: "flex", flexDirection: "column", gap: 24 }}>
                 {otherReports.length > 0 && (
                   <div>
-                    <div className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", color: "var(--ink-3)", marginBottom: 12 }}>WEITERE REPORTS</div>
+                    <div className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", color: "var(--ink-3)", marginBottom: 12 }}>{t("otherReports")}</div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                       {otherReports.map(([k, m]) => (
                         <Link
@@ -193,24 +197,24 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                   href="/legal-alerts/archiv"
                   style={{ display: "block", padding: 16, border: "1px solid var(--line-2)" }}
                 >
-                  <div className="display" style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>Archiv</div>
-                  <div style={{ fontSize: 12, color: "var(--ink-3)" }}>Alle vergangenen Ausgaben</div>
+                  <div className="display" style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>{t("archivSidebarTitle")}</div>
+                  <div style={{ fontSize: 12, color: "var(--ink-3)" }}>{t("archivSidebarSubtitle")}</div>
                 </Link>
 
                 <div style={{ padding: 24, background: "var(--bg-3)", border: "1px solid var(--line-2)" }}>
-                  <div className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", color: "var(--accent)", marginBottom: 12 }}>UPDATE-ZYKLUS</div>
+                  <div className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", color: "var(--accent)", marginBottom: 12 }}>{t("updateCycleLabel")}</div>
                   <div className="display" style={{ fontSize: 20, fontWeight: 700, marginBottom: 8 }}>
-                    {edition.runDay === "Manuell" ? "Regelmäßig aktualisiert" : `Jeden ${edition.runDay} neu`}
+                    {edition.runDay === "Manuell" ? t("regularlyUpdated") : t("everyDayNew", { day: edition.runDay })}
                   </div>
                   <p style={{ fontSize: 13, color: "var(--ink-2)", lineHeight: 1.55, marginBottom: 16 }}>
-                    Verpassen Sie keine Klagewelle.
+                    {t("dontMissWave")}
                   </p>
                   <AlertSubscribeButton className="l-btn l-btn-primary" style={{ fontSize: 12, padding: "8px 14px", width: "100%", justifyContent: "center" }} />
                 </div>
 
                 <div className="mono" style={{ paddingTop: 12, borderTop: "1px dashed var(--line-2)", fontSize: 10, letterSpacing: "0.1em", color: "var(--ink-3)", lineHeight: 1.8 }}>
-                  FEEDS: {edition.stats.feedsProcessed}<br />
-                  ARTIKEL: {edition.stats.totalArticles}
+                  {t("feedsLabel")}: {edition.stats.feedsProcessed}<br />
+                  {t("articlesLabel")}: {edition.stats.totalArticles}
                 </div>
               </aside>
             </div>
@@ -225,13 +229,15 @@ export default async function LegalAlertDetailPage({ params }: Props) {
           <div className="l-container" style={{ padding: "64px 32px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32 }}>
               <div>
-                <div className="l-label" style={{ marginBottom: 8 }}>Archiv</div>
+                <div className="l-label" style={{ marginBottom: 8 }}>{t("archivLabel")}</div>
                 <h2 className="display" style={{ fontSize: 28, fontWeight: 700 }}>
-                  Frühere Ausgaben
+                  {t("earlierEditions")}
                 </h2>
               </div>
               <span className="mono" style={{ fontSize: 11, letterSpacing: "0.1em", color: "var(--ink-3)" }}>
-                {archivedWithReport.length} AUSGABE{archivedWithReport.length !== 1 ? "N" : ""}
+                {archivedWithReport.length === 1
+                  ? t("editionCount", { count: archivedWithReport.length })
+                  : t("editionCountPlural", { count: archivedWithReport.length })}
               </span>
             </div>
 
@@ -249,8 +255,8 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                   color: "var(--ink-3)",
                 }}
               >
-                <span>DATUM</span>
-                <span>ZEITRAUM</span>
+                <span>{t("dateColumn")}</span>
+                <span>{t("periodColumn")}</span>
                 <span />
               </div>
 
@@ -270,7 +276,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                     }}
                   >
                     <span style={{ fontSize: 15, fontWeight: 500 }}>
-                      {archDate.toLocaleDateString("de-DE", {
+                      {archDate.toLocaleDateString(dateFmt, {
                         day: "2-digit",
                         month: "long",
                         year: "numeric",
@@ -280,7 +286,7 @@ export default async function LegalAlertDetailPage({ params }: Props) {
                       {arch.period}
                     </span>
                     <span className="mono" style={{ fontSize: 11, letterSpacing: "0.14em", color: "var(--accent)" }}>
-                      LESEN →
+                      {t("readCta")}
                     </span>
                   </Link>
                 );

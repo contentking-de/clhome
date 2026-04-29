@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import AlertSubscribeModal from "./AlertSubscribeModal";
 
 export default function AlertSubscribeButton({ className, style }: {
@@ -8,6 +9,7 @@ export default function AlertSubscribeButton({ className, style }: {
   style?: React.CSSProperties;
 }) {
   const [open, setOpen] = useState(false);
+  const t = useTranslations("AlertSubscribe");
 
   return (
     <>
@@ -18,7 +20,7 @@ export default function AlertSubscribeButton({ className, style }: {
             <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
           </svg>
         </span>
-        Alert einrichten
+        {t("buttonLabel")}
       </button>
       <AlertSubscribeModal open={open} onClose={() => setOpen(false)} />
     </>

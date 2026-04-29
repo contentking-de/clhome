@@ -14,6 +14,21 @@ export const TYPE_LABELS: Record<ItemType, string> = {
   trend: "Trend",
 };
 
+export const TYPE_LABELS_EN: Record<ItemType, string> = {
+  klage: "Class Action",
+  potenzielle_klage: "Potential Lawsuit",
+  regulatorisch: "Regulatory",
+  rueckruf: "Recall",
+  leak: "Data Leak",
+  neues_gesetz: "New Law",
+  bgh_urteil: "BGH Ruling",
+  trend: "Trend",
+};
+
+export function getTypeLabels(locale: string): Record<ItemType, string> {
+  return locale === "en" ? TYPE_LABELS_EN : TYPE_LABELS;
+}
+
 export const TYPE_COLORS: Record<ItemType, string> = {
   klage: "var(--danger)",
   potenzielle_klage: "var(--warn)",

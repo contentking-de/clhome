@@ -1,17 +1,24 @@
 import { getArchivedEditions, getReportMeta } from "@/lib/skynet";
 import SubpageShell from "@/components/landing/SubpageShell";
 import { Link } from "@/i18n/routing";
+import { getLocale, getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Archiv | Legal Alerts | clever.legal",
-  description: "Alle vergangenen Legal Alerts Ausgaben im Überblick.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("LegalAlertsPage");
+  return {
+    title: `${t("archivLabel")} | Legal Alerts | clever.legal`,
+    description: t("archivBrowse"),
+  };
+}
 
 export default async function ArchivPage() {
   const editions = await getArchivedEditions();
+  const locale = await getLocale();
+  const t = await getTranslations("LegalAlertsPage");
+  const dateFmt = locale === "en" ? "en-US" : "de-DE";
 
   return (
     <SubpageShell>
@@ -31,23 +38,23 @@ export default async function ArchivPage() {
               marginBottom: 32,
             }}
           >
-            ← Zurück zu Legal Alerts
+            {t("backToAlerts")}
           </Link>
 
           <div style={{ marginBottom: 48 }}>
-            <div className="l-label" style={{ marginBottom: 18 }}>Archiv</div>
+            <div className="l-label" style={{ marginBottom: 18 }}>{t("archivLabel")}</div>
             <h1 className="display" style={{ fontSize: "clamp(40px, 5vw, 72px)", fontWeight: 700, marginBottom: 16 }}>
-              Vergangene Ausgaben
+              {t("archivHeading")}
             </h1>
             <p style={{ color: "var(--ink-2)", fontSize: 18, maxWidth: 640 }}>
-              Durchsuchen Sie alle bisherigen Legal Alerts.
+              {t("archivBrowse")}
             </p>
           </div>
 
           {editions.length === 0 ? (
             <div style={{ textAlign: "center", padding: "80px 0" }}>
               <div className="mono" style={{ fontSize: 11, color: "var(--ink-3)", letterSpacing: "0.14em" }}>
-                Noch keine archivierten Ausgaben vorhanden.
+                {t("archivEmpty")}
               </div>
             </div>
           ) : (
@@ -67,14 +74,14 @@ export default async function ArchivPage() {
                     }}
                   >
                     <div className="mono" style={{ fontSize: 11, letterSpacing: "0.1em", color: "var(--ink-3)", minWidth: 160 }}>
-                      {date.toLocaleDateString("de-DE", { day: "2-digit", month: "long", year: "numeric" }).toUpperCase()}
+                      {date.toLocaleDateString(dateFmt, { day: "2-digit", month: "long", year: "numeric" }).toUpperCase()}
                     </div>
                     <div className="mono" style={{ fontSize: 10, letterSpacing: "0.1em", color: "var(--ink-3)", minWidth: 120 }}>
-                      {edition.period} · {edition.stats.totalArticles} Quellen
+                      {edition.period} · {t("archivSources", { count: edition.stats.totalArticles })}
                     </div>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginLeft: "auto" }}>
                       {Object.keys(edition.reports).map((key) => {
-                        const meta = getReportMeta(key);
+                        const meta = getReportMeta(key, locale);
                         if (!meta) return null;
                         return (
                           <Link key={key} href={`/legal-alerts/archiv/${edition.id}/${meta.slug}`} className="l-chip" style={{ fontSize: 10 }}>

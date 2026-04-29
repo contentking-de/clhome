@@ -276,13 +276,15 @@ export function getTypesForCategory(category: "fw" | "ht"): readonly string[] {
 
 // ── Report Meta ──
 
-const REPORT_META: Record<string, {
+export interface ReportMeta {
   slug: string;
   title: string;
   subtitle: string;
   icon: string;
   accent: string;
-}> = {
+}
+
+const REPORT_META_DE: Record<string, ReportMeta> = {
   frühwarnung: {
     slug: "fruehwarnung",
     title: "Sammelklagen-Frühwarnung",
@@ -299,16 +301,34 @@ const REPORT_META: Record<string, {
   },
 };
 
-export function getReportMeta(key: string) {
-  return REPORT_META[key] ?? null;
+const REPORT_META_EN: Record<string, ReportMeta> = {
+  frühwarnung: {
+    slug: "fruehwarnung",
+    title: "Class Action Early Warning",
+    subtitle: "New lawsuits, potential proceedings, and regulatory signals — curated and summarized for you.",
+    icon: "crisis_alert",
+    accent: "text-error",
+  },
+  hotTopics: {
+    slug: "hot-topics",
+    title: "Hot Legal Topics",
+    subtitle: "Laws, BGH rulings, and trends in litigation funding & legal tech.",
+    icon: "local_fire_department",
+    accent: "text-on-primary-container",
+  },
+};
+
+export function getReportMeta(key: string, locale: string = "de") {
+  const meta = locale === "en" ? REPORT_META_EN : REPORT_META_DE;
+  return meta[key] ?? null;
 }
 
-export function getAllReportMeta() {
-  return REPORT_META;
+export function getAllReportMeta(locale: string = "de") {
+  return locale === "en" ? REPORT_META_EN : REPORT_META_DE;
 }
 
 export function getReportKeyBySlug(slug: string): string | null {
-  for (const [key, meta] of Object.entries(REPORT_META)) {
+  for (const [key, meta] of Object.entries(REPORT_META_DE)) {
     if (meta.slug === slug) return key;
   }
   return null;
