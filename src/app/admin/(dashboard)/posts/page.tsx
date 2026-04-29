@@ -73,6 +73,21 @@ export default async function PostsListPage() {
                   >
                     {post.locale.toUpperCase()}
                   </span>
+                  {post.locale === "de" &&
+                    !post.translations.some((t) => t.locale === "en") && (
+                      <TranslateButton postId={post.id} />
+                    )}
+                  {post.locale === "de" &&
+                    post.translations.some((t) => t.locale === "en") && (
+                      <Link
+                        href={`/admin/posts/${post.translations.find((t) => t.locale === "en")!.id}/edit`}
+                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold font-mono bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 hover:opacity-80 transition-opacity"
+                        title="EN-Version bearbeiten"
+                      >
+                        EN
+                        <Icon name="edit_note" className="text-sm" />
+                      </Link>
+                    )}
                 </div>
                 <p className="text-secondary text-sm">
                   {post.author.name || post.author.email} ·{" "}
@@ -89,20 +104,6 @@ export default async function PostsListPage() {
                 </p>
               </div>
               <div className="flex items-center gap-2 ml-4">
-                {post.locale === "de" &&
-                  !post.translations.some((t) => t.locale === "en") && (
-                    <TranslateButton postId={post.id} />
-                  )}
-                {post.locale === "de" &&
-                  post.translations.some((t) => t.locale === "en") && (
-                    <Link
-                      href={`/admin/posts/${post.translations.find((t) => t.locale === "en")!.id}/edit`}
-                      className="p-2 rounded-lg text-blue-500 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
-                      title="EN-Version bearbeiten"
-                    >
-                      <Icon name="edit_note" className="text-xl" />
-                    </Link>
-                  )}
                 <Link
                   href={`/blog/${post.slug}`}
                   target="_blank"
