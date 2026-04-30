@@ -1,20 +1,7 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { ArrowSvg } from "./Icons";
-
-function LiveCounter() {
-  const [n, setN] = useState(52882);
-  useEffect(() => {
-    const t = setInterval(
-      () => setN((v) => v + Math.floor(Math.random() * 3 + 1)),
-      1200
-    );
-    return () => clearInterval(t);
-  }, []);
-  return <span>{n.toLocaleString("de-DE")}</span>;
-}
+import HeroHeadline from "./HeroHeadline";
+import LiveCounter from "./LiveCounter";
 
 function HeroStat({
   label,
@@ -57,56 +44,9 @@ function HeroStat({
   );
 }
 
-export default function Hero() {
-  const t = useTranslations("Hero");
+export default async function Hero() {
+  const t = await getTranslations("Hero");
   const lines = [t("headlineLine1"), t("headlineLine2"), t("headlineLine3")];
-  const fullText = lines.join("\n");
-  const [typedCount, setTypedCount] = useState(0);
-  const [showReveal, setShowReveal] = useState(false);
-  const [cursorVisible, setCursorVisible] = useState(true);
-
-  useEffect(() => {
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    if (prefersReduced) {
-      setTypedCount(fullText.length);
-      setShowReveal(true);
-      return;
-    }
-    let i = 0;
-    const typeInterval = setInterval(() => {
-      if (i < fullText.length) {
-        i++;
-        setTypedCount(i);
-      } else {
-        clearInterval(typeInterval);
-        setTimeout(() => setShowReveal(true), 2000);
-      }
-    }, 45);
-    return () => clearInterval(typeInterval);
-  }, []);
-
-  useEffect(() => {
-    const t = setInterval(() => setCursorVisible((b) => !b), 530);
-    return () => clearInterval(t);
-  }, []);
-
-  let offset = 0;
-  const lineRanges = lines.map((line) => {
-    const start = offset;
-    offset += line.length + 1;
-    return { start, end: start + line.length };
-  });
-
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el)
-      window.scrollTo({
-        top: el.getBoundingClientRect().top + window.scrollY - 80,
-        behavior: "smooth",
-      });
-  };
 
   return (
     <section
@@ -161,65 +101,7 @@ export default function Hero() {
           </span>
         </div>
 
-        <h1
-          className="display"
-          style={{
-            fontSize: "clamp(56px, 9vw, 148px)",
-            fontWeight: 800,
-            lineHeight: 0.95,
-            letterSpacing: "-0.04em",
-            textAlign: "center",
-            minHeight: "4.2em",
-          }}
-        >
-          {lines.map((line, lineIdx) => {
-            const { start, end } = lineRanges[lineIdx];
-            const charsTyped = Math.max(0, Math.min(line.length, typedCount - start));
-            const typedPart = line.slice(0, charsTyped);
-            const untypedPart = line.slice(charsTyped);
-            const showCursorHere =
-              !showReveal && typedCount >= start && typedCount <= end;
-            const isAccent = lineIdx === 2;
-
-            const content = (
-              <>
-                {typedPart}
-                {showCursorHere && (
-                  <span
-                    aria-hidden="true"
-                    style={{ opacity: cursorVisible ? 1 : 0 }}
-                  >
-                    _
-                  </span>
-                )}
-                {untypedPart && (
-                  <span style={{ visibility: "hidden" }}>{untypedPart}</span>
-                )}
-              </>
-            );
-
-            return (
-              <span key={lineIdx}>
-                {isAccent ? (
-                  <span style={{ color: "var(--accent)" }}>{content}</span>
-                ) : (
-                  content
-                )}
-                <br />
-              </span>
-            );
-          })}
-          <span
-            style={{
-              color: "var(--ink-2)",
-              visibility: showReveal ? "visible" : "hidden",
-              opacity: showReveal ? 1 : 0,
-              transition: "opacity 0.6s ease",
-            }}
-          >
-            {t("headlineReveal")}
-          </span>
-        </h1>
+        <HeroHeadline lines={lines} reveal={t("headlineReveal")} />
       </div>
 
       <div
@@ -257,10 +139,6 @@ export default function Hero() {
           >
             <a
               href="#kontakt"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollTo("kontakt");
-              }}
               className="l-btn l-btn-primary"
             >
               {t("ctaPrimary")}
@@ -268,10 +146,6 @@ export default function Hero() {
             </a>
             <a
               href="#engine"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollTo("engine");
-              }}
               className="l-btn"
             >
               {t("ctaSecondary")}
