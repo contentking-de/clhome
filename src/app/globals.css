@@ -402,6 +402,21 @@ input, textarea, select { font: inherit; color: inherit; }
 .tiptap-editor .ProseMirror td { border: 1px solid #c6c6cd; padding: 0.5rem 0.75rem; min-width: 80px; vertical-align: top; }
 .tiptap-editor .ProseMirror th { background-color: #e2e7ff; font-weight: 600; }
 .tiptap-editor .ProseMirror .selectedCell { background-color: #4d34ff; opacity: 0.1; }
+.tiptap-image-wrapper { cursor: default; user-select: none; }
+.tiptap-image-wrapper:hover .tiptap-image-handle { opacity: 1; }
+.tiptap-image-handle {
+  position: absolute;
+  right: -4px;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  cursor: col-resize;
+  background: #4d34ff;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.tiptap-image-handle:hover { opacity: 1 !important; }
 
 /* ===== Admin Theme (light) — kept for /admin routes ===== */
 @theme {

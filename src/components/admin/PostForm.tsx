@@ -9,6 +9,72 @@ import TableRow from "@tiptap/extension-table-row";
 import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
 import { useState, useRef, useCallback } from "react";
+
+const ResizableImage = Image.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      width: { default: null, renderHTML: (attrs) => (attrs.width ? { width: attrs.width } : {}) },
+      style: { default: null, renderHTML: (attrs) => (attrs.style ? { style: attrs.style } : {}) },
+    };
+  },
+  addNodeView() {
+    return ({ node, editor, getPos }) => {
+      const wrapper = document.createElement("div");
+      wrapper.classList.add("tiptap-image-wrapper");
+      wrapper.style.width = node.attrs.width || "100%";
+      wrapper.style.position = "relative";
+      wrapper.style.display = "inline-block";
+      wrapper.style.maxWidth = "100%";
+
+      const img = document.createElement("img");
+      img.src = node.attrs.src;
+      if (node.attrs.alt) img.alt = node.attrs.alt;
+      if (node.attrs.title) img.title = node.attrs.title;
+      img.style.width = "100%";
+      img.style.display = "block";
+      img.draggable = false;
+
+      const handle = document.createElement("div");
+      handle.classList.add("tiptap-image-handle");
+
+      wrapper.append(img, handle);
+
+      let startX = 0;
+      let startWidth = 0;
+
+      function onPointerDown(e: PointerEvent) {
+        e.preventDefault();
+        startX = e.clientX;
+        startWidth = wrapper.offsetWidth;
+        document.addEventListener("pointermove", onPointerMove);
+        document.addEventListener("pointerup", onPointerUp);
+      }
+
+      function onPointerMove(e: PointerEvent) {
+        const newWidth = Math.max(80, startWidth + (e.clientX - startX));
+        wrapper.style.width = `${newWidth}px`;
+      }
+
+      function onPointerUp() {
+        document.removeEventListener("pointermove", onPointerMove);
+        document.removeEventListener("pointerup", onPointerUp);
+        if (typeof getPos === "function") {
+          const pos = getPos();
+          if (pos == null) return;
+          editor.chain().focus().command(({ tr }) => {
+            tr.setNodeMarkup(pos, undefined, { ...node.attrs, width: wrapper.style.width });
+            return true;
+          }).run();
+        }
+      }
+
+      handle.addEventListener("pointerdown", onPointerDown);
+
+      return { dom: wrapper, destroy() { handle.removeEventListener("pointerdown", onPointerDown); } };
+    };
+  },
+});
 import { useRouter } from "next/navigation";
 import AiGenerateDialog from "./AiGenerateDialog";
 import Icon from "../ui/Icon";
@@ -146,7 +212,7 @@ export default function PostForm({ initialData, authors }: PostFormProps) {
       Placeholder.configure({
         placeholder: "Beginnen Sie hier mit dem Schreiben...",
       }),
-      Image,
+      ResizableImage,
       Table.configure({ resizable: false }),
       TableRow,
       TableCell,
