@@ -28,6 +28,13 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.clever.legal"),
   robots: { index: false, follow: false },
+  openGraph: {
+    siteName: "clever.legal",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary",
+  },
 };
 
 export default async function RootLayout({

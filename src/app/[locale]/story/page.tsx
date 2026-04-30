@@ -1,15 +1,19 @@
 import SubpageShell from "@/components/landing/SubpageShell";
 import { Link } from "@/i18n/routing";
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowSvg } from "@/components/landing/Icons";
+import { buildPageMetadata } from "@/lib/metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const t = await getTranslations("Story");
-  return {
+  return buildPageMetadata({
     title: t("metaTitle"),
     description: t("metaDescription"),
-  };
+    path: "/story",
+    locale,
+  });
 }
 
 export default async function StoryPage() {

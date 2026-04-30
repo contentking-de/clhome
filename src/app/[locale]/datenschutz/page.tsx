@@ -1,13 +1,18 @@
 import SubpageShell from "@/components/landing/SubpageShell";
 import { CookieSettingsButton } from "@/components/landing/CookieConsent";
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import { buildPageMetadata } from "@/lib/metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const t = await getTranslations("Datenschutz");
-  return {
+  return buildPageMetadata({
     title: t("metaTitle"),
-  };
+    description: t("metaDescription"),
+    path: "/datenschutz",
+    locale,
+  });
 }
 
 export default async function DatenschutzPage() {

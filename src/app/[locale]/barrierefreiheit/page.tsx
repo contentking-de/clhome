@@ -1,13 +1,17 @@
 import SubpageShell from "@/components/landing/SubpageShell";
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import { buildPageMetadata } from "@/lib/metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const t = await getTranslations("Barrierefreiheit");
-  return {
+  return buildPageMetadata({
     title: t("metaTitle"),
     description: t("metaDescription"),
-  };
+    path: "/barrierefreiheit",
+    locale,
+  });
 }
 
 export default async function BarrierefreiheitPage() {

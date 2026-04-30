@@ -8,6 +8,7 @@ import RelatedPostsSidebar from "@/components/blog/RelatedPostsSidebar";
 import SetAlternateUrl from "@/components/blog/SetAlternateUrl";
 import { Link } from "@/i18n/routing";
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 
 export const revalidate = 3600;
 
@@ -17,21 +18,20 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
+  const locale = await getLocale();
   const post = await prisma.post.findUnique({ where: { slug } });
 
   if (!post) return { title: "Not found | clever.legal" };
 
-  return {
+  return buildPageMetadata({
     title: `${post.title} | clever.legal Blog`,
     description: post.excerpt || undefined,
-    openGraph: {
-      title: post.title,
-      description: post.excerpt || undefined,
-      type: "article",
-      publishedTime: post.createdAt.toISOString(),
-      images: post.coverImage ? [post.coverImage] : undefined,
-    },
-  };
+    path: `/blog/${slug}`,
+    locale,
+    ogType: "article",
+    image: post.coverImage || undefined,
+    publishedTime: post.createdAt.toISOString(),
+  });
 }
 
 export default async function BlogPostPage({ params }: Props) {

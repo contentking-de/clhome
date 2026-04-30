@@ -1,11 +1,17 @@
 import SubpageShell from "@/components/landing/SubpageShell";
 import { Link } from "@/i18n/routing";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const t = await getTranslations("LegalAlertsPage");
-  return { title: `${t("confirmSuccessTitle")} | clever.legal` };
+  return buildPageMetadata({
+    title: `${t("confirmSuccessTitle")} | clever.legal`,
+    path: "/legal-alerts/alert-bestaetigt",
+    locale,
+  });
 }
 
 interface Props {

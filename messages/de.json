@@ -570,6 +570,7 @@
   },
   "Kontakt": {
     "metaTitle": "Kontakt | clever.legal",
+    "metaDescription": "Nehmen Sie Kontakt mit clever.legal auf – Ihr Partner für KI-Lösungen im Rechtsbereich. Nur 1 Partner pro Rechtsgebiet.",
     "label": "Kontakt",
     "chip": "Nur 1 Partner pro Rechtsgebiet",
     "headingLine1": "Verfügbarkeit",
@@ -754,6 +755,7 @@
   },
   "Impressum": {
     "metaTitle": "Impressum | clever.legal",
+    "metaDescription": "Impressum der clever.legal GmbH i. Gr. – Angaben gemäß § 5 TMG, Kontaktdaten und rechtliche Hinweise.",
     "label": "Recht",
     "heading": "Impressum",
     "section1Title": "Angaben gemäß § 5 TMG",
@@ -785,6 +787,7 @@
   },
   "Datenschutz": {
     "metaTitle": "Datenschutzerklärung | clever.legal",
+    "metaDescription": "Datenschutzerklärung der clever.legal GmbH i. Gr. – Informationen zur Verarbeitung Ihrer personenbezogenen Daten gemäß DSGVO.",
     "label": "Recht",
     "heading": "Datenschutzerklärung",
     "lastUpdated": "Stand: 22. April 2026",

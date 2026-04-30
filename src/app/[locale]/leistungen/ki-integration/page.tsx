@@ -1,14 +1,19 @@
 import SubpageShell from "@/components/landing/SubpageShell";
 import { Link } from "@/i18n/routing";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowSvg, IconCircuit, IconCpu, IconDoc, IconSliders } from "@/components/landing/Icons";
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const t = await getTranslations("KiIntegration");
-  return {
+  return buildPageMetadata({
     title: t("metaTitle"),
     description: t("metaDescription"),
-  };
+    path: "/leistungen/ki-integration",
+    locale,
+  });
 }
 
 export default async function KiIntegrationPage() {

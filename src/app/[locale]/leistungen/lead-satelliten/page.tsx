@@ -1,14 +1,19 @@
 import SubpageShell from "@/components/landing/SubpageShell";
 import { Link } from "@/i18n/routing";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowSvg, IconSat, IconTarget, IconFilter, IconChart } from "@/components/landing/Icons";
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const t = await getTranslations("LeadSatelliten");
-  return {
+  return buildPageMetadata({
     title: t("metaTitle"),
     description: t("metaDescription"),
-  };
+    path: "/leistungen/lead-satelliten",
+    locale,
+  });
 }
 
 export default async function LeadSatellitenPage() {

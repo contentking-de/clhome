@@ -17,6 +17,7 @@ import AlertSubscribeButton from "@/components/legal-alerts/AlertSubscribeButton
 import { Link } from "@/i18n/routing";
 import { getLocale, getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 
 export const dynamic = "force-dynamic";
 
@@ -32,10 +33,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!key) return { title: t("notFound") };
   const meta = getReportMeta(key, locale);
   if (!meta) return { title: t("notFound") };
-  return {
+  return buildPageMetadata({
     title: `${meta.title} | Legal Alerts | clever.legal`,
     description: meta.subtitle,
-  };
+    path: `/legal-alerts/${slug}`,
+    locale,
+  });
 }
 
 export default async function LegalAlertDetailPage({ params }: Props) {

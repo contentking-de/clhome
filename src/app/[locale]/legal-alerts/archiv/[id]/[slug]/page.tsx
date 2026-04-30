@@ -11,6 +11,7 @@ import MarkdownRenderer from "@/components/legal-alerts/MarkdownRenderer";
 import { Link } from "@/i18n/routing";
 import { getLocale, getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 
 export const dynamic = "force-dynamic";
 
@@ -36,10 +37,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     year: "numeric",
   });
 
-  return {
+  return buildPageMetadata({
     title: `${meta.title} (${date}) | ${t("archivLabel")} | clever.legal`,
     description: meta.subtitle,
-  };
+    path: `/legal-alerts/archiv/${id}/${slug}`,
+    locale,
+  });
 }
 
 export default async function ArchivedAlertPage({ params }: Props) {

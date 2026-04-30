@@ -1,15 +1,19 @@
 import SubpageShell from "@/components/landing/SubpageShell";
 import { Link } from "@/i18n/routing";
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowSvg, IconCpu, IconShield, IconBolt, IconSat, IconDoc } from "@/components/landing/Icons";
+import { buildPageMetadata } from "@/lib/metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const t = await getTranslations("FuerAnwaelte");
-  return {
+  return buildPageMetadata({
     title: t("metaTitle"),
     description: t("metaDescription"),
-  };
+    path: "/fuer-anwaelte",
+    locale,
+  });
 }
 
 export default async function FuerAnwaeltePage() {

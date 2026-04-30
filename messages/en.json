@@ -570,6 +570,7 @@
   },
   "Kontakt": {
     "metaTitle": "Contact | clever.legal",
+    "metaDescription": "Get in touch with clever.legal – your partner for AI solutions in the legal sector. Only one partner per area of law.",
     "label": "Contact",
     "chip": "Only one partner per area of law",
     "headingLine1": "Check",
@@ -754,6 +755,7 @@
   },
   "Impressum": {
     "metaTitle": "Legal Notice | clever.legal",
+    "metaDescription": "Legal notice of clever.legal GmbH (in formation) – company information, contact details, and legal disclosures.",
     "label": "Legal",
     "heading": "Legal Notice",
     "section1Title": "Information pursuant to § 5 TMG",
@@ -785,6 +787,7 @@
   },
   "Datenschutz": {
     "metaTitle": "Privacy Policy | clever.legal",
+    "metaDescription": "Privacy policy of clever.legal GmbH (in formation) – information about how we process your personal data under the GDPR.",
     "label": "Legal",
     "heading": "Privacy Policy",
     "lastUpdated": "As of: April 22, 2026",

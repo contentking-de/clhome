@@ -4,15 +4,19 @@ import SubpageShell from "@/components/landing/SubpageShell";
 import { Link } from "@/i18n/routing";
 import { getLocale, getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const t = await getTranslations("LegalAlertsPage");
-  return {
+  return buildPageMetadata({
     title: `${t("archivLabel")} | Legal Alerts | clever.legal`,
     description: t("archivBrowse"),
-  };
+    path: "/legal-alerts/archiv",
+    locale,
+  });
 }
 
 export default async function ArchivPage() {

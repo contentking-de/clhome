@@ -1,14 +1,19 @@
 import SubpageShell from "@/components/landing/SubpageShell";
 import { Link } from "@/i18n/routing";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowSvg, IconMegaphone, IconTrend, IconTarget, IconCode } from "@/components/landing/Icons";
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const t = await getTranslations("OnlineMarketing");
-  return {
+  return buildPageMetadata({
     title: t("metaTitle"),
     description: t("metaDescription"),
-  };
+    path: "/leistungen/online-marketing",
+    locale,
+  });
 }
 
 export default async function OnlineMarketingPage() {

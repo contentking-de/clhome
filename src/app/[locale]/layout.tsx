@@ -19,14 +19,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata" });
 
+  const ogLocale = locale === "de" ? "de_DE" : "en_US";
+  const url = locale === "de" ? "/" : "/en";
+
   return {
     title: t("title"),
     description: t("description"),
     openGraph: {
       title: t("title"),
       description: t("ogDescription"),
+      url,
+      siteName: "clever.legal",
       type: "website",
-      locale: locale === "de" ? "de_DE" : "en_US",
+      locale: ogLocale,
+    },
+    twitter: {
+      card: "summary",
+      title: t("title"),
+      description: t("ogDescription"),
     },
     alternates: {
       languages: {

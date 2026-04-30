@@ -3,15 +3,19 @@ import { getLocale, getTranslations } from "next-intl/server";
 import SubpageShell from "@/components/landing/SubpageShell";
 import PostCard from "@/components/blog/PostCard";
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 
 export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const t = await getTranslations("BlogPage");
-  return {
+  return buildPageMetadata({
     title: t("metaTitle"),
     description: t("metaDescription"),
-  };
+    path: "/blog",
+    locale,
+  });
 }
 
 export default async function BlogPage() {
