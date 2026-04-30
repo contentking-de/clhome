@@ -30,6 +30,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         languages: {
           de: `${BASE}${path}`,
           en: `${BASE}/en${path}`,
+          "x-default": `${BASE}${path}`,
         },
       },
     });
@@ -45,6 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const enTranslation = post.translations[0];
     const alternates: Record<string, string> = {
       de: `${BASE}/blog/${post.slug}`,
+      "x-default": `${BASE}/blog/${post.slug}`,
     };
     if (enTranslation) {
       alternates.en = `${BASE}/en/blog/${enTranslation.slug}`;
@@ -64,6 +66,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
     if (deOriginal) {
       alternates.de = `${BASE}/blog/${deOriginal.slug}`;
+      alternates["x-default"] = `${BASE}/blog/${deOriginal.slug}`;
+    } else {
+      alternates["x-default"] = `${BASE}/en/blog/${post.slug}`;
     }
     entries.push({
       url: `${BASE}/en/blog/${post.slug}`,
@@ -83,6 +88,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const hasEn = edition.reportsEn != null;
     const alternates: Record<string, string> = {
       de: `${BASE}/legal-alerts/${slug}`,
+      "x-default": `${BASE}/legal-alerts/${slug}`,
     };
     if (hasEn) {
       alternates.en = `${BASE}/en/legal-alerts/${slug}`;

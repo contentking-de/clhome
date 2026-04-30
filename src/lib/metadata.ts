@@ -48,6 +48,7 @@ export function buildPageMetadata({
       languages: {
         de: path,
         en: path === "/" ? "/en" : `/en${path}`,
+        "x-default": path,
       },
     },
   };
