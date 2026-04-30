@@ -207,7 +207,7 @@ export default function SubpageHeader() {
         </div>
 
         {/* Mobile: language switcher + burger */}
-        <div className="xl:hidden" style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <div className="flex items-center gap-2 xl:hidden">
           <LanguageSwitcher />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
