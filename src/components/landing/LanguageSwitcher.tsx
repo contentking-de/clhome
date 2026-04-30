@@ -21,6 +21,7 @@ export default function LanguageSwitcher() {
         ? alternate.path
         : pathname;
 
+    document.cookie = `NEXT_LOCALE=${newLocale};path=/;max-age=31536000;SameSite=Lax`;
     window.location.href = buildLocalizedHref(targetPath, newLocale);
   }
 

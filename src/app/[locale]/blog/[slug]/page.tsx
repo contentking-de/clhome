@@ -6,6 +6,7 @@ import PostContent from "@/components/blog/PostContent";
 import AuthorBox from "@/components/blog/AuthorBox";
 import RelatedPostsSidebar from "@/components/blog/RelatedPostsSidebar";
 import SetAlternateUrl from "@/components/blog/SetAlternateUrl";
+import LocaleLink from "@/components/LocaleLink";
 import { Link } from "@/i18n/routing";
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/metadata";
@@ -109,8 +110,9 @@ export default async function BlogPostPage({ params }: Props) {
               {t("backToBlog")}
             </Link>
             {otherLocalePost && (
-              <a
+              <LocaleLink
                 href={`${otherLocalePost.locale !== "de" ? `/${otherLocalePost.locale}` : ""}/blog/${otherLocalePost.slug}`}
+                locale={otherLocalePost.locale}
                 className="mono"
                 style={{
                   fontSize: 11,
@@ -124,7 +126,7 @@ export default async function BlogPostPage({ params }: Props) {
                 }}
               >
                 {otherLocalePost.locale === "en" ? "🇬🇧 EN" : "🇩🇪 DE"}
-              </a>
+              </LocaleLink>
             )}
           </div>
 
