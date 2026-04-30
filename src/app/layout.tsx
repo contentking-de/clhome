@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Inter_Tight } from "next/font/google";
 import { JetBrains_Mono } from "next/font/google";
+import { getLocale } from "next-intl/server";
 import "./globals.css";
 
 const inter = Inter({
@@ -22,16 +23,19 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://clever.legal"),
   robots: { index: false, follow: false },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+
   return (
-    <html className={`${inter.variable} ${interTight.variable} ${jetbrainsMono.variable}`}>
+    <html lang={locale} className={`${inter.variable} ${interTight.variable} ${jetbrainsMono.variable}`}>
       <body>{children}</body>
     </html>
   );
