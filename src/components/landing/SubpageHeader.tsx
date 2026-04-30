@@ -206,28 +206,30 @@ export default function SubpageHeader() {
           </Link>
         </div>
 
-        {/* Mobile burger */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="xl:hidden"
-          aria-label={t("mobileMenuToggleAria")}
-          style={{ padding: 8 }}
-        >
-          <svg
-            width={24}
-            height={24}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="var(--ink)"
-            strokeWidth={1.6}
+        {/* Mobile: language switcher + burger */}
+        <div className="xl:hidden" style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <LanguageSwitcher />
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label={t("mobileMenuToggleAria")}
+            style={{ padding: 8 }}
           >
-            {mobileOpen ? (
-              <path d="M6 6l12 12M18 6L6 18" />
-            ) : (
-              <path d="M4 7h16M4 12h16M4 17h16" />
-            )}
-          </svg>
-        </button>
+            <svg
+              width={24}
+              height={24}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="var(--ink)"
+              strokeWidth={1.6}
+            >
+              {mobileOpen ? (
+                <path d="M6 6l12 12M18 6L6 18" />
+              ) : (
+                <path d="M4 7h16M4 12h16M4 17h16" />
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
