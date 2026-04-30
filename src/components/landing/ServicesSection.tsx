@@ -41,6 +41,8 @@ function ServiceCard({
         textDecoration: "none",
         color: "inherit",
         transition: "background 0.2s",
+        height: "100%",
+        boxSizing: "border-box",
       }}
     >
       <div

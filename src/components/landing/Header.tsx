@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/routing";
 import { ArrowSvg, IconBell } from "./Icons";
 import LanguageSwitcher from "./LanguageSwitcher";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 function Ticker() {
   const items = [
@@ -257,6 +258,7 @@ export default function Header() {
           className="hidden xl:flex"
           style={{ alignItems: "center", gap: 12 }}
         >
+          <ThemeSwitcher />
           <LanguageSwitcher />
           <a
             href={isHome ? "#kontakt" : "/kontakt"}
@@ -276,6 +278,7 @@ export default function Header() {
 
         {/* Mobile: language switcher + burger */}
         <div className="flex items-center gap-2 xl:hidden">
+          <ThemeSwitcher />
           <LanguageSwitcher />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}

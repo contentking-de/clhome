@@ -4,6 +4,7 @@ import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import LazyCookieConsent from "@/components/landing/LazyCookieConsent";
 import { AlternateUrlProvider } from "@/components/landing/AlternateUrlContext";
+import { ThemeProvider } from "@/components/landing/ThemeProvider";
 import type { Metadata } from "next";
 
 type Props = {
@@ -66,10 +67,12 @@ export default async function LocaleLayout({ children, params }: Props) {
         {locale === "de" ? "Zum Inhalt springen" : "Skip to content"}
       </a>
       <NextIntlClientProvider messages={messages}>
-        <AlternateUrlProvider>
-          {children}
-          <LazyCookieConsent />
-        </AlternateUrlProvider>
+        <ThemeProvider>
+          <AlternateUrlProvider>
+            {children}
+            <LazyCookieConsent />
+          </AlternateUrlProvider>
+        </ThemeProvider>
       </NextIntlClientProvider>
     </>
   );

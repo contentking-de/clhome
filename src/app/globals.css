@@ -18,6 +18,20 @@
   --maxw: 1440px;
 }
 
+/* ===== Light Theme Override ===== */
+html[data-theme="light"] {
+  --bg: oklch(0.98 0.005 85);
+  --bg-2: oklch(0.95 0.005 85);
+  --bg-3: oklch(0.91 0.005 85);
+  --ink: oklch(0.15 0.008 85);
+  --ink-2: oklch(0.30 0.008 85);
+  --ink-3: oklch(0.45 0.008 85);
+  --line: oklch(0.80 0.008 85);
+  --line-2: oklch(0.88 0.008 85);
+  --accent: oklch(0.50 0.19 245);
+  --accent-ink: oklch(0.99 0 0);
+}
+
 html { scroll-behavior: smooth; }
 
 body {
