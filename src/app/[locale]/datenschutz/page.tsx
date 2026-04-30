@@ -42,7 +42,7 @@ export default async function DatenschutzPage() {
                 <strong>E-Mail:</strong>{" "}
                 <a href="mailto:info@clever.legal" style={{ color: "var(--accent)" }}>info@clever.legal</a><br />
                 <strong>Webseite:</strong>{" "}
-                <a href="https://clever.legal" style={{ color: "var(--accent)" }}>https://clever.legal</a>
+                <a href="https://www.clever.legal" style={{ color: "var(--accent)" }}>https://www.clever.legal</a>
               </p>
               <p style={{ marginTop: 12 }}>{t("section1P4")}</p>
               <Sub title={t("section1Sub1Title")}>
@@ -324,7 +324,7 @@ export default async function DatenschutzPage() {
             <Block title={t("section9Title")}>
               <Sub title={t("section9Sub1Title")}>
                 <p>
-                  Über den Bereich <strong>„Legal Alerts"</strong> (https://clever.legal/legal-alerts) bieten
+                  Über den Bereich <strong>„Legal Alerts"</strong> (https://www.clever.legal/legal-alerts) bieten
                   wir Interessenten die Möglichkeit, sich Zugang zu einem wöchentlichen Informationsdienst zu
                   Sammelklagen, regulatorischen Signalen und juristischen Trends zu sichern. Für die
                   Zugangsgewährung erheben und verarbeiten wir typischerweise:
@@ -383,7 +383,7 @@ export default async function DatenschutzPage() {
             {/* 10 */}
             <Block title={t("section10Title")}>
               <p>
-                Im Bereich <strong>„Blog"</strong> (https://clever.legal/blog) veröffentlichen wir redaktionelle
+                Im Bereich <strong>„Blog"</strong> (https://www.clever.legal/blog) veröffentlichen wir redaktionelle
                 Beiträge rund um die Themen KI, Legal Tech und Kanzleimanagement. Beim bloßen Lesen der Beiträge
                 werden keine anderen personenbezogenen Daten verarbeitet als die unter Ziff.&nbsp;5 (Logfiles) und
                 Ziff.&nbsp;7 (Cookies) beschriebenen.
@@ -633,8 +633,8 @@ export default async function DatenschutzPage() {
                 Datenschutzerklärung umzusetzen, z.&nbsp;B. bei der Einführung neuer Dienste. Für Ihren
                 erneuten Besuch gilt dann die neue Datenschutzerklärung. Die jeweils aktuelle Fassung finden
                 Sie stets unter{" "}
-                <a href="https://clever.legal/datenschutz" style={{ color: "var(--accent)" }}>
-                  https://clever.legal/datenschutz
+                <a href="https://www.clever.legal/datenschutz" style={{ color: "var(--accent)" }}>
+                  https://www.clever.legal/datenschutz
                 </a>.
               </p>
             </Block>

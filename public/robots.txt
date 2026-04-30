@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://clever.legal/sitemap.xml
+Sitemap: https://www.clever.legal/sitemap.xml

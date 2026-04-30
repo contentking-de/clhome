@@ -52,7 +52,7 @@ export async function POST(request: Request) {
           data: { name, email, token: crypto.randomUUID() },
         });
 
-    const baseUrl = process.env.NEXTAUTH_URL || "https://clever.legal";
+    const baseUrl = process.env.NEXTAUTH_URL || "https://www.clever.legal";
     const confirmUrl = `${baseUrl}/api/alerts/confirm?token=${subscriber.token}`;
     const safeName = escapeHtml(subscriber.name);
 

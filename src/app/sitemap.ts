@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { prisma } from "@/lib/prisma";
 
-const BASE = "https://clever.legal";
+const BASE = "https://www.clever.legal";
 
 const STATIC_PATHS = [
   "",

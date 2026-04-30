@@ -30,6 +30,6 @@ export async function GET(request: Request) {
 }
 
 function redirectToResult(status: string) {
-  const base = process.env.NEXTAUTH_URL || "https://clever.legal";
+  const base = process.env.NEXTAUTH_URL || "https://www.clever.legal";
   return NextResponse.redirect(`${base}/legal-alerts/alert-bestaetigt?status=${status}`);
 }

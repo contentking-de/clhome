@@ -4,7 +4,7 @@ import SubpageShell from "@/components/landing/SubpageShell";
 import PostCard from "@/components/blog/PostCard";
 import type { Metadata } from "next";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("BlogPage");

@@ -2,7 +2,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
-import CookieConsent from "@/components/landing/CookieConsent";
+import LazyCookieConsent from "@/components/landing/LazyCookieConsent";
 import { AlternateUrlProvider } from "@/components/landing/AlternateUrlContext";
 import type { Metadata } from "next";
 
@@ -55,7 +55,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <NextIntlClientProvider messages={messages}>
         <AlternateUrlProvider>
           {children}
-          <CookieConsent />
+          <LazyCookieConsent />
         </AlternateUrlProvider>
       </NextIntlClientProvider>
     </>

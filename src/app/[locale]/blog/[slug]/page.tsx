@@ -9,7 +9,7 @@ import SetAlternateUrl from "@/components/blog/SetAlternateUrl";
 import { Link } from "@/i18n/routing";
 import type { Metadata } from "next";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 interface Props {
   params: Promise<{ slug: string }>;

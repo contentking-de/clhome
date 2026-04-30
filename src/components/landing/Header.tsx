@@ -205,9 +205,11 @@ export default function Header() {
         position: "sticky",
         top: 0,
         zIndex: 40,
-        background: "color-mix(in oklab, var(--bg), transparent 10%)",
-        backdropFilter: "blur(10px)",
+        background: "color-mix(in oklab, var(--bg), transparent 5%)",
+        backdropFilter: "blur(6px)",
+        WebkitBackdropFilter: "blur(6px)",
         borderBottom: "1px solid var(--line-2)",
+        willChange: "transform",
       }}
     >
       <Ticker />

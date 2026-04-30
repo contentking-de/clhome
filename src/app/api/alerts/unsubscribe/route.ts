@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const token = searchParams.get("token");
-  const base = process.env.NEXTAUTH_URL || "https://clever.legal";
+  const base = process.env.NEXTAUTH_URL || "https://www.clever.legal";
 
   if (!token) {
     return NextResponse.redirect(`${base}/legal-alerts`);

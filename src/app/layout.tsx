@@ -14,19 +14,19 @@ const inter = Inter({
 const interTight = Inter_Tight({
   subsets: ["latin"],
   variable: "--font-inter-tight",
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["500", "600", "700", "800"],
   display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
-  weight: ["400", "500", "600"],
+  weight: "400",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://clever.legal"),
+  metadataBase: new URL("https://www.clever.legal"),
   robots: { index: false, follow: false },
 };
 

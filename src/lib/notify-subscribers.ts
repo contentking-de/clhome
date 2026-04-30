@@ -12,7 +12,7 @@ export async function notifySubscribers(edition: EditionView) {
 
   if (subscribers.length === 0) return 0;
 
-  const baseUrl = process.env.NEXTAUTH_URL || "https://clever.legal";
+  const baseUrl = process.env.NEXTAUTH_URL || "https://www.clever.legal";
   const date = new Date(edition.generatedAt).toLocaleDateString("de-DE", {
     day: "2-digit",
     month: "long",
