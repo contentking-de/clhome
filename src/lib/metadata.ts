@@ -40,6 +40,7 @@ export function buildPageMetadata({
     },
     twitter: {
       card: image ? "summary_large_image" : "summary",
+      site: "@clever_legal",
       title,
       description: description || undefined,
     },
