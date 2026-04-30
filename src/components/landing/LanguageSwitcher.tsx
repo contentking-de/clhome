@@ -1,23 +1,27 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { usePathname, useRouter } from "@/i18n/routing";
+import { usePathname } from "@/i18n/routing";
 import { useAlternateUrl } from "./AlternateUrlContext";
+
+function buildLocalizedHref(path: string, locale: string): string {
+  return locale === "de" ? path : `/${locale}${path}`;
+}
 
 export default function LanguageSwitcher() {
   const locale = useLocale();
   const pathname = usePathname();
-  const router = useRouter();
   const { alternate } = useAlternateUrl();
 
   function switchLocale() {
     const newLocale = locale === "de" ? "en" : "de";
 
-    if (alternate && alternate.locale === newLocale) {
-      router.replace(alternate.path, { locale: newLocale });
-    } else {
-      router.replace(pathname, { locale: newLocale });
-    }
+    const targetPath =
+      alternate && alternate.locale === newLocale
+        ? alternate.path
+        : pathname;
+
+    window.location.href = buildLocalizedHref(targetPath, newLocale);
   }
 
   return (

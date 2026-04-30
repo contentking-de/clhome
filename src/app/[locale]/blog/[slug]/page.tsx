@@ -109,9 +109,8 @@ export default async function BlogPostPage({ params }: Props) {
               {t("backToBlog")}
             </Link>
             {otherLocalePost && (
-              <Link
-                href={`/blog/${otherLocalePost.slug}`}
-                locale={otherLocalePost.locale as "de" | "en"}
+              <a
+                href={`${otherLocalePost.locale !== "de" ? `/${otherLocalePost.locale}` : ""}/blog/${otherLocalePost.slug}`}
                 className="mono"
                 style={{
                   fontSize: 11,
@@ -125,7 +124,7 @@ export default async function BlogPostPage({ params }: Props) {
                 }}
               >
                 {otherLocalePost.locale === "en" ? "🇬🇧 EN" : "🇩🇪 DE"}
-              </Link>
+              </a>
             )}
           </div>
 
