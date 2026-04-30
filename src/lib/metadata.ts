@@ -44,5 +44,11 @@ export function buildPageMetadata({
       title,
       description: description || undefined,
     },
+    alternates: {
+      languages: {
+        de: path,
+        en: path === "/" ? "/en" : `/en${path}`,
+      },
+    },
   };
 }
