@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { getLocale } from "next-intl/server";
 import Header from "@/components/landing/Header";
 import Hero from "@/components/landing/Hero";
 import ProblemSection from "@/components/landing/ProblemSection";
@@ -16,8 +17,9 @@ import Footer from "@/components/landing/Footer";
 export const revalidate = 3600;
 
 export default async function Home() {
+  const locale = await getLocale();
   const posts = await prisma.post.findMany({
-    where: { published: true },
+    where: { published: true, locale },
     orderBy: { createdAt: "desc" },
     take: 3,
     select: {

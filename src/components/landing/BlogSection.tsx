@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 
 interface BlogPost {
@@ -10,6 +10,8 @@ interface BlogPost {
 
 export default async function BlogSection({ posts }: { posts: BlogPost[] }) {
   const t = await getTranslations("BlogSection");
+  const locale = await getLocale();
+  const dateLocale = locale === "de" ? "de-DE" : "en-US";
   const hasReal = posts.length > 0;
 
   return (
@@ -85,7 +87,7 @@ export default async function BlogSection({ posts }: { posts: BlogPost[] }) {
           >
             {posts.slice(0, 3).map((p, i) => {
               const date = new Date(p.createdAt);
-              const formatted = date.toLocaleDateString("de-DE", {
+              const formatted = date.toLocaleDateString(dateLocale, {
                 day: "2-digit",
                 month: "2-digit",
                 year: "numeric",
