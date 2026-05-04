@@ -38,12 +38,13 @@ export default async function DatenschutzPage() {
               </p>
               <p style={{ marginTop: 12 }}>
                 <strong>clever.legal GmbH i.&nbsp;Gr.</strong><br />
+                c/o BEMK Rechtsanwälte PartGmbB<br />
                 Florianweg 1<br />
                 88677 Markdorf<br />
                 Deutschland
               </p>
               <p style={{ marginTop: 12 }}>
-                <strong>Vertretungsberechtigter Geschäftsführer:</strong> RA Marc Ellerbrock<br />
+                <strong>Vertretungsberechtigter Geschäftsführer:</strong> Marc Ellerbrock<br />
                 <strong>E-Mail:</strong>{" "}
                 <a href="mailto:info@clever.legal" style={{ color: "var(--accent)" }}>info@clever.legal</a><br />
                 <strong>Webseite:</strong>{" "}
@@ -652,6 +653,7 @@ export default async function DatenschutzPage() {
               </p>
               <p style={{ marginTop: 12 }}>
                 <strong>clever.legal GmbH i.&nbsp;Gr.</strong><br />
+                c/o BEMK Rechtsanwälte PartGmbB<br />
                 Florianweg 1, 88677 Markdorf<br />
                 E-Mail:{" "}
                 <a href="mailto:info@clever.legal" style={{ color: "var(--accent)" }}>info@clever.legal</a>

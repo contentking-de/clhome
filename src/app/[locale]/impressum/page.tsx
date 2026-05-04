@@ -43,34 +43,20 @@ export default async function ImpressumPage() {
             </Block>
 
             <Block title={t("section5Title")}>
-              <p>{t("section5P1")}</p>
-              <p style={{ marginTop: 8 }}>{t("section5P2")}</p>
-              <p style={{ marginTop: 8 }}>{t("section5P3")}</p>
-              <ul style={{ listStyle: "none", marginTop: 12, display: "flex", flexDirection: "column", gap: 8 }}>
-                {[
-                  t("section5Bullet1"),
-                  t("section5Bullet2"),
-                  t("section5Bullet3"),
-                  t("section5Bullet4"),
-                  t("section5Bullet5"),
-                ].map((r) => (
-                  <li key={r} style={{ display: "flex", gap: 12, alignItems: "baseline" }}>
-                    <span className="mono" style={{ color: "var(--accent)", fontSize: 12 }}>›</span>
-                    <span>{r}</span>
-                  </li>
-                ))}
-              </ul>
-            </Block>
-
-            <Block title={t("section6Title")}>
               <p>
-                {t("section6P1").replace("https://ec.europa.eu/consumers/odr/", "")}{" "}
+                {t("section5P1").replace("https://ec.europa.eu/consumers/odr/", "")}{" "}
                 <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent)" }}>
                   https://ec.europa.eu/consumers/odr/
                 </a>
               </p>
               <p style={{ marginTop: 8 }}>
-                {t("section6P2")}
+                {t("section5P2")}
+              </p>
+            </Block>
+
+            <Block title={t("section6Title")}>
+              <p>
+                {t("section6P1")}
               </p>
             </Block>
 
@@ -83,12 +69,6 @@ export default async function ImpressumPage() {
             <Block title={t("section8Title")}>
               <p>
                 {t("section8P1")}
-              </p>
-            </Block>
-
-            <Block title={t("section9Title")}>
-              <p>
-                {t("section9P1")}
               </p>
             </Block>
           </div>
