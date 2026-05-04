@@ -8,14 +8,10 @@ const intlMiddleware = createMiddleware(routing);
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  if (pathname === "/en/terms") {
-    req.nextUrl.pathname = "/en/agb";
-    return intlMiddleware(req);
-  }
-
-  if (pathname === "/en/agb") {
-    req.nextUrl.pathname = "/en/terms";
-    return NextResponse.redirect(req.nextUrl, 301);
+  if (pathname === "/terms") {
+    const redirectUrl = req.nextUrl.clone();
+    redirectUrl.pathname = "/agb";
+    return NextResponse.redirect(redirectUrl, 301);
   }
 
   if (pathname.startsWith("/admin")) {
