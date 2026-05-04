@@ -118,8 +118,7 @@ function Logo() {
       style={{ display: "inline-flex", alignItems: "baseline", gap: 0 }}
     >
       <span
-        className="display"
-        style={{ fontSize: 22, fontWeight: 800, letterSpacing: "-0.04em" }}
+        style={{ fontSize: 26, fontWeight: 800, letterSpacing: "-0.04em", fontFamily: "'Times New Roman', Times, serif", fontStyle: "italic" }}
       >
         clever
       </span>

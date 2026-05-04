@@ -24,13 +24,18 @@ const STATIC_PATHS = [
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
 
+  const localizedPaths: Record<string, string> = {
+    "/agb": "/terms",
+  };
+
   for (const path of STATIC_PATHS) {
+    const enPath = localizedPaths[path] ?? path;
     entries.push({
       url: `${BASE}${path}`,
       alternates: {
         languages: {
           de: `${BASE}${path}`,
-          en: `${BASE}/en${path}`,
+          en: `${BASE}/en${enPath}`,
           "x-default": `${BASE}${path}`,
         },
       },
