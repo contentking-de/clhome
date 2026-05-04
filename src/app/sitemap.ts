@@ -17,6 +17,7 @@ const STATIC_PATHS = [
   "/legal-alerts",
   "/impressum",
   "/datenschutz",
+  "/agb",
   "/barrierefreiheit",
 ];
 

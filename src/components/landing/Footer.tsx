@@ -40,7 +40,7 @@ export default async function Footer() {
         { label: t("colLegalImpressum"), href: "/impressum" },
         { label: t("colLegalDatenschutz"), href: "/datenschutz" },
         { label: t("colLegalBarrierefreiheit"), href: "/barrierefreiheit" },
-        { label: t("colLegalAgb"), href: "#" },
+        { label: t("colLegalAgb"), href: "/agb" },
       ],
     },
   ];
