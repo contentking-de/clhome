@@ -1,10 +1,11 @@
 import { Link } from "@/i18n/routing";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Logo } from "./Header";
 import { CookieSettingsButton } from "./CookieConsent";
 
 export default async function Footer() {
   const t = await getTranslations("Footer");
+  const locale = await getLocale();
 
   const COLS = [
     {
@@ -40,7 +41,7 @@ export default async function Footer() {
         { label: t("colLegalImpressum"), href: "/impressum" },
         { label: t("colLegalDatenschutz"), href: "/datenschutz" },
         { label: t("colLegalBarrierefreiheit"), href: "/barrierefreiheit" },
-        { label: t("colLegalAgb"), href: "/agb" },
+        { label: t("colLegalAgb"), href: locale === "en" ? "/terms" : "/agb" },
       ],
     },
   ];
