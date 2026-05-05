@@ -166,10 +166,10 @@ export default function Header() {
     { id: "services", label: t("navServices"), bell: false },
     { id: "engine", label: t("navEngine"), bell: false },
     { id: "satelliten", label: t("navSatelliten"), bell: false },
-    { id: "alerts", label: t("navLegalAlerts"), bell: true, href: "/legal-alerts" },
     { id: "story", label: t("navStory"), bell: false, href: "/story" },
     { id: "blog", label: t("navBlog"), bell: false, href: "/blog" },
     { id: "kontakt", label: t("navKontakt"), bell: false, href: "/kontakt" },
+    { id: "alerts", label: t("navLegalAlerts"), bell: true, href: "/legal-alerts", bold: true },
   ];
 
   const scrollTo = (id: string) => {
@@ -254,7 +254,8 @@ export default function Header() {
                   fontSize: 12,
                   letterSpacing: "0.08em",
                   textTransform: "uppercase",
-                  color: "var(--ink-2)",
+                  color: l.bold ? "var(--ink)" : "var(--ink-2)",
+                  fontWeight: l.bold ? 700 : undefined,
                   padding: "4px 0",
                   display: "inline-flex",
                   alignItems: "center",
@@ -342,7 +343,8 @@ export default function Header() {
                   fontSize: 13,
                   letterSpacing: "0.08em",
                   textTransform: "uppercase",
-                  color: "var(--ink-2)",
+                  color: l.bold ? "var(--ink)" : "var(--ink-2)",
+                  fontWeight: l.bold ? 700 : undefined,
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 5,
