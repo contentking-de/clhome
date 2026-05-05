@@ -47,7 +47,7 @@ export default async function Footer() {
   ];
 
   return (
-    <footer style={{ background: "var(--bg)" }}>
+    <footer style={{ background: "var(--bg)", contentVisibility: "auto", containIntrinsicSize: "auto 500px" }}>
       {/* Mega statement */}
       <div
         style={{

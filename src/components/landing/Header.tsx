@@ -8,6 +8,20 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeSwitcher from "./ThemeSwitcher";
 
 function Ticker() {
+  const tickerRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = tickerRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   const items = [
     { k: "BGH", v: "VI ZR 14/26 — Meta-Scraping, Urt. v. 03.04.2026" },
     { k: "CASES", v: "1.284.992 automatisiert" },
@@ -21,6 +35,7 @@ function Ticker() {
   const doubled = [...items, ...items];
   return (
     <div
+      ref={tickerRef}
       className="hair-b"
       role="marquee"
       aria-label="Live-Ticker mit aktuellen Rechtsnachrichten"
@@ -66,7 +81,7 @@ function Ticker() {
         </div>
         <div style={{ flex: 1, overflow: "hidden", padding: "9px 0" }}>
           <div
-            className="ticker-track mono"
+            className={`ticker-track mono${visible ? "" : " paused"}`}
             aria-hidden="true"
             style={{
               fontSize: 11,
@@ -209,7 +224,7 @@ export default function Header() {
         backdropFilter: "blur(6px)",
         WebkitBackdropFilter: "blur(6px)",
         borderBottom: "1px solid var(--line-2)",
-        willChange: "transform",
+        contain: "layout style",
       }}
     >
       <Ticker />
