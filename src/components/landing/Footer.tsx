@@ -139,11 +139,11 @@ export default async function Footer() {
                     style={{ fontSize: 14, color: "var(--ink-2)" }}
                   >
                     {li.href.startsWith("/") ? (
-                      <Link href={li.href} style={{ color: "inherit", display: "inline-block", padding: "6px 0", minHeight: 44 }}>
+                      <Link href={li.href} style={{ color: "inherit", display: "inline-flex", alignItems: "center", minHeight: 48 }}>
                         {li.label}
                       </Link>
                     ) : (
-                      <a href={li.href} style={{ color: "inherit", display: "inline-block", padding: "6px 0", minHeight: 44 }}>
+                      <a href={li.href} style={{ color: "inherit", display: "inline-flex", alignItems: "center", minHeight: 48 }}>
                         {li.label}
                       </a>
                     )}
