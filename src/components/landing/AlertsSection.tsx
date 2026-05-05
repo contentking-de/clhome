@@ -181,21 +181,21 @@ export default async function AlertsSection() {
                     {a.d}
                   </div>
                 </div>
-                <Link
-                  href="/legal-alerts"
-                  role="cell"
-                  aria-label={`${t("linkOpen").replace(" →", "")}: ${a.t}`}
-                  className="mono"
-                  style={{
-                    fontSize: 11,
-                    color: "var(--accent)",
-                    letterSpacing: "0.14em",
-                    textTransform: "uppercase",
-                    textAlign: "right",
-                  }}
-                >
-                  {t("linkOpen")}
-                </Link>
+                <span role="cell" style={{ textAlign: "right" }}>
+                  <Link
+                    href="/legal-alerts"
+                    aria-label={`${t("linkOpen").replace(" →", "")}: ${a.t}`}
+                    className="mono"
+                    style={{
+                      fontSize: 11,
+                      color: "var(--accent)",
+                      letterSpacing: "0.14em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {t("linkOpen")}
+                  </Link>
+                </span>
               </div>
             ))}
           </div>
