@@ -18,13 +18,16 @@ export default function PostCard({
   createdAt,
 }: PostCardProps) {
   return (
-    <Link href={`/blog/${slug}`} className="group block">
+    <Link href={`/blog/${slug}`} className="group block" style={{ height: "100%", display: "block" }}>
       <article
         style={{
           background: "var(--bg-2)",
           border: "1px solid var(--line-2)",
           overflow: "hidden",
           transition: "border-color 0.15s",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
         {coverImage && (
@@ -41,7 +44,7 @@ export default function PostCard({
             />
           </div>
         )}
-        <div style={{ padding: 24 }}>
+        <div style={{ padding: 24, flex: 1, display: "flex", flexDirection: "column" }}>
           <h3
             className="display"
             style={{
@@ -79,6 +82,7 @@ export default function PostCard({
               fontSize: 11,
               color: "var(--ink-3)",
               letterSpacing: "0.1em",
+              marginTop: "auto",
             }}
           >
             <span>{authorName}</span>
