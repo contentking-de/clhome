@@ -461,6 +461,8 @@ input, textarea, select { font: inherit; color: inherit; }
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  min-height: 44px;
+  padding: 8px 0;
 }
 .consent-reopen:hover { color: var(--accent); }
 @media (max-width: 767px) {

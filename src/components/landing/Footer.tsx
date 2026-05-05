@@ -130,7 +130,7 @@ export default async function Footer() {
                   listStyle: "none",
                   display: "flex",
                   flexDirection: "column",
-                  gap: 10,
+                  gap: 0,
                 }}
               >
                 {c.l.map((li) => (
@@ -139,11 +139,11 @@ export default async function Footer() {
                     style={{ fontSize: 14, color: "var(--ink-2)" }}
                   >
                     {li.href.startsWith("/") ? (
-                      <Link href={li.href} style={{ color: "inherit" }}>
+                      <Link href={li.href} style={{ color: "inherit", display: "inline-block", padding: "6px 0", minHeight: 44 }}>
                         {li.label}
                       </Link>
                     ) : (
-                      <a href={li.href} style={{ color: "inherit" }}>
+                      <a href={li.href} style={{ color: "inherit", display: "inline-block", padding: "6px 0", minHeight: 44 }}>
                         {li.label}
                       </a>
                     )}
