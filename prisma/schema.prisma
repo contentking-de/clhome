@@ -6,6 +6,34 @@ datasource db {
   provider = "postgresql"
 }
 
+enum TaskStatus {
+  BACKLOG
+  TODO
+  IN_PROGRESS
+  REVIEW
+  DONE
+}
+
+enum TicketType {
+  BUG
+  FEATURE
+  IDEA
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -21,6 +49,17 @@ model User {
   accounts      Account[]
   sessions      Session[]
   posts         Post[]
+  createdTasks     Task[]          @relation("TaskCreator")
+  assignedTasks    Task[]          @relation("TaskAssignees")
+  taskComments     TaskComment[]
+  reportedTickets  Ticket[]        @relation("TicketReporter")
+  assignedTickets  Ticket[]        @relation("TicketAssignee")
+  ticketComments   TicketComment[]
+  invitations      Invitation[]
+  notifications    Notification[]
+  conversations    ConversationParticipant[]
+  chatMessages     ChatMessage[]
+  mediaFiles       MediaFile[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
@@ -147,4 +186,175 @@ model AlertSubscriber {
   token       String    @unique @default(cuid())
   confirmedAt DateTime?
   createdAt   DateTime  @default(now())
+}
+
+model Task {
+  id          String     @id @default(cuid())
+  title       String
+  description String?
+  status      TaskStatus @default(BACKLOG)
+  priority    Priority   @default(MEDIUM)
+  order       Int        @default(0)
+  dueDate     DateTime?
+  creatorId   String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  assignees User[]        @relation("TaskAssignees")
+  creator   User?         @relation("TaskCreator", fields: [creatorId], references: [id], onDelete: SetNull)
+  comments  TaskComment[]
+
+  @@index([status])
+}
+
+model TaskComment {
+  id        String   @id @default(cuid())
+  content   String
+  taskId    String
+  authorId  String
+  createdAt DateTime @default(now())
+
+  task   Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([taskId])
+}
+
+model Ticket {
+  id          String       @id @default(cuid())
+  title       String
+  description String
+  type        TicketType
+  status      TicketStatus @default(OPEN)
+  priority    Priority     @default(MEDIUM)
+  reporterId  String?
+  assigneeId  String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  reporter User?           @relation("TicketReporter", fields: [reporterId], references: [id], onDelete: SetNull)
+  assignee User?           @relation("TicketAssignee", fields: [assigneeId], references: [id], onDelete: SetNull)
+  comments TicketComment[]
+
+  @@index([type])
+  @@index([status])
+  @@index([assigneeId])
+}
+
+model TicketComment {
+  id        String   @id @default(cuid())
+  content   String
+  ticketId  String
+  authorId  String
+  createdAt DateTime @default(now())
+
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  author User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([ticketId])
+}
+
+model Invitation {
+  id         String    @id @default(cuid())
+  email      String
+  name       String?
+  role       Role      @default(EDITOR)
+  token      String    @unique @default(cuid())
+  invitedById String
+  expiresAt  DateTime
+  acceptedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  invitedBy User @relation(fields: [invitedById], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([email])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  title     String
+  body      String
+  link      String?
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, read])
+  @@index([userId, createdAt])
+}
+
+model Conversation {
+  id        String   @id @default(cuid())
+  title     String?
+  isGroup   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  participants ConversationParticipant[]
+  messages     ChatMessage[]
+
+  @@index([updatedAt])
+}
+
+model ConversationParticipant {
+  id             String   @id @default(cuid())
+  conversationId String
+  userId         String
+  joinedAt       DateTime @default(now())
+  lastReadAt     DateTime @default(now())
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([conversationId, userId])
+  @@index([userId])
+}
+
+model ChatMessage {
+  id             String   @id @default(cuid())
+  content        String
+  conversationId String
+  senderId       String
+  createdAt      DateTime @default(now())
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender       User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId, createdAt])
+}
+
+model MediaFolder {
+  id        String   @id @default(cuid())
+  name      String
+  parentId  String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  parent   MediaFolder?  @relation("FolderTree", fields: [parentId], references: [id], onDelete: Cascade)
+  children MediaFolder[] @relation("FolderTree")
+  files    MediaFile[]
+
+  @@index([parentId])
+}
+
+model MediaFile {
+  id           String   @id @default(cuid())
+  name         String
+  url          String
+  size         Int
+  contentType  String
+  folderId     String?
+  uploadedById String
+  createdAt    DateTime @default(now())
+
+  folder     MediaFolder? @relation(fields: [folderId], references: [id], onDelete: SetNull)
+  uploadedBy User         @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
+
+  @@index([folderId])
+  @@index([uploadedById])
+  @@index([createdAt])
 }

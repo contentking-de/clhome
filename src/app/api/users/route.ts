@@ -78,6 +78,17 @@ export async function POST(req: NextRequest) {
     },
   });
 
+  await prisma.invitation.create({
+    data: {
+      email,
+      name: name || null,
+      role: role === "ADMIN" ? "ADMIN" : "EDITOR",
+      invitedById: session.user.id,
+      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      acceptedAt: new Date(),
+    },
+  });
+
   try {
     await resend.emails.send({
       from: process.env.EMAIL_FROM || "clever.legal <noreply@clever.legal>",

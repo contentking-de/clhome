@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Icon from "../ui/Icon";
+import NotificationBell from "./NotificationBell";
 
 const links = [
   { id: "dashboard", label: "Dashboard", href: "/admin", icon: "dashboard" },
@@ -13,6 +14,26 @@ const links = [
     label: "Legal Alerts",
     href: "/admin/legal-alerts",
     icon: "campaign",
+  },
+  { id: "tasks", label: "Tasks", href: "/admin/tasks", icon: "task_alt" },
+  {
+    id: "tickets",
+    label: "Tickets",
+    href: "/admin/tickets",
+    icon: "confirmation_number",
+  },
+  { id: "chat", label: "Chat", href: "/admin/chat", icon: "chat" },
+  {
+    id: "mediathek",
+    label: "Mediathek",
+    href: "/admin/mediathek",
+    icon: "folder_open",
+  },
+  {
+    id: "research",
+    label: "Research",
+    href: "/admin/research",
+    icon: "query_stats",
   },
   {
     id: "leads",
@@ -31,6 +52,11 @@ const links = [
 function getActiveId(pathname: string): string {
   if (pathname.startsWith("/admin/posts")) return "posts";
   if (pathname.startsWith("/admin/legal-alerts")) return "legal-alerts";
+  if (pathname.startsWith("/admin/tasks")) return "tasks";
+  if (pathname.startsWith("/admin/tickets")) return "tickets";
+  if (pathname.startsWith("/admin/chat")) return "chat";
+  if (pathname.startsWith("/admin/mediathek")) return "mediathek";
+  if (pathname.startsWith("/admin/research")) return "research";
   if (pathname.startsWith("/admin/leads")) return "leads";
   if (pathname.startsWith("/admin/users")) return "users";
   return "dashboard";
@@ -72,7 +98,8 @@ export default function Sidebar() {
           </Link>
         ))}
       </nav>
-      <div className="mt-auto pt-6 border-t border-outline-variant/10">
+      <div className="mt-auto pt-6 border-t border-outline-variant/10 flex flex-col gap-1">
+        <NotificationBell />
         <Link
           href="/api/auth/signout"
           className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-secondary hover:text-error transition-colors"

@@ -84,6 +84,9 @@ import {
   faChartLine,
   faMicrochip,
   faScaleBalanced,
+  faListCheck,
+  faTicket,
+  faFolderOpen,
 } from "@fortawesome/free-solid-svg-icons";
 
 const iconMap: Record<string, IconDefinition> = {
@@ -169,6 +172,9 @@ const iconMap: Record<string, IconDefinition> = {
   workspace_premium: faAward,
   conversion_path_alt: faDiagramProject,
   trending_up_alt: faChartLine,
+  task_alt: faListCheck,
+  confirmation_number: faTicket,
+  folder_open: faFolderOpen,
 };
 
 interface IconProps {
