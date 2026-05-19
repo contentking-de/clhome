@@ -241,7 +241,7 @@
   },
   "Contact": {
     "sectionLabel": "§ 08 — Kontakt",
-    "chipOnePartner": "Nur 1 Partner pro Rechtsgebiet",
+    "chipOnePartner": "Jetzt kostenlos und unverbindlich Kontakt aufnehmen",
     "headlineLine1": "Verfügbarkeit",
     "headlineLine2Accent": "prüfen.",
     "labelBase": "BASE",
@@ -570,9 +570,9 @@
   },
   "Kontakt": {
     "metaTitle": "Kontakt | clever.legal",
-    "metaDescription": "Nehmen Sie Kontakt mit clever.legal auf – Ihr Partner für KI-Lösungen im Rechtsbereich. Nur 1 Partner pro Rechtsgebiet.",
+    "metaDescription": "Nehmen Sie Kontakt mit clever.legal auf – Ihr Partner für KI-Lösungen im Rechtsbereich. Jetzt kostenlos und unverbindlich Kontakt aufnehmen.",
     "label": "Kontakt",
-    "chip": "Nur 1 Partner pro Rechtsgebiet",
+    "chip": "Jetzt kostenlos und unverbindlich Kontakt aufnehmen",
     "headingLine1": "Verfügbarkeit",
     "headingAccent": "prüfen.",
     "labelBase": "BASE",

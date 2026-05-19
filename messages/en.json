@@ -241,7 +241,7 @@
   },
   "Contact": {
     "sectionLabel": "§ 08 — Contact",
-    "chipOnePartner": "Only one partner per area of law",
+    "chipOnePartner": "Get in touch – free and non-binding",
     "headlineLine1": "Check",
     "headlineLine2Accent": "availability.",
     "labelBase": "BASE",
@@ -570,9 +570,9 @@
   },
   "Kontakt": {
     "metaTitle": "Contact | clever.legal",
-    "metaDescription": "Get in touch with clever.legal – your partner for AI solutions in the legal sector. Only one partner per area of law.",
+    "metaDescription": "Get in touch with clever.legal – your partner for AI solutions in the legal sector. Free and non-binding.",
     "label": "Contact",
-    "chip": "Only one partner per area of law",
+    "chip": "Get in touch – free and non-binding",
     "headingLine1": "Check",
     "headingAccent": "availability.",
     "labelBase": "BASE",
