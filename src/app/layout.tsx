@@ -27,6 +27,9 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.clever.legal"),
+  verification: {
+    google: "03qMAmaiDHCNBAcKy_sXhqZPPohzq857jzz4w-zDyy4",
+  },
   robots: { index: true, follow: true },
   openGraph: {
     siteName: "clever.legal",
