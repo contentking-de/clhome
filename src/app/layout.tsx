@@ -27,7 +27,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.clever.legal"),
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
   openGraph: {
     siteName: "clever.legal",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
