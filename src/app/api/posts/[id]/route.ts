@@ -77,7 +77,10 @@ export async function DELETE(
 
   const { id } = await params;
 
-  await prisma.post.delete({ where: { id } });
+  await prisma.$transaction(async (tx) => {
+    await tx.post.deleteMany({ where: { translationOfId: id } });
+    await tx.post.delete({ where: { id } });
+  });
 
   return NextResponse.json({ ok: true });
 }

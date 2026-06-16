@@ -209,8 +209,8 @@ export default function AiGenerateDialog({
         }}
       />
 
-      <div className="relative bg-surface-container-low rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-outline-variant/20">
-        <div className="sticky top-0 bg-surface-container-low z-10 px-6 pt-6 pb-4 border-b border-outline-variant/10">
+      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border-2 border-gray-300">
+        <div className="sticky top-0 bg-white z-10 px-6 pt-6 pb-4 border-b border-gray-200">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-surface-tint/10 flex items-center justify-center">
@@ -220,7 +220,7 @@ export default function AiGenerateDialog({
                 <h2 className="font-headline text-lg font-bold text-on-background">
                   KI-Artikel generieren
                 </h2>
-                <p className="text-secondary text-xs">
+                <p className="text-on-surface-variant text-xs">
                   Web-Recherche + Quellenangaben
                 </p>
               </div>
@@ -240,7 +240,7 @@ export default function AiGenerateDialog({
           {phase === "idle" || phase === "error" ? (
             <>
               <div>
-                <label className="block text-sm font-medium text-on-surface mb-1.5">
+                <label className="block text-sm font-semibold text-gray-900 mb-1.5">
                   Thema / Titel-Idee
                 </label>
                 <input
@@ -252,7 +252,7 @@ export default function AiGenerateDialog({
                     if (e.key === "Enter" && topic.trim()) handleGenerate();
                   }}
                   placeholder="z.B. KI in der Rechtsberatung, DSGVO-Änderungen 2026..."
-                  className="w-full px-4 py-3 rounded-lg border border-outline-variant/30 bg-surface focus:outline-none focus:ring-2 focus:ring-surface-tint/50 text-on-background placeholder:text-outline"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-400 text-gray-900 placeholder:text-gray-400"
                 />
               </div>
 
@@ -262,7 +262,7 @@ export default function AiGenerateDialog({
                     key={suggestion}
                     type="button"
                     onClick={() => setTopic(suggestion)}
-                    className="text-xs px-3 py-1.5 rounded-full border border-outline-variant/20 text-secondary hover:text-on-background hover:border-surface-tint/30 hover:bg-surface-tint/5 transition-all"
+                    className="text-xs px-3 py-1.5 rounded-full border border-gray-300 bg-gray-50 text-gray-700 hover:border-indigo-400 hover:bg-indigo-50 hover:text-indigo-700 transition-all"
                   >
                     {suggestion.length > 45
                       ? suggestion.slice(0, 45) + "…"
@@ -273,7 +273,7 @@ export default function AiGenerateDialog({
                   type="button"
                   onClick={refreshSuggestions}
                   disabled={refreshingSuggestions}
-                  className="text-xs px-3 py-1.5 rounded-full border border-outline-variant/20 text-surface-tint hover:bg-surface-tint/10 transition-all disabled:opacity-40 inline-flex items-center gap-1"
+                  className="text-xs px-3 py-1.5 rounded-full border border-indigo-300 text-indigo-600 font-semibold hover:bg-indigo-50 transition-all disabled:opacity-40 inline-flex items-center gap-1"
                   title="Neue Vorschläge von der KI generieren"
                 >
                   <Icon
@@ -285,16 +285,16 @@ export default function AiGenerateDialog({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-on-surface mb-1.5">
+                <label className="block text-sm font-semibold text-gray-900 mb-1.5">
                   Briefing{" "}
-                  <span className="font-normal text-secondary">(optional)</span>
+                  <span className="font-normal text-gray-500">(optional)</span>
                 </label>
                 <textarea
                   value={instructions}
                   onChange={(e) => setInstructions(e.target.value)}
                   rows={3}
                   placeholder="z.B. Fokus auf mittelständische Kanzleien, Vergleichstabelle aufnehmen, bestimmte Gesetze erwähnen, Zielgruppe eingrenzen..."
-                  className="w-full px-4 py-3 rounded-lg border border-outline-variant/30 bg-surface focus:outline-none focus:ring-2 focus:ring-surface-tint/50 text-on-background resize-none placeholder:text-outline text-sm"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-400 text-gray-900 resize-none placeholder:text-gray-400 text-sm"
                 />
               </div>
 
@@ -318,7 +318,7 @@ export default function AiGenerateDialog({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-6 py-3 rounded-lg border border-outline-variant/30 font-semibold hover:bg-surface-container-highest transition-all text-on-background"
+                  className="px-6 py-3 rounded-lg border border-gray-300 font-semibold hover:bg-gray-100 transition-all text-gray-700"
                 >
                   Abbrechen
                 </button>

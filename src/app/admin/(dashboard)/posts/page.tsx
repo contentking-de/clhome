@@ -2,6 +2,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import Icon from "@/components/ui/Icon";
 import TranslateButton from "@/components/admin/TranslateButton";
+import DeletePostButton from "@/components/admin/DeletePostButton";
 
 export const dynamic = "force-dynamic";
 
@@ -119,6 +120,7 @@ export default async function PostsListPage() {
                 >
                   <Icon name="edit" className="text-xl" />
                 </Link>
+                <DeletePostButton postId={post.id} postTitle={post.title} />
               </div>
             </div>
           ))}
