@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
 
     for (const [key, content] of Object.entries(reports)) {
       const message = await anthropic.messages.create({
-        model: "claude-sonnet-4-20250514",
+        model: "claude-sonnet-4-6",
         max_tokens: 8000,
         messages: [
           {
@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
         .join("\n\n");
 
       const message = await anthropic.messages.create({
-        model: "claude-sonnet-4-20250514",
+        model: "claude-sonnet-4-6",
         max_tokens: 8000,
         messages: [
           {
