@@ -49,7 +49,7 @@ export default function TaskCard({ task, onClick, isOverlay }: Props) {
   return (
     <div
       onClick={onClick}
-      className={`rounded-lg border border-outline-variant/10 bg-surface-container-highest/50 p-3 cursor-pointer hover:shadow-md transition-shadow ${
+      className={`rounded-lg border border-outline-variant/10 bg-surface-container-lowest p-3 cursor-pointer hover:shadow-md transition-shadow ${
         isOverlay ? "shadow-xl rotate-2" : ""
       }`}
     >
