@@ -96,9 +96,9 @@ export default function TaskModal({ task, users, onSave, onDelete, onClose }: Pr
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-surface-container-low shadow-2xl">
-        <div className="sticky top-0 z-10 flex items-center justify-between p-4 border-b border-outline-variant/10 bg-surface-container-low rounded-t-2xl">
+      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
+      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white shadow-2xl">
+        <div className="sticky top-0 z-10 flex items-center justify-between p-4 border-b border-outline-variant/10 bg-white rounded-t-2xl">
           <h2 className="text-lg font-semibold text-on-background">
             {task ? "Task bearbeiten" : "Neuer Task"}
           </h2>
@@ -117,7 +117,7 @@ export default function TaskModal({ task, users, onSave, onDelete, onClose }: Pr
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-outline-variant/10 bg-surface-container-highest/50 text-on-background text-sm focus:outline-none focus:ring-2 focus:ring-surface-tint/30"
+              className="w-full px-3 py-2 rounded-lg border border-outline-variant/10 bg-surface-container-highest text-on-background text-sm focus:outline-none focus:ring-2 focus:ring-surface-tint/30"
               required
             />
           </div>
@@ -128,7 +128,7 @@ export default function TaskModal({ task, users, onSave, onDelete, onClose }: Pr
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={3}
-              className="w-full px-3 py-2 rounded-lg border border-outline-variant/10 bg-surface-container-highest/50 text-on-background text-sm focus:outline-none focus:ring-2 focus:ring-surface-tint/30 resize-none"
+              className="w-full px-3 py-2 rounded-lg border border-outline-variant/10 bg-surface-container-highest text-on-background text-sm focus:outline-none focus:ring-2 focus:ring-surface-tint/30 resize-none"
             />
           </div>
 
@@ -138,7 +138,7 @@ export default function TaskModal({ task, users, onSave, onDelete, onClose }: Pr
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-outline-variant/10 bg-surface-container-highest/50 text-on-background text-sm focus:outline-none focus:ring-2 focus:ring-surface-tint/30"
+                className="w-full px-3 py-2 rounded-lg border border-outline-variant/10 bg-surface-container-highest text-on-background text-sm focus:outline-none focus:ring-2 focus:ring-surface-tint/30"
               >
                 <option value="BACKLOG">Backlog</option>
                 <option value="TODO">To Do</option>
@@ -153,7 +153,7 @@ export default function TaskModal({ task, users, onSave, onDelete, onClose }: Pr
               <select
                 value={priority}
                 onChange={(e) => setPriority(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-outline-variant/10 bg-surface-container-highest/50 text-on-background text-sm focus:outline-none focus:ring-2 focus:ring-surface-tint/30"
+                className="w-full px-3 py-2 rounded-lg border border-outline-variant/10 bg-surface-container-highest text-on-background text-sm focus:outline-none focus:ring-2 focus:ring-surface-tint/30"
               >
                 <option value="LOW">Niedrig</option>
                 <option value="MEDIUM">Mittel</option>
@@ -169,13 +169,13 @@ export default function TaskModal({ task, users, onSave, onDelete, onClose }: Pr
               type="date"
               value={dueDate}
               onChange={(e) => setDueDate(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-outline-variant/10 bg-surface-container-highest/50 text-on-background text-sm focus:outline-none focus:ring-2 focus:ring-surface-tint/30"
+              className="w-full px-3 py-2 rounded-lg border border-outline-variant/10 bg-surface-container-highest text-on-background text-sm focus:outline-none focus:ring-2 focus:ring-surface-tint/30"
             />
           </div>
 
           <div>
             <label className="block text-xs font-medium text-secondary mb-1">Zugewiesen an</label>
-            <div className="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto p-2 rounded-lg border border-outline-variant/10 bg-surface-container-highest/50">
+            <div className="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto p-2 rounded-lg border border-outline-variant/10 bg-surface-container-highest">
               {users.map((user) => (
                 <label
                   key={user.id}
@@ -250,7 +250,7 @@ export default function TaskModal({ task, users, onSave, onDelete, onClose }: Pr
                 onChange={(e) => setNewComment(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && postComment()}
                 placeholder="Kommentar schreiben..."
-                className="flex-1 px-3 py-1.5 rounded-lg border border-outline-variant/10 bg-surface-container-highest/50 text-on-background text-sm focus:outline-none focus:ring-2 focus:ring-surface-tint/30"
+                className="flex-1 px-3 py-1.5 rounded-lg border border-outline-variant/10 bg-surface-container-highest text-on-background text-sm focus:outline-none focus:ring-2 focus:ring-surface-tint/30"
               />
               <button
                 type="button"
