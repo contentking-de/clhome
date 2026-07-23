@@ -254,7 +254,8 @@ export default function MediaBrowser({
               {files.map((file) => (
                 <div
                   key={file.id}
-                  className="group relative rounded-xl border border-outline-variant/10 overflow-hidden hover:border-surface-tint/30 transition-colors"
+                  className="group relative rounded-xl border border-outline-variant/10 overflow-hidden hover:border-surface-tint/30 transition-colors cursor-pointer"
+                  onClick={() => window.open(file.url, "_blank")}
                 >
                   <div className="aspect-square bg-surface-container-highest/50 flex items-center justify-center overflow-hidden">
                     {isImage(file.contentType) ? (
@@ -272,14 +273,22 @@ export default function MediaBrowser({
                     <p className="text-xs text-secondary">{formatSize(file.size)}</p>
                   </div>
                   <div className="absolute top-2 right-2 hidden group-hover:flex items-center gap-1">
+                    <a
+                      href={file.url}
+                      download={file.name}
+                      onClick={(e) => e.stopPropagation()}
+                      className="p-1.5 rounded-lg bg-surface-container-low/90 text-secondary hover:text-on-background transition-colors"
+                    >
+                      <Icon name="download" className="text-xs" />
+                    </a>
                     <button
-                      onClick={() => setRenameTarget({ type: "file", id: file.id, name: file.name })}
+                      onClick={(e) => { e.stopPropagation(); setRenameTarget({ type: "file", id: file.id, name: file.name }); }}
                       className="p-1.5 rounded-lg bg-surface-container-low/90 text-secondary hover:text-on-background transition-colors"
                     >
                       <Icon name="edit" className="text-xs" />
                     </button>
                     <button
-                      onClick={() => deleteFile(file.id)}
+                      onClick={(e) => { e.stopPropagation(); deleteFile(file.id); }}
                       className="p-1.5 rounded-lg bg-surface-container-low/90 text-secondary hover:text-error transition-colors"
                     >
                       <Icon name="delete" className="text-xs" />
